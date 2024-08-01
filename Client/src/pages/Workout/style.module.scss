@@ -1,0 +1,103 @@
+@import '/src/mixins.scss';
+
+.workoutPage {
+    @include page;
+    @include layout-padding;
+
+    .pageName{
+        font-size: 18px;
+    }
+
+    .exerciseTitle{
+        font-size: 20px;
+        color: var(--main-color);
+        font-weight: 500;
+    }
+}
+
+.prevSkip {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: space-between;
+
+    button {
+        width: 100%;
+    }
+}
+
+.actionButtons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+
+.header {
+    @include text-center;
+    color: white;
+}
+
+.exerciseTitle {
+    @include text-highlight;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.exerciseInfoBox {
+    background-color: var(--dark-gray);
+    border-radius: 15px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    text-align: center;
+    color: white;
+    gap: 20px;
+  
+    .exerciseInfo {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      align-items: center;
+  
+      .infoItem {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 10px;
+      }
+  
+      .infoType {
+        font-size: 14px;
+        color: var(--gray-color);
+      }
+  
+      .infoValue {
+        font-size: 18px;
+        color: white;
+        font-weight: 400;
+      }
+    }
+  }
+  
+
+.inputs {
+    @include border-card-style;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    color: white;
+
+
+
+    // .detailsRow {
+    //     display: flex;
+    //     justify-content: space-between;
+    //     width: 100%;
+
+    //     .detailsItem {
+    //         margin: 10px 0;
+    //     }
+    // }
+}

@@ -1,0 +1,133 @@
+@import '/src/mixins.scss';
+
+.homePage {
+  @include page;
+  @include layout-padding;
+
+  .pageName {
+    font-size: 32px;
+    font-weight: 500;
+    padding-top: 40px;
+  }
+
+  .exerciseTitle {
+    font-size: 20px;
+    color: var(--main-color);
+    font-weight: 500;
+  }
+
+  .skeletonItem {
+    background-color: var(--dark-gray);
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 10px;
+    animation: skeleton-loading 1.5s infinite;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    height: 400px;
+
+
+    .skeletonTitle, .skeletonDetails {
+      background-color: var(--gray-color);
+      border-radius: 4px;
+    }
+
+    .skeletonTitle {
+      height: 20px;
+      width: 50%;
+      margin-bottom: 10px;
+    }
+
+    .skeletonDetails {
+      height: 14px;
+      width: 70%;
+    }
+  }
+}
+
+@keyframes skeleton-loading {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.prevSkip {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  justify-content: space-between;
+
+  button {
+    width: 100%;
+  }
+}
+
+.actionButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.header {
+  @include text-center;
+  color: white;
+}
+
+.exerciseTitle {
+  @include text-highlight;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.exerciseInfoBox {
+  background-color: var(--dark-gray);
+  border-radius: 15px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  text-align: center;
+  color: white;
+  gap: 20px;
+  min-height: 400px;
+
+  .exerciseInfo {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+
+    .infoItem {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 10px;
+    }
+
+    .infoType {
+      font-size: 14px;
+      color: var(--gray-color);
+    }
+
+    .infoValue {
+      font-size: 18px;
+      color: white;
+      font-weight: 400;
+    }
+  }
+}
+
+.inputs {
+  @include border-card-style;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  color: white;
+}

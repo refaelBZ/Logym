@@ -1,0 +1,48 @@
+.numb {
+  min-width: 20px;
+  font-size: 30px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  font-weight: 500;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  .prevValue,
+  .nextValue {
+    opacity: 50%;
+    font-size: 20px;
+  }
+
+  .pickerTitle{
+    font-size: 16px;
+    color: white;
+    font-weight: 400;
+  }
+}
+
+@keyframes slideUp {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.slideUp {
+  animation: slideUp 0.3s ease-in-out;
+}
+
+.slideDown {
+  animation: slideDown 0.3s ease-in-out;
+}

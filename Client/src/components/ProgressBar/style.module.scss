@@ -1,0 +1,16 @@
+.bar {
+    height: 8px;
+    width: 100%;
+    background-color: var(--border-color);
+    border-radius: 15px;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .fill {
+    height: 100%;
+    background-color: var(--main-color);
+    border-radius: 15px;
+    transition: width 0.3s ease-in-out;
+  }
+  

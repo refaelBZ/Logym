@@ -1,0 +1,6 @@
+@import '/src/mixins.scss';
+
+.progressPage {
+    @include page;
+    @include layout-padding;
+}

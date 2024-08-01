@@ -1,0 +1,62 @@
+@mixin page {
+  padding: 20px;
+  display: flex;
+  height: calc(100vh - 80px);
+  flex-direction: column;
+  // justify-content: space-between;
+  justify-content: start;
+  gap: 20px;
+  background-color: var(--background-color);
+}
+
+
+
+@mixin layout-padding {
+  padding: 20px;
+}
+
+@mixin card-style {
+  background-color: var(--dark-gray);
+  border-radius: 15px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+@mixin border-card-style {
+  border: 1px solid var(--border-color);
+  border-radius: 15px;
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+
+@mixin button-style($bg-color, $text-color) {
+  background-color: $bg-color;
+  color: $text-color;
+  border: none;
+  border-radius: 5px;
+  padding: 15px 30px;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+@mixin text-center {
+  text-align: center;
+}
+
+@mixin text-highlight {
+  color: #ff0;
+  font-weight: bold;
+}
