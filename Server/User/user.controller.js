@@ -1,3 +1,5 @@
+//NOT USED RIGHT NOW!
+
 const userModel = require('./user.model')
 
 async function create(data) {

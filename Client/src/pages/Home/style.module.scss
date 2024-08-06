@@ -28,7 +28,8 @@
     height: 400px;
 
 
-    .skeletonTitle, .skeletonDetails {
+    .skeletonTitle,
+    .skeletonDetails {
       background-color: var(--gray-color);
       border-radius: 4px;
     }
@@ -50,9 +51,11 @@
   0% {
     opacity: 1;
   }
+
   50% {
     opacity: 0.5;
   }
+
   100% {
     opacity: 1;
   }

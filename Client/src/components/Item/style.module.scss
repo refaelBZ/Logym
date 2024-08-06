@@ -12,22 +12,25 @@
     text-align: center;
     color: white;
     gap: 20px;
+
     .top {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
+
         .exerciseTitle {
             font-size: 20px;
             color: var(--main-color);
-            font-weight: 300;
+            font-weight: 500;
             align-items: start;
             display: flex;
             text-align: center;
             flex-direction: column;
             gap: 10px;
+
             .subtitle {
                 font-size: 16px;
-                color: white;
+                color: var(--text-color);
                 font-weight: 400;
                 align-items: start;
                 text-align: start;

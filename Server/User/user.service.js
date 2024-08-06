@@ -1,3 +1,5 @@
+//NOT USED RIGHT NOW!
+
 const userController = require("./user.controller")
 const bcrypt = require('bcryptjs');
 

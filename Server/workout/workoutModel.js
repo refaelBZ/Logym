@@ -21,21 +21,6 @@ const exerciseSchema = new mongoose.Schema({
     type: Boolean, 
     default: false 
   },
-  currentWeight: { 
-    type: Number 
-  },
-  currentReps: { 
-    type: Number 
-  },
-  currentSets: { 
-    type: Number 
-  },
-  difficulty: { 
-    type: Number, 
-    min: 1, 
-    max: 10, 
-    default: 5 
-  },
   lastdoneDate: { 
     type: Date 
   },
@@ -55,8 +40,33 @@ const exerciseSchema = new mongoose.Schema({
   },
   notes: { 
     type: String 
-  }
+  },
+  weightHistory: [
+    {
+      weight: { type: Number },
+      date: { type: Date }
+    }
+  ],
+  repsHistory: [
+    {
+      reps: { type: Number },
+      date: { type: Date }
+    }
+  ],
+  setsHistory: [
+    {
+      sets: { type: Number },
+      date: { type: Date }
+    }
+  ],
+  difficultyHistory: [
+    {
+      difficulty: { type: Number, min: 1, max: 10 },
+      date: { type: Date }
+    }
+  ]
 });
+
 
 const workoutSchema = new mongoose.Schema({
   name: { 

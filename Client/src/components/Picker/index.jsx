@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useSwipeable } from 'react-swipeable';
 import styles from './style.module.scss';
 
-export default function Picker({ title = "Title", arr,specificValue }) {
+export default function Picker({ title = "Title", arr,specificValue
+  // , currentValue, setCurrentValue
+}) {
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentValue, setCurrentValue] = useState(arr[0]);
@@ -45,11 +47,6 @@ export default function Picker({ title = "Title", arr,specificValue }) {
       setAnimationClass('');
     }, 300);
   };
-
-  // const handleSwipe = useSwipeable({
-  //   onSwipedUp: () => handleNext(),
-  //   onSwipedDown: () => handlePrev()
-  // });
 
   const handleSwipe = useSwipeable({
     onSwipedUp: (eventData) => {
