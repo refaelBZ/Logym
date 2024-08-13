@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
 const exerciseSchema = new mongoose.Schema({
+  _id: {
+    type: mongoose.Schema.Types.ObjectId,
+    default: () => new mongoose.Types.ObjectId()
+  },
   name: { 
     type: String, 
     required: true 
@@ -113,5 +117,4 @@ const workoutSchema = new mongoose.Schema({
 });
 
 const workoutModel = mongoose.model("Workout", workoutSchema);
-
 module.exports = workoutModel;

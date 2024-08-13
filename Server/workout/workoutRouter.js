@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const service=require('./workoutService');
+const workoutService=require('./workoutService');
 const { authenticateToken } = require('../User/auth');
 
 // Get workouts list
 router.get('/', async (req, res) => {
     try {
-        const workouts = await service.getWorkouts(); 
+        const workouts = await workoutService.getWorkouts(); 
         res.send({ 
             message: "got successfully", 
             workouts: workouts 
@@ -16,27 +16,14 @@ router.get('/', async (req, res) => {
     }
 });
 
-// mark the exercise as done
-router.put('/', async (req, res) => {
+// update the exercise
+router.put('/:workoutId/exercises/:exerciseId', async (req, res) => {
     try {
-        const result = await updateExercise(req.body);
-        res.send(result);
-    } catch (error) {
-        res.status(500).send({ message: "An error occurred", error: error.message });
+        const updatedWorkout = await workoutService.updateExercise(req.params.workoutId, req.params.exerciseId, req.body);        
+        res.send(updatedWorkout);
+    } catch (err) {
+        res.status(400).json({ error: err.message });
     }
 });
-
-// // Get workouts list
-// router.get('/', authenticateToken, async (req, res) => {
-//     try {
-//         const workouts = await service.getWorkouts(); 
-//         res.send({ 
-//             message: "got successfully", 
-//             workouts: workouts 
-//         });
-//     } catch (error) {
-//         res.status(500).send({ message: "error has occured", error: error.message });
-//     }
-// });
 
 module.exports = router;

@@ -1,3 +1,5 @@
+//NOT USED RIGHT NOW!
+
 const jwt = require('jsonwebtoken');
 const bcryptjs = require('bcryptjs');
 const User = require('./user.model');

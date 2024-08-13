@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
+import axios from 'axios';
 import styles from './style.module.scss';
 import Button from '../../components/Button';
 import Picker from '../../components/Picker';
@@ -6,41 +7,89 @@ import ProgressBar from '../../components/ProgressBar';
 import { useLocation } from 'react-router-dom';
 
 const Workout = () => {
+  // Get workout from navlink state
   const location = useLocation();
   const workout = location.state?.workout;
 
-  const weightArr = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188, 189, 190, 191, 192, 193, 194, 195, 196, 197, 198, 199, 200];
-  const repsArr = [4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
-  const setsArr = [1, 2, 3, 4, 5, 6, 7, 8];
-  const difficultyArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  // Arrays of values for picker
+  const weightArr = useMemo(() => Array.from({ length: 199 }, (_, i) => i + 2), []);
+  const repsArr = useMemo(() => Array.from({ length: 17 }, (_, i) => i + 4), []);
+  const setsArr = useMemo(() => Array.from({ length: 8 }, (_, i) => i + 1), []);
+  const difficultyArr = useMemo(() => Array.from({ length: 10 }, (_, i) => i + 1), []);
 
-  const [currentIndex, setCurrentIndex] = useState(0);
+  // State
+  const [currentExerciseIndex, setCurrentExerciseIndex] = useState(0);
+  const [currentExerciseValues, setCurrentExerciseValues] = useState({
+    weight: workout.exercises[currentExerciseIndex].lastWeight,
+    sets: workout.exercises[currentExerciseIndex].lastSets,
+    reps: workout.exercises[currentExerciseIndex].lastReps,
+    difficulty: workout.exercises[currentExerciseIndex].lastDifficulty,
+  });
 
-  const calculatePercent = (index, total) => {
+  // Handle value changes
+  const handleChange = useCallback((type, value) => {
+    setCurrentExerciseValues(prevValues => ({
+      ...prevValues,
+      [type]: value,
+    }));
+  }, []);
+
+  // Calculate progress percentage
+  const calculatePercent = useCallback((index, total) => {
     return ((index + 1) / total) * 100;
-  };
+  }, []);
 
-  const handleNext = () => {
-    if (currentIndex < workout.exercises.length - 1) {
-      setCurrentIndex(currentIndex + 1);
+  // Change exercise (next or previous)
+  const changeExercise = useCallback((direction) => {
+    const newIndex = direction === 'next'
+      ? Math.min(currentExerciseIndex + 1, workout.exercises.length - 1)
+      : Math.max(currentExerciseIndex - 1, 0);
+
+    if (newIndex !== currentExerciseIndex) {
+      setCurrentExerciseIndex(newIndex);
+      setCurrentExerciseValues({
+        weight: workout.exercises[newIndex].lastWeight,
+        sets: workout.exercises[newIndex].lastSets,
+        reps: workout.exercises[newIndex].lastReps,
+        difficulty: workout.exercises[newIndex].lastDifficulty,
+      });
     }
-  };
+  }, [currentExerciseIndex, workout.exercises]);
 
-  const handlePrevious = () => {
-    if (currentIndex > 0) {
-      setCurrentIndex(currentIndex - 1);
+  const handleSkip = useCallback(() => changeExercise('next'), [changeExercise]);
+  const handlePrevious = useCallback(() => changeExercise('prev'), [changeExercise]);
+
+  // Handle exercise completion
+  const handleDone = useCallback(async () => {
+    const dataToSend = {
+      lastWeight: currentExerciseValues.weight,
+      lastSets: currentExerciseValues.sets,
+      lastReps: currentExerciseValues.reps,
+      lastDifficulty: currentExerciseValues.difficulty,
+      done: true,
+      lastdoneDate: new Date(),
+      weightHistory: { weight: currentExerciseValues.weight, date: new Date() },
+      repsHistory: { reps: currentExerciseValues.reps, date: new Date() },
+      setsHistory: { sets: currentExerciseValues.sets, date: new Date() },
+      difficultyHistory: { difficulty: currentExerciseValues.difficulty, date: new Date() }
+    };
+
+    try {
+      // Update exercise data in the backend
+      const response = await axios.put(
+        `http://localhost:2500/workout/${workout._id}/exercises/${workout.exercises[currentExerciseIndex]._id}`, 
+        dataToSend
+      );
+      console.log('Updated workout:', response.data);
+      handleSkip();
+    } catch (error) {
+      console.error('Error updating exercise:', error);
     }
-  };
+  }, [currentExerciseValues, workout._id, workout.exercises, currentExerciseIndex, handleSkip]);
 
-  const handleDone = () => {
-    if (currentIndex < workout.exercises.length - 1) {
-      setCurrentIndex(currentIndex + 1);
-    }
-    // TODO: UPDATE THE SERVER WITH "DONE"
-  };
-
-  const currentExercise = workout.exercises[currentIndex];
-  const percent = calculatePercent(currentIndex, workout.exercises.length);
+  // Get current exercise and calculate progress
+  const currentExercise = workout.exercises[currentExerciseIndex];
+  const percent = calculatePercent(currentExerciseIndex, workout.exercises.length);
 
   return (
     <div className={styles.workoutPage}>
@@ -63,19 +112,19 @@ const Workout = () => {
             <div className={styles.infoType}>Muscles</div>
           </div>
         </div>
-        <ProgressBar percent={percent}/>
+        <ProgressBar percent={percent} />
       </div>
       <div className={styles.inputs}>
-        <Picker title="Weight" arr={weightArr} specificValue={currentExercise.lastWeight}/>
-        <Picker title="Sets" arr={setsArr} specificValue={currentExercise.lastSets}/>
-        <Picker title="Reps" arr={repsArr} specificValue={currentExercise.lastReps}/>
-        <Picker title="Difficulty" arr={difficultyArr} specificValue={currentExercise.lastDifficulty}/>
+        <Picker title="Weight" arr={weightArr} value={currentExerciseValues.weight} onValueChange={(value) => handleChange('weight', value)} />
+        <Picker title="Sets" arr={setsArr} value={currentExerciseValues.sets} onValueChange={(value) => handleChange('sets', value)} />
+        <Picker title="Reps" arr={repsArr} value={currentExerciseValues.reps} onValueChange={(value) => handleChange('reps', value)} />
+        <Picker title="Difficulty" arr={difficultyArr} value={currentExerciseValues.difficulty} onValueChange={(value) => handleChange('difficulty', value)} />
       </div>
       <div className={styles.actionButtons}>
-        <Button title="Done" type="primary" onClick={handleDone}/>
+        <Button title="Done" type="primary" onClick={handleDone} />
         <div className={styles.prevSkip}>
           <Button title="Prev" type="secondary" onClick={handlePrevious} />
-          <Button title="Skip" type="secondary" onClick={handleNext}/>
+          <Button title="Skip" type="secondary" onClick={handleSkip} />
         </div>
       </div>
     </div>
@@ -83,3 +132,149 @@ const Workout = () => {
 };
 
 export default Workout;
+
+
+// import React, { useState, useCallback } from 'react';
+// import axios from 'axios';
+// import styles from './style.module.scss';
+// import Button from '../../components/Button';
+// import Picker from '../../components/Picker';
+// import ProgressBar from '../../components/ProgressBar';
+// import { useLocation } from 'react-router-dom';
+
+// const Workout = () => {
+
+//   //get workout from navlink state
+//   const location = useLocation();
+//   const workout = location.state?.workout;
+
+//   //arrays of values for picker
+//   const weightArr = Array.from({ length: 199 }, (_, i) => i + 2);
+//   const repsArr = Array.from({ length: 17 }, (_, i) => i + 4);
+//   const setsArr = Array.from({ length: 8 }, (_, i) => i + 1);
+//   const difficultyArr = Array.from({ length: 10 }, (_, i) => i + 1);
+
+//   // State
+//   const [currentExerciseIndex, setcurrentExerciseIndex] = useState(0);
+//   const [currentExerciseValues, setCurrentExerciseValues] = useState({
+//     weight: workout.exercises[currentExerciseIndex].lastWeight,
+//     sets: workout.exercises[currentExerciseIndex].lastSets,
+//     reps: workout.exercises[currentExerciseIndex].lastReps,
+//     difficulty: workout.exercises[currentExerciseIndex].lastDifficulty,
+//   });
+
+//   // Handle value changes
+//   const handleChange = useCallback((type, value) => {
+//     setCurrentExerciseValues(prevValues => ({
+//       ...prevValues,
+//       [type]: value,
+//     }));
+//   }, []);
+
+//   // Helper function for calculating percent
+//   const calculatePercent = (index, total) => {
+//     return ((index + 1) / total) * 100;
+//   };
+
+//   // Skip exercise
+//   const handleSkip = () => {
+//     if (currentExerciseIndex < workout.exercises.length - 1) {
+//       setcurrentExerciseIndex(prevExerciseIndex => {
+//         const nextExerciseIndex = prevExerciseIndex + 1;
+//         //updates the exercise values to the next exercise
+//         setCurrentExerciseValues({
+//           weight: workout.exercises[nextExerciseIndex].lastWeight,
+//           sets: workout.exercises[nextExerciseIndex].lastSets,
+//           reps: workout.exercises[nextExerciseIndex].lastReps,
+//           difficulty: workout.exercises[nextExerciseIndex].lastDifficulty,
+//         });
+//         return nextExerciseIndex;
+//       });
+//     }
+//   };
+
+//   // Previous exercise
+//   const handlePrevious = () => {
+//     if (currentExerciseIndex > 0) {
+//       setcurrentExerciseIndex(prevExerciseIndex => {
+//         const nextExerciseIndex = prevExerciseIndex - 1;
+//         setCurrentExerciseValues({
+//           weight: workout.exercises[nextExerciseIndex].lastWeight,
+//           sets: workout.exercises[nextExerciseIndex].lastSets,
+//           reps: workout.exercises[nextExerciseIndex].lastReps,
+//           difficulty: workout.exercises[nextExerciseIndex].lastDifficulty,
+//         });
+//         return nextExerciseIndex;
+//       });
+//     }
+//   };
+
+//   // Handle done
+//   const handleDone = async () => {
+//     const dataToSend = {
+//       lastWeight: currentExerciseValues.weight,
+//       lastSets: currentExerciseValues.sets,
+//       lastReps: currentExerciseValues.reps,
+//       lastDifficulty: currentExerciseValues.difficulty,
+//       done: true,
+//       lastdoneDate: new Date(),
+//       weightHistory: { weight: currentExerciseValues.weight, date: new Date() },
+//       repsHistory: { reps: currentExerciseValues.reps, date: new Date() },
+//       setsHistory: { sets: currentExerciseValues.sets, date: new Date() },
+//       difficultyHistory: { difficulty: currentExerciseValues.difficulty, date: new Date() }
+//     };
+
+//     try {
+//       const response = await axios.put(`http://localhost:2500/workout/${workout._id}/exercises/${workout.exercises[currentExerciseIndex]._id}`, dataToSend);
+//       console.log('Updated workout:', response.data);
+//       handleSkip();
+//     } catch (error) {
+//       console.error('Error updating exercise:', error);
+//     }
+//   };
+
+//     //get current exercise
+//     const currentExercise = workout.exercises[currentExerciseIndex];
+//     const percent = calculatePercent(currentExerciseIndex, workout.exercises.length);
+
+//   return (
+//     <div className={styles.workoutPage}>
+//       <div className={styles.header}>
+//         <div className={styles.pageName}>{workout.name}</div>
+//       </div>
+//       <div className={styles.exerciseInfoBox}>
+//         <div className={styles.exerciseTitle}>{currentExercise.name}</div>
+//         <div className={styles.exerciseInfo}>
+//           <div className={styles.infoItem}>
+//             <div className={styles.infoValue}>{currentExercise.sets}</div>
+//             <div className={styles.infoType}>Sets</div>
+//           </div>
+//           <div className={styles.infoItem}>
+//             <div className={styles.infoValue}>{currentExercise.reps}</div>
+//             <div className={styles.infoType}>Reps</div>
+//           </div>
+//           <div className={styles.infoItem}>
+//             <div className={styles.infoValue}>{currentExercise.muscleGroup}</div>
+//             <div className={styles.infoType}>Muscles</div>
+//           </div>
+//         </div>
+//         <ProgressBar percent={percent} />
+//       </div>
+//       <div className={styles.inputs}>
+//         <Picker title="Weight" arr={weightArr} value={currentExerciseValues.weight} onValueChange={(value) => handleChange('weight', value)} />
+//         <Picker title="Sets" arr={setsArr} value={currentExerciseValues.sets} onValueChange={(value) => handleChange('sets', value)} />
+//         <Picker title="Reps" arr={repsArr} value={currentExerciseValues.reps} onValueChange={(value) => handleChange('reps', value)} />
+//         <Picker title="Difficulty" arr={difficultyArr} value={currentExerciseValues.difficulty} onValueChange={(value) => handleChange('difficulty', value)} />
+//       </div>
+//       <div className={styles.actionButtons}>
+//         <Button title="Done" type="primary" onClick={handleDone} />
+//         <div className={styles.prevSkip}>
+//           <Button title="Prev" type="secondary" onClick={handlePrevious} />
+//           <Button title="Skip" type="secondary" onClick={handleSkip} />
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default Workout;
