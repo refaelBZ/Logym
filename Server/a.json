@@ -1,0 +1,123 @@
+{
+    "name": "Full Body Workout",
+    "description": "A comprehensive full-body workout.",
+    "exercises": [
+      {
+        "name": "Squat",
+        "sets": 4,
+        "reps": 12,
+        "muscleGroup": "Legs",
+        "done": false,
+        "lastWeight": 80,
+        "lastReps": 12,
+        "lastSets": 4,
+        "lastDifficulty": 7,
+        "notes": "Keep back straight",
+        "weightHistory": [
+          {
+            "weight": 80,
+            "date": "2024-08-12T10:00:00Z"
+          }
+        ],
+        "repsHistory": [
+          {
+            "reps": 12,
+            "date": "2024-08-12T10:00:00Z"
+          }
+        ],
+        "setsHistory": [
+          {
+            "sets": 4,
+            "date": "2024-08-12T10:00:00Z"
+          }
+        ],
+        "difficultyHistory": [
+          {
+            "difficulty": 7,
+            "date": "2024-08-12T10:00:00Z"
+          }
+        ]
+      },
+      {
+        "name": "Bench Press",
+        "sets": 3,
+        "reps": 10,
+        "muscleGroup": "Chest",
+        "done": false,
+        "lastWeight": 70,
+        "lastReps": 10,
+        "lastSets": 3,
+        "lastDifficulty": 8,
+        "notes": "Focus on chest contraction",
+        "weightHistory": [
+          {
+            "weight": 70,
+            "date": "2024-08-12T10:15:00Z"
+          }
+        ],
+        "repsHistory": [
+          {
+            "reps": 10,
+            "date": "2024-08-12T10:15:00Z"
+          }
+        ],
+        "setsHistory": [
+          {
+            "sets": 3,
+            "date": "2024-08-12T10:15:00Z"
+          }
+        ],
+        "difficultyHistory": [
+          {
+            "difficulty": 8,
+            "date": "2024-08-12T10:15:00Z"
+          }
+        ]
+      },
+      {
+        "name": "Deadlift",
+        "sets": 4,
+        "reps": 8,
+        "muscleGroup": "Back",
+        "done": false,
+        "lastWeight": 100,
+        "lastReps": 8,
+        "lastSets": 4,
+        "lastDifficulty": 9,
+        "notes": "Keep the bar close to your shins",
+        "weightHistory": [
+          {
+            "weight": 100,
+            "date": "2024-08-12T10:30:00Z"
+          }
+        ],
+        "repsHistory": [
+          {
+            "reps": 8,
+            "date": "2024-08-12T10:30:00Z"
+          }
+        ],
+        "setsHistory": [
+          {
+            "sets": 4,
+            "date": "2024-08-12T10:30:00Z"
+          }
+        ],
+        "difficultyHistory": [
+          {
+            "difficulty": 9,
+            "date": "2024-08-12T10:30:00Z"
+          }
+        ]
+      }
+    ],
+    "numberOfExercises": 3,
+    "completionRate": 0,
+    "startDate": "2024-08-12T09:00:00Z",
+    "lastDate": null,
+    "status": "In Progress",
+    "generalNotes": "Focus on form and control.",
+    "user": "64d2a5f7c7d7d8d5b5c5d5e6",
+    "duration": 90
+  }
+  

@@ -21,8 +21,8 @@ app.get('/', (req, res) => {
 const workoutRouter = require('./workout/workoutRouter');
 app.use('/workout', workoutRouter);
 
-// const userRouter = require('./User/user.router')
-// app.use("/user", userRouter)
+const userRouter = require('./User/user.router')
+app.use("/user", userRouter)
 
 
 const PORT = process.env.PORT || 2500;
