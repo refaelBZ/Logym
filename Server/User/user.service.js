@@ -1,5 +1,3 @@
-//NOT USED RIGHT NOW!
-
 const userController = require("./user.controller")
 const bcrypt = require('bcryptjs');
 
@@ -14,7 +12,7 @@ async function addUser(newUser) {
     newUser.password = hashedPassword;
     return await userController.create(newUser);
   } else {
-    return { success: false, message: "Item is already in the list" };
+    return { success: false, message: "User is already registered" };
   }
 }
 
@@ -30,9 +28,7 @@ async function updateUser(email, updateData) {
 }
 
 // Gets the user by Email
-
 async function getUserByEmail(email) {
-
   const filter = { email: email }
   let user = await userController.readOne(filter)
   return user;

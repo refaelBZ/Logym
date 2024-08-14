@@ -1,12 +1,7 @@
-//NOT USED RIGHT NOW!
+const mongoose = require('mongoose');
 
-const mongoose = require('mongoose')
 const userSchema = new mongoose.Schema({
-    fName: {
-        type: String,
-        required: true
-    },
-    lName: {
+    username: {
         type: String,
         required: true
     },
@@ -21,15 +16,14 @@ const userSchema = new mongoose.Schema({
     },
     permission: {
         type: String,
-        enum: ["user", "admin"],
+        enum: ["user", "trainer", "admin"],
         default: "user"
     },
-    playlists: [{
+    workouts: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Liked'
+        ref: 'Workout'
     }],
-    createdDate:
-    {
+    createdDate: {
         type: Date,
         default: Date.now
     },
@@ -37,8 +31,7 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: true
     }
-})
-const userModel = mongoose.model('user', userSchema)
+});
 
-
+const userModel = mongoose.model('User', userSchema);
 module.exports = userModel;

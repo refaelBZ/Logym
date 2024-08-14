@@ -1,5 +1,3 @@
-//NOT USED RIGHT NOW!
-
 const express = require('express');
 const router = express.Router();
 const userService = require('./user.service');
@@ -50,6 +48,8 @@ router.put('/', authenticateToken, async (req, res) => {
         res.status(500).send(error);
     }
 });
+
+//login user
 
 router.post('/login', async (req, res) => {
     try {
