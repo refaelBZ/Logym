@@ -1,14 +1,17 @@
-import React from 'react'
+import React from 'react';
+import styles from './style.module.scss';
+import { FiChevronRight } from 'react-icons/fi'; // ייבוא של האייקון של החץ
 
-export default function Menu(options=[{name:"Delate",onclick:()=>{}}, "Edit", "Rename", "Duplicate"]) {
+export default function Menu({ options }) {
   return (
-    <div>
-      {fruits.map((option) => (
-        <div   key={option}>
-            {option.name}
+    <div className={styles.menu}>
+      {options.map((option, index) => (
+        <div key={index} onClick={option.onClick} className={styles.menuItem}>
+          <div className={styles.icon}>{option.icon}</div>
+          <div className={styles.name}>{option.name}</div>
+          <div className={styles.arrow}><FiChevronRight /></div>
         </div>
-    
       ))}
     </div>
-  )
+  );
 }

@@ -1,0 +1,52 @@
+@import '/src/mixins.scss';
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  overflow-y: auto;
+
+}
+
+.skeletonItem {
+  background-color: var(--dark-gray);
+  border-radius: 15px;
+  padding: 20px;
+  margin-bottom: 10px;
+  animation: skeleton-loading 1.5s infinite;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: 400px;
+
+  .skeletonTitle,
+  .skeletonDetails {
+    background-color: var(--gray-color);
+    border-radius: 4px;
+  }
+
+  .skeletonTitle {
+    height: 20px;
+    width: 50%;
+    margin-bottom: 10px;
+  }
+
+  .skeletonDetails {
+    height: 14px;
+    width: 70%;
+  }
+}
+
+@keyframes skeleton-loading {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
