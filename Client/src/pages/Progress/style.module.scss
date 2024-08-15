@@ -1,6 +1,43 @@
 @import '/src/mixins.scss';
 
+
+
 .progressPage {
     @include page;
-    @include layout-padding;
-}
+    .header {
+      @include text-center;
+      .pageName {
+        color: var(--gray-color);
+        font-size: 24px;
+        font-weight: bold;
+      }
+    }
+  
+    .chartContainer {
+      background-color: var(--dark-gray);
+      border-radius: 15px;
+      padding: 20px;
+    }
+  
+    .parameterButtons {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 20px;
+  
+      .parameterButton {
+        @include button-style(var(--dark-gray), var(--gray-color));
+        background-color: transparent;
+        border: 2px solid var(--gray-color);
+        border-radius: 10px;
+        padding: 10px 20px;
+        font-size: 16px;
+  
+        &.active {
+          background-color: var(--main-color);
+          color: var(--background-color);
+          border-color: var(--main-color);
+        }
+      }
+    }
+  }
+  
