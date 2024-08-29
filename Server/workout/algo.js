@@ -1,61 +1,80 @@
-const workoutController = require("./workoutController");
+const weightHistory = [
+    {
+        "weight": 70,
+        "date": "2024-08-12T10:15:00Z"
 
-// Gets all workouts'
-async function getWorkouts() {
-    let workoutsList = await workoutController.read();
-    return workoutsList;
-}
-
-// update the exercise
-async function updateExercise(workoutId, exerciseId, data) {
-    const workout = await workoutController.readOne(workoutId);
-    if (!workout) throw new Error("Workout not found");
-
-    const exercise = workout.exercises.id(exerciseId);
-    if (!exercise) throw new Error("Exercise not found");
-
-    // update last values
-    const fieldsToUpdate = ['lastWeight', 'lastReps', 'lastSets', 'lastDifficulty', 'done', 'notes'];
-    fieldsToUpdate.forEach(field => {
-        if (data[field] !== undefined) {
-            exercise[field] = data[field];
-        }
-    });
-
-    // update the history
-    const historyFields = [
-        { field: 'lastWeight', history: 'weightHistory' },
-        { field: 'lastReps', history: 'repsHistory' },
-        { field: 'lastSets', history: 'setsHistory' },
-        { field: 'lastDifficulty', history: 'difficultyHistory' }
-    ];
-
-    historyFields.forEach(({ field, history }) => {
-        if (data[field] !== undefined) {
-            exercise[history].push({ [field.slice(4).toLowerCase()]: data[field], date: new Date() });
-        }
-    });
-
-    // Calculate the score and update scoreHistory
-    const score = calculateExerciseScore(
-        exercise.weightHistory,
-        exercise.repsHistory,
-        exercise.setsHistory,
-        exercise.difficultyHistory
-    );
-    exercise.scoreHistory.push({ score: score, date: new Date() });
-
-    if (data.done) {
-        exercise.lastdoneDate = new Date();
+    },
+    {
+        "weight": 80,
+        "date": "2024-08-12T10:30:00Z"
+    },
+    {
+        "weight": 90,
+        "date": "2024-08-12T10:45:00Z"
+    },
+    {
+        "weight": 100,
+        "date": "2024-08-12T11:00:00Z"
     }
+]
 
-    const updatedWorkout = await workoutController.updateExerciseInWorkout(workoutId, exerciseId, exercise);
-    if (!updatedWorkout) throw new Error("Failed to update exercise in workout");
+let repsHistory = [
+    {
+        "reps": 10,
+        "date": "2024-08-12T10:15:00Z"
+    },
+    {
+        "reps": 12,
+        "date": "2024-08-12T10:30:00Z"
+    },
+    {
+        "reps": 14,
+        "date": "2024-08-12T10:45:00Z"
+    },
+    {
+        "reps": 20,
+        "date": "2024-08-12T11:00:00Z"
+    }
+]
 
-    return updatedWorkout;
-}
+let setsHistory = [
+    {
+        "sets": 3,
+        "date": "2024-08-12T10:15:00Z"
+    },
+    {
+        "sets": 3,
+        "date": "2024-08-12T10:30:00Z"
+    },
+    {
+        "sets": 3,
+        "date": "2024-08-12T10:45:00Z"
+    },
+    {
+        "sets": 4,
+        "date": "2024-08-12T11:00:00Z"
+    }
+]
 
-// Helper function for calculating the exercise score
+let difficultyHistory = [
+    {
+        "difficulty": 8,
+        "date": "2024-08-12T10:15:00Z"
+    },
+    {
+        "difficulty": 7,
+        "date": "2024-08-12T10:30:00Z"
+    },
+    {
+        "difficulty": 8,
+        "date": "2024-08-12T10:45:00Z"
+    },
+    {
+        "difficulty": 8,
+        "date": "2024-08-12T11:00:00Z"
+    }
+]
+
 function calculateExerciseScore(weightHistory, repsHistory, setsHistory, difficultyHistory) {
     // Defining score parameters as constants within the function
     const weightIncreaseScore = 4;
@@ -107,4 +126,3 @@ function calculateExerciseScore(weightHistory, repsHistory, setsHistory, difficu
     return Math.max(0, Math.min(10, score));
 }
 
-module.exports = { updateExercise, getWorkouts };

@@ -5,9 +5,7 @@
   @include layout-padding;
 
   .pageName {
-    font-size: 32px;
-    font-weight: 500;
-    padding-top: 40px;
+    @include pageName;
   }
 
   .exerciseTitle {

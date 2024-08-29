@@ -3,25 +3,16 @@ import styles from './style.module.scss';
 import Button from '../../components/Button';
 import axios from 'axios';
 import List from '../../components/List';
+import { useNavigate } from 'react-router-dom';
 
-const Home = () => {
-  const [workouts, setWorkouts] = useState([]);
-  const [loading, setLoading] = useState(true);
+const Home = ({workouts, loading}) => {
 
-  const handleGetWorkouts = async () => {
-    try {
-      const response = await axios.get('http://localhost:2500/workout');
-      setWorkouts(response.data.workouts);
-      setLoading(false);
-    } catch (error) {
-      console.error("There was an error fetching the workouts!", error);
-      setLoading(false);
-    }
+  const navigate = useNavigate();
+
+  const handleAddWorkout = () => {
+      navigate('/add');
   };
 
-  useEffect(() => {
-    handleGetWorkouts();
-  }, []);
 
   return (
     <div className={styles.homePage}>
@@ -30,7 +21,7 @@ const Home = () => {
       </div>
       <List items={workouts} loading={loading} />
       <div className={styles.actionButtons}>
-        <Button title="Add a new workout" type="secondary" />
+      <Button title="Add a new workout" type="secondary" onClick={handleAddWorkout} />
       </div>
     </div>
   );
