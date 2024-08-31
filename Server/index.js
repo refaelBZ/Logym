@@ -8,9 +8,10 @@ db.connect();
 const cors = require('cors');
 
 app.use(cors({
-  origin: process.env.CLIENT_ORIGIN || '*',
+  origin: ['https://logym.vercel.app'],
   credentials: true
 }));
+
 
 app.use(express.json());
 
