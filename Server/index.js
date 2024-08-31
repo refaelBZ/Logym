@@ -5,11 +5,11 @@ require('dotenv').config();
 const db = require("./db");
 db.connect();
 
-const cors = require('cors');
 app.use(cors({
-  origin: process.env.CLIENT_ORIGIN || '*',
+  origin: '*',
   credentials: true
 }));
+
 
 app.use(express.json());
 
