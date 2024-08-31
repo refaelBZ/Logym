@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './style.module.scss';
-import { FiChevronRight } from 'react-icons/fi'; // ייבוא של האייקון של החץ
+import { FiChevronRight } from 'react-icons/fi';
 
 export default function Menu({ options }) {
   return (

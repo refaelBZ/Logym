@@ -1,0 +1,76 @@
+@import '/src/mixins.scss';
+
+
+.exerciseForm{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  overflow-y: scroll;
+  
+  .formGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    
+    label {
+      @include label;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;      
+      input,select,
+      textarea {
+        @include input;
+        width: 100%;
+      }
+    }
+
+    textarea {
+      grid-column: 1 / span 2;
+    }
+
+
+
+  }
+  .parameters {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    width: 100%;
+    
+    label {
+      @include label;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      input {
+        @include input;
+        width: 100%;
+        color: white;
+      }
+    }
+    
+  }
+
+  .notes {
+    label {
+      @include label;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      
+      input,
+      textarea {
+        @include input;
+        width: 100%;
+      }
+    }
+  }
+}
+.saveButton{
+  
+}
+}

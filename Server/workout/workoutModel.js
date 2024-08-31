@@ -68,6 +68,12 @@ const exerciseSchema = new mongoose.Schema({
       difficulty: { type: Number, min: 1, max: 10 },
       date: { type: Date }
     }
+  ],
+  scoreHistory: [
+    {
+      score: { type: Number, min: 0, max: 10 },
+      date: { type: Date }
+    }
   ]
 });
 
@@ -86,7 +92,6 @@ const workoutSchema = new mongoose.Schema({
   },
   numberOfExercises: { 
     type: Number, 
-    required: true 
   },
   completionRate: { 
     type: Number, 

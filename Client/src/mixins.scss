@@ -70,6 +70,13 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  color: var(--text-color)
+}
+
+@mixin label {
+  color: white;
+  font-size: 16px;
+  font-weight: 400;
 }
 
 
@@ -82,4 +89,22 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+}
+
+@mixin text{
+  font-size: 14px;
+  color: var(--text-color);
+  font-weight: 400;
+  align-items: start;
+  text-align: start;
+  display: flex;
+  flex-direction: row;
+}
+
+@mixin pageName {
+  font-size: 32px;
+  font-weight: 500;
+  padding-top: 40px;
+  color: white;
+  text-align: center;
 }

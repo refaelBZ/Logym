@@ -1,0 +1,18 @@
+@import '/src/mixins.scss';
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  label {
+    @include label;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    input,
+    textarea {
+      @include input;
+    }
+  }
+}

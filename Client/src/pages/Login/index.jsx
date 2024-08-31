@@ -13,21 +13,6 @@ export default function Login({ setIsLoggedIn }) {
 
   const navigate = useNavigate();
 
-  const handleGetWorkouts = async () => {
-    try {
-      const response = await axios.get('http://localhost:2500/workout');
-      setWorkouts(response.data.workouts);
-      setLoading(false);
-    } catch (error) {
-      console.error("There was an error fetching the workouts!", error);
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    handleGetWorkouts();
-  }, []);
-
   const handleForgot = () => {
     //TODO: handleForgot
   };
