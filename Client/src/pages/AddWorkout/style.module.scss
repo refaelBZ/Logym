@@ -1,0 +1,38 @@
+@import '/src/mixins.scss';
+
+.addWorkoutPage {
+  @include page;
+  @include layout-padding;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  .header {
+    flex-shrink: 0;
+  }
+
+  .pageName {
+    @include pageName;
+  }
+
+  .AddWorkoutForm {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow-y: auto;
+  }
+
+  .formContent {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex-grow: 1;
+    overflow-y: auto;
+  }
+
+  .saveButton {
+    width: 100%;
+    margin-bottom: 90px;
+  }
+}
