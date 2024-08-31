@@ -6,10 +6,21 @@ async function getWorkouts() {
     return workoutsList;
 }
 
+// Creates a new workout
+async function createWorkout(data) {
+    const newWorkout = await workoutController.create(data);
+    return newWorkout;
+}
+
+// Gets all workouts for a specific user
+async function getWorkoutsByUser(userId) {
+    return await workoutController.readByUser(userId);
+}
+
 // update the exercise
-async function updateExercise(workoutId, exerciseId, data) {
-    const workout = await workoutController.readOne(workoutId);
-    if (!workout) throw new Error("Workout not found");
+async function updateExercise(userId, workoutId, exerciseId, data) {
+    const workout = await workoutController.readOneByUser(userId, workoutId);
+    if (!workout) throw new Error("Workout not found or you do not have permission");
 
     const exercise = workout.exercises.id(exerciseId);
     if (!exercise) throw new Error("Exercise not found");
@@ -107,4 +118,4 @@ function calculateExerciseScore(weightHistory, repsHistory, setsHistory, difficu
     return Math.max(0, Math.min(10, score));
 }
 
-module.exports = { updateExercise, getWorkouts };
+module.exports = { updateExercise, getWorkouts , createWorkout,getWorkoutsByUser};

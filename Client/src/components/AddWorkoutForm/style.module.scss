@@ -4,35 +4,15 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  
-  .formGrid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    
-    label {
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-      
-      input,
-      textarea {
-        @include input;
-      }
-    }
+  label {
+    @include label;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 
+    input,
     textarea {
-      grid-column: 1 / span 2; // כדי שהתיבה תתפרס על שתי עמודות
+      @include input;
     }
-  }
-
-  button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: var(--main-color);
-    color: white;
-    border: none;
-    border-radius: 15px;
-    cursor: pointer;
   }
 }

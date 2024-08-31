@@ -73,12 +73,20 @@ const Workout = () => {
       setsHistory: { sets: currentExerciseValues.sets, date: new Date() },
       difficultyHistory: { difficulty: currentExerciseValues.difficulty, date: new Date() }
     };
-
+  
     try {
-      // Update exercise data in the backend
+      // Retrieve the token from localStorage
+      const token = localStorage.getItem('logym_token');
+  
+      // Update exercise data in the backend with the token in headers
       const response = await axios.put(
-        `http://localhost:2500/workout/${workout._id}/exercises/${workout.exercises[currentExerciseIndex]._id}`, 
-        dataToSend
+        `http://localhost:2500/workout/${workout._id}/exercises/${workout.exercises[currentExerciseIndex]._id}`,
+        dataToSend,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       console.log('Updated workout:', response.data);
       handleSkip();
@@ -86,6 +94,7 @@ const Workout = () => {
       console.error('Error updating exercise:', error);
     }
   }, [currentExerciseValues, workout._id, workout.exercises, currentExerciseIndex, handleSkip]);
+  
 
   // Get current exercise and calculate progress
   const currentExercise = workout.exercises[currentExerciseIndex];

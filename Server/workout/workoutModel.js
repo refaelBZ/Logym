@@ -92,7 +92,6 @@ const workoutSchema = new mongoose.Schema({
   },
   numberOfExercises: { 
     type: Number, 
-    required: true 
   },
   completionRate: { 
     type: Number, 

@@ -21,6 +21,23 @@ async function readOne(workoutId) {
     return await workoutModel.findById(workoutId);
 }
 
+// add new workout
+async function create(workout) {
+    const newWorkout = new workoutModel(workout);
+    return await newWorkout.save();
+}
+
+
+// Get all workouts for a specific user
+async function readByUser(userId) {
+    return await workoutModel.find({ user: userId });
+}
+
+// Get a single workout by user and workout ID
+async function readOneByUser(userId, workoutId) {
+    return await workoutModel.findOne({ _id: workoutId, user: userId });
+}
+
 
 //add workouts manually
 // async function createWorkout() {
@@ -80,4 +97,4 @@ async function readOne(workoutId) {
 
 
 
-module.exports = {    updateExerciseInWorkout, readOne,   read} 
+module.exports = {  updateExerciseInWorkout, readOne, read,create, readByUser, readOneByUser }; 

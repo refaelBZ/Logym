@@ -6,7 +6,7 @@ import Progress from '../../pages/Progress';
 import Footer from '../Footer';
 import Login from '../../pages/Login';
 import axios from 'axios';
-import AddWorkout from '../AddWorkout';
+import AddWorkout from '../../pages/AddWorkout';
 
 export default function Layout() {
 
@@ -17,18 +17,32 @@ export default function Layout() {
 
   const handleGetWorkouts = async () => {
     try {
-      const response = await axios.get('http://localhost:2500/workout');
-      setWorkouts(response.data.workouts);
-      setLoading(false);
+        const token = localStorage.getItem('logym_token');
+        if (!token) {
+            throw new Error("Token not found");
+        }
+        
+        const response = await axios.get('http://localhost:2500/workout', {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        
+        setWorkouts(response.data); // ודא ש-response.data תואם את הציפיות שלך
+        setLoading(false);
     } catch (error) {
-      console.error("There was an error fetching the workouts!", error);
-      setLoading(false);
+        console.error("There was an error fetching the workouts!", error);
+        console.error("Error details:", error.response ? error.response.data : error.message); // הדפסת השגיאה המלאה
+        setLoading(false);
     }
-  };
+};
+
 
   useEffect(() => {
-    handleGetWorkouts();
-  }, []);
+    if (isLoggedIn) {
+        handleGetWorkouts();
+    }
+}, [isLoggedIn]);
 
   return (
     <div>
