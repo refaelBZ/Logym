@@ -22,7 +22,7 @@ export default function Layout() {
             throw new Error("Token not found");
         }
         
-        const response = await axios.get('http://localhost:2500/workout', {
+        const response = await axios.get('https://logym.onrender.com/workout', {
             headers: {
                 Authorization: `Bearer ${token}`,
             },

@@ -80,7 +80,7 @@ const Workout = () => {
   
       // Update exercise data in the backend with the token in headers
       const response = await axios.put(
-        `http://localhost:2500/workout/${workout._id}/exercises/${workout.exercises[currentExerciseIndex]._id}`,
+        `https://logym.onrender.com/workout/${workout._id}/exercises/${workout.exercises[currentExerciseIndex]._id}`,
         dataToSend,
         {
           headers: {

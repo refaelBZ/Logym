@@ -25,7 +25,7 @@ export default function Login({ setIsLoggedIn }) {
     setLoading(true);
     setError('');
     try {
-      const response = await axios.post('http://localhost:2500/user/login', {
+      const response = await axios.post('https://logym.onrender.com/user/login', {
         email,
         password,
       });
