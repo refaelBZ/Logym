@@ -66,11 +66,18 @@ const Workout = () => {
       lastSets: currentExerciseValues.sets,
       lastReps: currentExerciseValues.reps,
       lastDifficulty: currentExerciseValues.difficulty,
-      done: true
+      done: true,
+      lastdoneDate: new Date(),
+      weightHistory: { weight: currentExerciseValues.weight, date: new Date() },
+      repsHistory: { reps: currentExerciseValues.reps, date: new Date() },
+      setsHistory: { sets: currentExerciseValues.sets, date: new Date() },
+      difficultyHistory: { difficulty: currentExerciseValues.difficulty, date: new Date() }
     };
+    
   
     try {
       const token = localStorage.getItem('logym_token');
+  console.log(dataToSend, token);
   
       const response = await axios.put(
         `https://logym.onrender.com/workout/${workout._id}/exercises/${workout.exercises[currentExerciseIndex]._id}`,
