@@ -66,19 +66,12 @@ const Workout = () => {
       lastSets: currentExerciseValues.sets,
       lastReps: currentExerciseValues.reps,
       lastDifficulty: currentExerciseValues.difficulty,
-      done: true,
-      lastdoneDate: new Date(),
-      weightHistory: { weight: currentExerciseValues.weight, date: new Date() },
-      repsHistory: { reps: currentExerciseValues.reps, date: new Date() },
-      setsHistory: { sets: currentExerciseValues.sets, date: new Date() },
-      difficultyHistory: { difficulty: currentExerciseValues.difficulty, date: new Date() }
+      done: true
     };
   
     try {
-      // Retrieve the token from localStorage
       const token = localStorage.getItem('logym_token');
   
-      // Update exercise data in the backend with the token in headers
       const response = await axios.put(
         `https://logym.onrender.com/workout/${workout._id}/exercises/${workout.exercises[currentExerciseIndex]._id}`,
         dataToSend,
@@ -94,6 +87,7 @@ const Workout = () => {
       console.error('Error updating exercise:', error);
     }
   }, [currentExerciseValues, workout._id, workout.exercises, currentExerciseIndex, handleSkip]);
+  
   
 
   // Get current exercise and calculate progress
