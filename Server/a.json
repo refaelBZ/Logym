@@ -1,123 +1,245 @@
 {
-    "name": "Full Body Workout",
-    "description": "A comprehensive full-body workout.",
-    "exercises": [
-      {
-        "name": "Squat",
-        "sets": 4,
-        "reps": 12,
-        "muscleGroup": "Legs",
-        "done": false,
-        "lastWeight": 80,
-        "lastReps": 12,
-        "lastSets": 4,
-        "lastDifficulty": 7,
-        "notes": "Keep back straight",
-        "weightHistory": [
-          {
-            "weight": 80,
-            "date": "2024-08-12T10:00:00Z"
-          }
-        ],
-        "repsHistory": [
-          {
-            "reps": 12,
-            "date": "2024-08-12T10:00:00Z"
-          }
-        ],
-        "setsHistory": [
-          {
-            "sets": 4,
-            "date": "2024-08-12T10:00:00Z"
-          }
-        ],
-        "difficultyHistory": [
-          {
-            "difficulty": 7,
-            "date": "2024-08-12T10:00:00Z"
-          }
-        ]
-      },
-      {
-        "name": "Bench Press",
-        "sets": 3,
-        "reps": 10,
-        "muscleGroup": "Chest",
-        "done": false,
-        "lastWeight": 70,
-        "lastReps": 10,
-        "lastSets": 3,
-        "lastDifficulty": 8,
-        "notes": "Focus on chest contraction",
-        "weightHistory": [
-          {
-            "weight": 70,
-            "date": "2024-08-12T10:15:00Z"
-          }
-        ],
-        "repsHistory": [
-          {
-            "reps": 10,
-            "date": "2024-08-12T10:15:00Z"
-          }
-        ],
-        "setsHistory": [
-          {
-            "sets": 3,
-            "date": "2024-08-12T10:15:00Z"
-          }
-        ],
-        "difficultyHistory": [
-          {
-            "difficulty": 8,
-            "date": "2024-08-12T10:15:00Z"
-          }
-        ]
-      },
-      {
-        "name": "Deadlift",
-        "sets": 4,
-        "reps": 8,
-        "muscleGroup": "Back",
-        "done": false,
-        "lastWeight": 100,
-        "lastReps": 8,
-        "lastSets": 4,
-        "lastDifficulty": 9,
-        "notes": "Keep the bar close to your shins",
-        "weightHistory": [
-          {
-            "weight": 100,
-            "date": "2024-08-12T10:30:00Z"
-          }
-        ],
-        "repsHistory": [
-          {
-            "reps": 8,
-            "date": "2024-08-12T10:30:00Z"
-          }
-        ],
-        "setsHistory": [
-          {
-            "sets": 4,
-            "date": "2024-08-12T10:30:00Z"
-          }
-        ],
-        "difficultyHistory": [
-          {
-            "difficulty": 9,
-            "date": "2024-08-12T10:30:00Z"
-          }
-        ]
-      }
-    ],
-    "numberOfExercises": 3,
-    "completionRate": 0,
-    "startDate": "2024-08-12T09:00:00Z",
-    "lastDate": null,
-    "status": "In Progress",
-    "generalNotes": "Focus on form and control.",
-    "user": "64d2a5f7c7d7d8d5b5c5d5e6",
-    "duration": 90
-  }
-  
+  "name": "אימון C יולי 2024",
+  "description": "פלג גוף תחתון",
+  "exercises": [
+    {
+      "name": "סקוואט בסמית",
+      "sets": 3,
+      "reps": 8,
+      "muscleGroup": "",
+      "done": true,
+      "lastdoneDate": "2024-07-29T00:00:00",
+      "lastWeight": 5,
+      "lastReps": 8,
+      "lastSets": 3,
+      "lastDifficulty": 8,
+      "notes": "",
+      "weightHistory": [
+        {
+          "weight": 5,
+          "date": "2024-07-29T00:00:00"
+        }
+      ],
+      "repsHistory": [
+        {
+          "reps": 8,
+          "date": "2024-07-29T00:00:00"
+        }
+      ],
+      "setsHistory": [
+        {
+          "sets": 3,
+          "date": "2024-07-29T00:00:00"
+        }
+      ],
+      "difficultyHistory": [],
+      "scoreHistory": []
+    },
+    {
+      "name": "לאנג' בולגרי",
+      "sets": 3,
+      "reps": 6,
+      "muscleGroup": "",
+      "done": true,
+      "lastdoneDate": "2024-07-29T00:00:00",
+      "lastWeight": 5,
+      "lastReps": 6,
+      "lastSets": 3,
+      "lastDifficulty": 10,
+      "notes": "",
+      "weightHistory": [
+        {
+          "weight": 5,
+          "date": "2024-07-29T00:00:00"
+        }
+      ],
+      "repsHistory": [
+        {
+          "reps": 6,
+          "date": "2024-07-29T00:00:00"
+        }
+      ],
+      "setsHistory": [
+        {
+          "sets": 3,
+          "date": "2024-07-29T00:00:00"
+        }
+      ],
+      "difficultyHistory": [],
+      "scoreHistory": []
+    },
+    {
+      "name": "פשיטת ברכיים במכונה",
+      "sets": 3,
+      "reps": 12,
+      "muscleGroup": "",
+      "done": true,
+      "lastdoneDate": "2024-07-29T00:00:00",
+      "lastWeight": 19,
+      "lastReps": 12,
+      "lastSets": 3,
+      "lastDifficulty": 9,
+      "notes": "",
+      "weightHistory": [
+        {
+          "weight": 19,
+          "date": "2024-07-29T00:00:00"
+        }
+      ],
+      "repsHistory": [
+        {
+          "reps": 12,
+          "date": "2024-07-29T00:00:00"
+        }
+      ],
+      "setsHistory": [
+        {
+          "sets": 3,
+          "date": "2024-07-29T00:00:00"
+        }
+      ],
+      "difficultyHistory": [],
+      "scoreHistory": []
+    },
+    {
+      "name": "הרחקות ירך לצדדים במכונה",
+      "sets": 2,
+      "reps": 12,
+      "muscleGroup": "",
+      "done": true,
+      "lastdoneDate": "2024-07-29T00:00:00",
+      "lastWeight": 75,
+      "lastReps": 12,
+      "lastSets": 2,
+      "lastDifficulty": 9,
+      "notes": "",
+      "weightHistory": [
+        {
+          "weight": 75,
+          "date": "2024-07-29T00:00:00"
+        }
+      ],
+      "repsHistory": [
+        {
+          "reps": 12,
+          "date": "2024-07-29T00:00:00"
+        }
+      ],
+      "setsHistory": [
+        {
+          "sets": 2,
+          "date": "2024-07-29T00:00:00"
+        }
+      ],
+      "difficultyHistory": [],
+      "scoreHistory": []
+    },
+    {
+      "name": "פשיטת ירך לאחור בכבלים",
+      "sets": 2,
+      "reps": 10,
+      "muscleGroup": "",
+      "done": true,
+      "lastdoneDate": "2024-07-29T00:00:00",
+      "lastWeight": 6.25,
+      "lastReps": 10,
+      "lastSets": 2,
+      "lastDifficulty": 8,
+      "notes": "",
+      "weightHistory": [
+        {
+          "weight": 6.25,
+          "date": "2024-07-29T00:00:00"
+        }
+      ],
+      "repsHistory": [
+        {
+          "reps": 10,
+          "date": "2024-07-29T00:00:00"
+        }
+      ],
+      "setsHistory": [
+        {
+          "sets": 2,
+          "date": "2024-07-29T00:00:00"
+        }
+      ],
+      "difficultyHistory": [],
+      "scoreHistory": []
+    },
+    {
+      "name": "תאומים בעמידה בסמית / לחיצת רגליים",
+      "sets": 3,
+      "reps": 12,
+      "muscleGroup": "",
+      "done": true,
+      "lastdoneDate": "2024-07-29T00:00:00",
+      "lastWeight": 65,
+      "lastReps": 12,
+      "lastSets": 3,
+      "lastDifficulty": 8,
+      "notes": "",
+      "weightHistory": [
+        {
+          "weight": 65,
+          "date": "2024-07-29T00:00:00"
+        }
+      ],
+      "repsHistory": [
+        {
+          "reps": 12,
+          "date": "2024-07-29T00:00:00"
+        }
+      ],
+      "setsHistory": [
+        {
+          "sets": 3,
+          "date": "2024-07-29T00:00:00"
+        }
+      ],
+      "difficultyHistory": [],
+      "scoreHistory": []
+    },
+    {
+      "name": "כפיפה בכיסא רומי",
+      "sets": 4,
+      "reps": 12,
+      "muscleGroup": "",
+      "done": true,
+      "lastdoneDate": "2024-07-29T00:00:00",
+      "lastWeight": 5,
+      "lastReps": 12,
+      "lastSets": 4,
+      "lastDifficulty": 8,
+      "notes": "",
+      "weightHistory": [
+        {
+          "weight": 5,
+          "date": "2024-07-29T00:00:00"
+        }
+      ],
+      "repsHistory": [
+        {
+          "reps": 12,
+          "date": "2024-07-29T00:00:00"
+        }
+      ],
+      "setsHistory": [
+        {
+          "sets": 4,
+          "date": "2024-07-29T00:00:00"
+        }
+      ],
+      "difficultyHistory": [],
+      "scoreHistory": []
+    }
+  ],
+  "numberOfExercises": 7,
+  "completionRate": 0,
+  "startDate": "2024-07-01T00:00:00",
+  "lastDate": "2024-07-29T00:00:00",
+  "status": "In Progress",
+  "generalNotes": "",
+  "user": null,
+  "duration": null
+}
