@@ -14,17 +14,12 @@ router.get('/', authenticateToken, async (req, res) => {
 });
 
 // update the exercise
-router.put('/:workoutId/exercises/:exerciseId', authenticateToken, async (req, res) => {
+router.put('/:workoutId/exercises/:exerciseId', async (req, res) => {
     try {
-        const updatedWorkout = await workoutService.updateExercise(
-            req.user.userId, 
-            req.params.workoutId, 
-            req.params.exerciseId, 
-            req.body
-        );
+        const updatedWorkout = await workoutService.updateExercise(req.params.workoutId, req.params.exerciseId, req.body);        
         res.send(updatedWorkout);
-    } catch (error) {
-        res.status(500).send({ message: error.message });
+    } catch (err) {
+        res.status(400).json({ error: err.message });
     }
 });
 
