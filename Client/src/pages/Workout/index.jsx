@@ -59,7 +59,6 @@ const Workout = () => {
   const handleSkip = useCallback(() => changeExercise('next'), [changeExercise]);
   const handlePrevious = useCallback(() => changeExercise('prev'), [changeExercise]);
 
-  // Handle exercise completion
   const handleDone = useCallback(async () => {
     const dataToSend = {
       lastWeight: currentExerciseValues.weight,
@@ -67,34 +66,50 @@ const Workout = () => {
       lastReps: currentExerciseValues.reps,
       lastDifficulty: currentExerciseValues.difficulty,
       done: true,
-      lastdoneDate: new Date(),
-      weightHistory: { weight: currentExerciseValues.weight, date: new Date() },
-      repsHistory: { reps: currentExerciseValues.reps, date: new Date() },
-      setsHistory: { sets: currentExerciseValues.sets, date: new Date() },
-      difficultyHistory: { difficulty: currentExerciseValues.difficulty, date: new Date() }
+      lastdoneDate: new Date().toISOString(),  // שימוש ב-ISO string לתאריכים
+      weightHistory: { weight: currentExerciseValues.weight, date: new Date().toISOString() },
+      repsHistory: { reps: currentExerciseValues.reps, date: new Date().toISOString() },
+      setsHistory: { sets: currentExerciseValues.sets, date: new Date().toISOString() },
+      difficultyHistory: { difficulty: currentExerciseValues.difficulty, date: new Date().toISOString() }
     };
   
     try {
       // Retrieve the token from localStorage
       const token = localStorage.getItem('logym_token');
+      console.log('Token before request:', token);  // Add this line
   
       // Update exercise data in the backend with the token in headers
       const response = await axios.put(
-        `http://localhost:2500/workout/${workout._id}/exercises/${workout.exercises[currentExerciseIndex]._id}`,
+        `http://localhost:2500/workout/${workout._id}/exercises/${workout.exercises[currentExerciseIndex]._id}`
+        ,
+
         dataToSend,
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            'Authorization': `Bearer ${token}`,  // שנה מ-'TOKEN' ל-'Authorization'
           },
         }
       );
+      
       console.log('Updated workout:', response.data);
       handleSkip();
     } catch (error) {
-      console.error('Error updating exercise:', error);
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        console.error('Error updating exercise:', error.response.data);
+        console.error('Status:', error.response.status);
+        console.error('Headers:', error.response.headers);
+      } else if (error.request) {
+        // The request was made but no response was received
+        console.error('Error updating exercise: No response received', error.request);
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.error('Error updating exercise:', error.message);
+      }
     }
   }, [currentExerciseValues, workout._id, workout.exercises, currentExerciseIndex, handleSkip]);
-  
+
 
   // Get current exercise and calculate progress
   const currentExercise = workout.exercises[currentExerciseIndex];

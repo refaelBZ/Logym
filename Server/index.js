@@ -7,9 +7,11 @@ const db = require("./db");
 db.connect();
 
 const cors = require('cors');
+
 app.use(cors({
-  origin: ['http://localhost:5173'],
-  credentials: true
+  origin: 'http://localhost:5173',  // או כתובת הקליינט שלך
+  credentials: true,
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 app.use(express.json());
