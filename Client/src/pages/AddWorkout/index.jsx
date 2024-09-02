@@ -27,10 +27,7 @@ export default function AddWorkout() {
   };
 
   // Handle save button click to submit workout and exercises data
-  const handleSaveButtonClick = async (e) => {
-    // e.preventDefault(); // Prevent default form submission behavior
-
-    // Combine workout data and exercises
+  const handleSaveButtonClick = async () => {
     const fullWorkout = {
       name: workoutData.workoutName,
       description: workoutData.description,
@@ -43,18 +40,17 @@ export default function AddWorkout() {
         notes: exercise.notes,
       }))
     };
-
+  
     try {
-
       const token = localStorage.getItem('logym_token');
-      // Send the data to the server using Axios
-      const response = await axios.post('https://logym.onrender.com/workout', fullWorkout, {
+
+      const response = await axios.post('https://logym.vercel.app/workout', fullWorkout, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      });      console.log('Workout saved successfully:', response.data);
+      });
+      console.log('Workout saved successfully:', response.data);
       console.log(fullWorkout);
-      
     } catch (error) {
       console.error('Error saving workout:', error);
     }

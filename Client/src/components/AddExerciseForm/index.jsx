@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid'; // Import the uuid library
 import styles from './style.module.scss';
 import Button from '../Button';
 
@@ -11,6 +12,7 @@ export default function AddExerciseForm({ onFormDataSubmit }) {
   const [addExercise, setAddExercise] = useState(false);
 
   const [exerciseData, setExerciseData] = useState({
+    _id: '', // Add _id to the state
     exerciseName: '',
     muscleGroup: '',
     sets: '',
@@ -28,9 +30,10 @@ export default function AddExerciseForm({ onFormDataSubmit }) {
     }));
   };
 
-// Reset the form
+  // Reset the form
   const resetForm = () => {
     setExerciseData({
+      _id: '', // Reset the id as well
       exerciseName: '',
       muscleGroup: '',
       sets: '',
@@ -43,7 +46,11 @@ export default function AddExerciseForm({ onFormDataSubmit }) {
   // Submit the form data to the parent component
   const handleExerciseSubmit = (event) => {
     event.preventDefault();
-    onFormDataSubmit(exerciseData);  // Call the parent function with the form data
+    const exerciseWithId = {
+      ...exerciseData,
+      _id: uuidv4(), // Generate a unique ID for the exercise
+    };
+    onFormDataSubmit(exerciseWithId);  // Call the parent function with the form data
     resetForm();
     setAddExercise(false); 
   };

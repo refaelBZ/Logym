@@ -47,17 +47,14 @@ router.put('/:workoutId/exercises/:exerciseId', authenticateToken, async (req, r
 //add new workout
 router.post('/', authenticateToken, async (req, res) => {
     try {
-        console.log(req.body);
-        
-        // Adding the userId from the authenticated token to the workout data
-        const newWorkout = await workoutService.createWorkout({
-            ...req.body,
-            user: req.user.userId // linking the workout to the specific user
-        });
-        res.status(201).send(newWorkout);
+      const newWorkout = await workoutService.createWorkout({
+        ...req.body,
+        user: req.user.userId
+      });
+      res.status(201).send(newWorkout);
     } catch (error) {
-        res.status(500).send({ message: error.message });
+      res.status(500).send({ message: error.message });
     }
-});
+  });
 
 module.exports = router;

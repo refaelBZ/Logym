@@ -7,6 +7,7 @@ db.connect();
 
 const cors = require('cors');
 
+
 app.use(cors({
   origin: ['https://logym.vercel.app', 'http://localhost:5173'],
   credentials: true

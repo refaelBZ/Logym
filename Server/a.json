@@ -1,14 +1,22 @@
 {
-  "name": "אימון C יולי 2024",
+  "_id": {
+    "$oid": "66d3a1b5b0209cf380a25719"
+  },
+  "name": "אימון C",
   "description": "פלג גוף תחתון",
   "exercises": [
     {
+      "_id": {
+        "$oid": "66d3a1b5b0209cf380a2571a"
+      },
       "name": "סקוואט בסמית",
       "sets": 3,
       "reps": 8,
-      "muscleGroup": "",
+      "muscleGroup": "רגליים",
       "done": true,
-      "lastdoneDate": "2024-07-29T00:00:00",
+      "lastdoneDate": {
+        "$date": "2024-07-29T00:00:00Z"
+      },
       "lastWeight": 5,
       "lastReps": 8,
       "lastSets": 3,
@@ -16,230 +24,73 @@
       "notes": "",
       "weightHistory": [
         {
+          "_id": {
+            "$oid": "66d3a1b5b0209cf380a2571b"
+          },
           "weight": 5,
-          "date": "2024-07-29T00:00:00"
+          "date": {
+            "$date": "2024-07-29T00:00:00Z"
+          }
         }
       ],
       "repsHistory": [
         {
+          "_id": {
+            "$oid": "66d3a1b5b0209cf380a2571c"
+          },
           "reps": 8,
-          "date": "2024-07-29T00:00:00"
+          "date": {
+            "$date": "2024-07-29T00:00:00Z"
+          }
         }
       ],
       "setsHistory": [
         {
+          "_id": {
+            "$oid": "66d3a1b5b0209cf380a2571d"
+          },
           "sets": 3,
-          "date": "2024-07-29T00:00:00"
+          "date": {
+            "$date": "2024-07-29T00:00:00Z"
+          }
         }
       ],
-      "difficultyHistory": [],
-      "scoreHistory": []
-    },
-    {
-      "name": "לאנג' בולגרי",
-      "sets": 3,
-      "reps": 6,
-      "muscleGroup": "",
-      "done": true,
-      "lastdoneDate": "2024-07-29T00:00:00",
-      "lastWeight": 5,
-      "lastReps": 6,
-      "lastSets": 3,
-      "lastDifficulty": 10,
-      "notes": "",
-      "weightHistory": [
+      "difficultyHistory": [
         {
-          "weight": 5,
-          "date": "2024-07-29T00:00:00"
+          "_id": {
+            "$oid": "66d3a1b5b0209cf380a2571e"
+          },
+          "difficulty": 8,
+          "date": {
+            "$date": "2024-07-29T00:00:00Z"
+          }
         }
       ],
-      "repsHistory": [
+      "scoreHistory": [
         {
-          "reps": 6,
-          "date": "2024-07-29T00:00:00"
+          "_id": {
+            "$oid": "66d3a1b5b0209cf380a2571f"
+          },
+          "score": 5,
+          "date": {
+            "$date": "2024-07-29T00:00:00Z"
+          }
         }
-      ],
-      "setsHistory": [
-        {
-          "sets": 3,
-          "date": "2024-07-29T00:00:00"
-        }
-      ],
-      "difficultyHistory": [],
-      "scoreHistory": []
-    },
-    {
-      "name": "פשיטת ברכיים במכונה",
-      "sets": 3,
-      "reps": 12,
-      "muscleGroup": "",
-      "done": true,
-      "lastdoneDate": "2024-07-29T00:00:00",
-      "lastWeight": 19,
-      "lastReps": 12,
-      "lastSets": 3,
-      "lastDifficulty": 9,
-      "notes": "",
-      "weightHistory": [
-        {
-          "weight": 19,
-          "date": "2024-07-29T00:00:00"
-        }
-      ],
-      "repsHistory": [
-        {
-          "reps": 12,
-          "date": "2024-07-29T00:00:00"
-        }
-      ],
-      "setsHistory": [
-        {
-          "sets": 3,
-          "date": "2024-07-29T00:00:00"
-        }
-      ],
-      "difficultyHistory": [],
-      "scoreHistory": []
-    },
-    {
-      "name": "הרחקות ירך לצדדים במכונה",
-      "sets": 2,
-      "reps": 12,
-      "muscleGroup": "",
-      "done": true,
-      "lastdoneDate": "2024-07-29T00:00:00",
-      "lastWeight": 75,
-      "lastReps": 12,
-      "lastSets": 2,
-      "lastDifficulty": 9,
-      "notes": "",
-      "weightHistory": [
-        {
-          "weight": 75,
-          "date": "2024-07-29T00:00:00"
-        }
-      ],
-      "repsHistory": [
-        {
-          "reps": 12,
-          "date": "2024-07-29T00:00:00"
-        }
-      ],
-      "setsHistory": [
-        {
-          "sets": 2,
-          "date": "2024-07-29T00:00:00"
-        }
-      ],
-      "difficultyHistory": [],
-      "scoreHistory": []
-    },
-    {
-      "name": "פשיטת ירך לאחור בכבלים",
-      "sets": 2,
-      "reps": 10,
-      "muscleGroup": "",
-      "done": true,
-      "lastdoneDate": "2024-07-29T00:00:00",
-      "lastWeight": 6.25,
-      "lastReps": 10,
-      "lastSets": 2,
-      "lastDifficulty": 8,
-      "notes": "",
-      "weightHistory": [
-        {
-          "weight": 6.25,
-          "date": "2024-07-29T00:00:00"
-        }
-      ],
-      "repsHistory": [
-        {
-          "reps": 10,
-          "date": "2024-07-29T00:00:00"
-        }
-      ],
-      "setsHistory": [
-        {
-          "sets": 2,
-          "date": "2024-07-29T00:00:00"
-        }
-      ],
-      "difficultyHistory": [],
-      "scoreHistory": []
-    },
-    {
-      "name": "תאומים בעמידה בסמית / לחיצת רגליים",
-      "sets": 3,
-      "reps": 12,
-      "muscleGroup": "",
-      "done": true,
-      "lastdoneDate": "2024-07-29T00:00:00",
-      "lastWeight": 65,
-      "lastReps": 12,
-      "lastSets": 3,
-      "lastDifficulty": 8,
-      "notes": "",
-      "weightHistory": [
-        {
-          "weight": 65,
-          "date": "2024-07-29T00:00:00"
-        }
-      ],
-      "repsHistory": [
-        {
-          "reps": 12,
-          "date": "2024-07-29T00:00:00"
-        }
-      ],
-      "setsHistory": [
-        {
-          "sets": 3,
-          "date": "2024-07-29T00:00:00"
-        }
-      ],
-      "difficultyHistory": [],
-      "scoreHistory": []
-    },
-    {
-      "name": "כפיפה בכיסא רומי",
-      "sets": 4,
-      "reps": 12,
-      "muscleGroup": "",
-      "done": true,
-      "lastdoneDate": "2024-07-29T00:00:00",
-      "lastWeight": 5,
-      "lastReps": 12,
-      "lastSets": 4,
-      "lastDifficulty": 8,
-      "notes": "",
-      "weightHistory": [
-        {
-          "weight": 5,
-          "date": "2024-07-29T00:00:00"
-        }
-      ],
-      "repsHistory": [
-        {
-          "reps": 12,
-          "date": "2024-07-29T00:00:00"
-        }
-      ],
-      "setsHistory": [
-        {
-          "sets": 4,
-          "date": "2024-07-29T00:00:00"
-        }
-      ],
-      "difficultyHistory": [],
-      "scoreHistory": []
+      ]
     }
   ],
-  "numberOfExercises": 7,
+  "numberOfExercises": 1,
   "completionRate": 0,
-  "startDate": "2024-07-01T00:00:00",
-  "lastDate": "2024-07-29T00:00:00",
+  "startDate": {
+    "$date": "2024-07-01T00:00:00Z"
+  },
+  "lastDate": {
+    "$date": "2024-07-29T00:00:00Z"
+  },
   "status": "In Progress",
   "generalNotes": "",
-  "user": null,
+  "user": {
+    "$oid": "66d39f954f541e06cabf0c79"
+  },
   "duration": null
 }
