@@ -44,7 +44,7 @@ export default function AddWorkout() {
     try {
       const token = localStorage.getItem('logym_token');
 
-      const response = await axios.post('http://localhost:2500/workout', fullWorkout, {
+      const response = await axios.post('https://logym.vercel.app/workout', fullWorkout, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
