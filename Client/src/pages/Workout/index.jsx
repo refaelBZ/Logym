@@ -80,8 +80,7 @@ const Workout = () => {
   
       // Update exercise data in the backend with the token in headers
       const response = await axios.put(
-        `https://logym.vercel.app/workout/${workout._id}/exercises/${workout.exercises[currentExerciseIndex]._id}`
-        ,
+        `https://logym.vercel.app/${workout._id}/exercises/${workout.exercises[currentExerciseIndex]._id}`,
 
         dataToSend,
         {
