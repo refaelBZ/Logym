@@ -21,7 +21,7 @@ export default function Button({ title = 'Click', type = 'primary', onClick }) {
       className={type === 'primary' ? styles.primary : styles.secondary}
     >
       <button className={isLoading ? styles.loading : ''}>
-        {/* {isLoading ? 'Loading' : title} */}
+        {isLoading ? 'Sending...' : title}
         {title}
       </button>
     </div>
