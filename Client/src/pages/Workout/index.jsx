@@ -88,7 +88,6 @@ const Workout = () => {
           },
         }
       );
-      );
       
       console.log('Updated workout:', response.data);
       handleSkip();
