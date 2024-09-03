@@ -78,9 +78,12 @@ const Workout = () => {
       const token = localStorage.getItem('logym_token');
       console.log('Token before request:', token);  // Add this line
   
+      console.log("env:", process.env.REACT_APP_API_BASE_URL);
       // Update exercise data in the backend with the token in headers
       const response = await axios.put(
-        `https://logym.onrender.com/workout/${workout._id}/exercises/${workout.exercises[currentExerciseIndex]._id}`,
+        `${process.env.REACT_APP_API_BASE_URL}/workout/${workout._id}/exercises/${workout.exercises[currentExerciseIndex]._id}`,
+
+        
         dataToSend,
         {
           headers: {
