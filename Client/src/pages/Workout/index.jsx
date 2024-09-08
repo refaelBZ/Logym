@@ -26,6 +26,8 @@ const Workout = () => {
     difficulty: workout.exercises[currentExerciseIndex].lastDifficulty,
   });
 
+  // Hndle loading state for button click
+  const [isLoading, setIsLoading] = useState(false);
   // Handle value changes
   const handleChange = useCallback((type, value) => {
     setCurrentExerciseValues(prevValues => ({
@@ -60,6 +62,8 @@ const Workout = () => {
   const handlePrevious = useCallback(() => changeExercise('prev'), [changeExercise]);
 
   const handleDone = useCallback(async () => {
+    setIsLoading(true);
+
     const dataToSend = {
       lastWeight: currentExerciseValues.weight,
       lastSets: currentExerciseValues.sets,
@@ -78,10 +82,9 @@ const Workout = () => {
       const token = localStorage.getItem('logym_token');
       console.log('Token before request:', token);  // Add this line
   
-      console.log("env:", process.env.REACT_APP_API_BASE_URL);
       // Update exercise data in the backend with the token in headers
       const response = await axios.put(
-        `${process.env.REACT_APP_API_BASE_URL}/workout/${workout._id}/exercises/${workout.exercises[currentExerciseIndex]._id}`,
+        `https://logym.onrender.com/workout/${workout._id}/exercises/${workout.exercises[currentExerciseIndex]._id}`,
 
         
         dataToSend,
@@ -99,8 +102,6 @@ const Workout = () => {
         // The request was made and the server responded with a status code
         // that falls out of the range of 2xx
         console.error('Error updating exercise:', error.response.data);
-        console.error('Status:', error.response.status);
-        console.error('Headers:', error.response.headers);
       } else if (error.request) {
         // The request was made but no response was received
         console.error('Error updating exercise: No response received', error.request);
@@ -108,7 +109,10 @@ const Workout = () => {
         // Something happened in setting up the request that triggered an Error
         console.error('Error updating exercise:', error.message);
       }
-    }
+    
+  } finally {
+    setIsLoading(false);
+  }
   }, [currentExerciseValues, workout._id, workout.exercises, currentExerciseIndex, handleSkip]);
 
 
