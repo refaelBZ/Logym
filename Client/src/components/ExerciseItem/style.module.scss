@@ -1,0 +1,50 @@
+.noTextDecoration {
+    text-decoration: none;
+}
+
+.exerciseInfoBox {
+    background-color: var(--dark-gray);
+    border-radius: 15px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    text-align: center;
+    color: white;
+    gap: 20px;
+
+    .top {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+    
+        .moreIconWrapper {
+            position: relative;
+        }
+
+        .exerciseTitle {
+            font-size: 20px;
+            color: var(--main-color);
+            font-weight: 500;
+            align-items: start;
+            display: flex;
+            text-align: center;
+            flex-direction: column;
+            gap: 10px;
+
+            .subtitle {
+                font-size: 16px;
+                color: var(--text-color);
+                font-weight: 400;
+                align-items: start;
+                text-align: start;
+                display: flex;
+                flex-direction: row;
+            }
+        }
+    }
+}
+
+
+  

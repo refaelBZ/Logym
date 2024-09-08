@@ -7,6 +7,8 @@ import Footer from '../Footer';
 import Login from '../../pages/Login';
 import axios from 'axios';
 import AddWorkout from '../../pages/AddWorkout';
+const apiUrl = import.meta.env.VITE_API_URL;
+
 
 export default function Layout() {
 
@@ -22,7 +24,7 @@ export default function Layout() {
             throw new Error("Token not found");
         }
         
-        const response = await axios.get('https://logym.onrender.com/workout', {
+        const response = await axios.get(`${apiUrl}/workout`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },

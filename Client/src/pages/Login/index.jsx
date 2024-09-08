@@ -10,6 +10,8 @@ export default function Login({ setIsLoggedIn }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [workouts, setWorkouts] = useState([]);
+  const apiUrl = import.meta.env.VITE_API_URL;
+  
 
   const navigate = useNavigate();
 
@@ -25,7 +27,7 @@ export default function Login({ setIsLoggedIn }) {
     setLoading(true);
     setError('');
     try {
-      const response = await axios.post('https://logym.onrender.com/user/login', {
+      const response = await axios.post(`${apiUrl}/user/login`, {
         email,
         password,
       });
@@ -64,7 +66,7 @@ export default function Login({ setIsLoggedIn }) {
         disabled={loading}
       />
       <div className={styles.actionButtons}>
-        <Button title="Login" type="primary" onClick={handleLogin} disabled={loading} />
+        <Button title="Login" type="primary" onClick={handleLogin} disabled={loading} loadingTitle={'Logging in...'}/>
       </div>
       <div className={styles.options}>
         <div onClick={handleForgot} className={styles.forgot}>

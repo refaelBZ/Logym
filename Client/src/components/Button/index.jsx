@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from './style.module.scss';
 
-export default function Button({ title = 'Click', type = 'primary', onClick }) {
+export default function Button({ title = 'Click', loadingTitle = 'Sending...', type = 'primary', onClick }) {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleClick = async () => {
@@ -21,7 +21,7 @@ export default function Button({ title = 'Click', type = 'primary', onClick }) {
       className={type === 'primary' ? styles.primary : styles.secondary}
     >
       <button className={isLoading ? styles.loading : ''}>
-        {isLoading ? 'Sending...' : title}
+        {isLoading ? loadingTitle : title}
       </button>
     </div>
   );

@@ -4,12 +4,17 @@ import styles from './style.module.scss';
 import Button from '../../components/Button';
 import Picker from '../../components/Picker';
 import ProgressBar from '../../components/ProgressBar';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { FiArrowLeft } from "react-icons/fi";
+
 
 const Workout = () => {
   // Get workout from navlink state
   const location = useLocation();
   const workout = location.state?.workout;
+  const apiUrl = import.meta.env.VITE_API_URL;
+
+  const nav = useNavigate();
 
   // Arrays of values for picker
   const weightArr = useMemo(() => Array.from({ length: 199 }, (_, i) => i + 2), []);
@@ -76,17 +81,17 @@ const Workout = () => {
       setsHistory: { sets: currentExerciseValues.sets, date: new Date().toISOString() },
       difficultyHistory: { difficulty: currentExerciseValues.difficulty, date: new Date().toISOString() }
     };
-  
+
     try {
       // Retrieve the token from localStorage
       const token = localStorage.getItem('logym_token');
       console.log('Token before request:', token);  // Add this line
-  
+
       // Update exercise data in the backend with the token in headers
       const response = await axios.put(
-        `https://logym.onrender.com/workout/${workout._id}/exercises/${workout.exercises[currentExerciseIndex]._id}`,
+        `${apiUrl}/workout/${workout._id}/exercises/${workout.exercises[currentExerciseIndex]._id}`
+        ,
 
-        
         dataToSend,
         {
           headers: {
@@ -94,9 +99,14 @@ const Workout = () => {
           },
         }
       );
-      
+
       console.log('Updated workout:', response.data);
-      handleSkip();
+      if(currentExerciseIndex===workout.exercises.length-1){
+        nav('/home');
+      } else {
+        handleSkip();
+
+      }
     } catch (error) {
       if (error.response) {
         // The request was made and the server responded with a status code
@@ -109,13 +119,15 @@ const Workout = () => {
         // Something happened in setting up the request that triggered an Error
         console.error('Error updating exercise:', error.message);
       }
-    
-  } finally {
-    setIsLoading(false);
-  }
+
+    } finally {
+      setIsLoading(false);
+    }
   }, [currentExerciseValues, workout._id, workout.exercises, currentExerciseIndex, handleSkip]);
 
-
+const handleBack = () => {
+  nav('/home');
+}
   // Get current exercise and calculate progress
   const currentExercise = workout.exercises[currentExerciseIndex];
   const percent = calculatePercent(currentExerciseIndex, workout.exercises.length);
@@ -123,7 +135,11 @@ const Workout = () => {
   return (
     <div className={styles.workoutPage}>
       <div className={styles.header}>
-        <div className={styles.pageName}>{workout.name}</div>
+
+<div className={styles.backArrow} onClick={handleBack}>
+<FiArrowLeft className={styles.icon} />
+</div>        <div className={styles.pageName}>{workout.name}</div>
+        <div></div>
       </div>
       <div className={styles.exerciseInfoBox}>
         <div className={styles.exerciseTitle}>{currentExercise.name}</div>
@@ -149,8 +165,11 @@ const Workout = () => {
         <Picker title="Reps" arr={repsArr} value={currentExerciseValues.reps} onValueChange={(value) => handleChange('reps', value)} />
         <Picker title="Difficulty" arr={difficultyArr} value={currentExerciseValues.difficulty} onValueChange={(value) => handleChange('difficulty', value)} />
       </div>
+      <div className={styles.mid}>
+
+      </div>
       <div className={styles.actionButtons}>
-        <Button title="Done" type="primary" onClick={handleDone} />
+        <Button title="Done" type="primary" onClick={handleDone} loadingTitle="Saving..." />
         <div className={styles.prevSkip}>
           <Button title="Prev" type="secondary" onClick={handlePrevious} />
           <Button title="Skip" type="secondary" onClick={handleSkip} />

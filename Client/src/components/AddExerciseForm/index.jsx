@@ -8,7 +8,7 @@ const muscleGroups = [
   "Forearms", "Traps", "Glutes", "Hamstrings", "Quadriceps"
 ];
 
-export default function AddExerciseForm({ onFormDataSubmit }) {
+export default function AddExerciseForm({ onFormDataSubmit , setIsExerciseFormVisible}) {
   const [addExercise, setAddExercise] = useState(false);
 
   const [exerciseData, setExerciseData] = useState({
@@ -58,6 +58,8 @@ export default function AddExerciseForm({ onFormDataSubmit }) {
   // Show the form if the button is clicked
   const handleShowForm = () => {
     setAddExercise(!addExercise);
+    setIsExerciseFormVisible(!addExercise); // עדכון מצב הטופס
+
   };
 
   return (

@@ -9,6 +9,13 @@
     @include pageName;
   }
 
+  .charts{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow-y: auto;
+  }
+
   .chartContainer {
     background-color: var(--dark-gray);
     border-radius: 15px;
