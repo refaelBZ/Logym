@@ -9,10 +9,9 @@ export default function Button({ title = 'Click', type = 'primary', onClick }) {
     if (onClick) {
       onClick();
     }
-    // סימולציה להמתנה או פעולה שניתן לבצע
     setTimeout(() => {
       setIsLoading(false);
-    }, 3000); // כאן תוכל להחליף את הזמן בהתאם לפעולה שתרצה לבצע
+    }, 3000);
   };
 
   return (

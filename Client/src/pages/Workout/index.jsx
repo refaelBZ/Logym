@@ -10,6 +10,8 @@ const Workout = () => {
   // Get workout from navlink state
   const location = useLocation();
   const workout = location.state?.workout;
+  const apiUrl = import.meta.env.VITE_API_URL;
+
 
   // Arrays of values for picker
   const weightArr = useMemo(() => Array.from({ length: 199 }, (_, i) => i + 2), []);
@@ -80,7 +82,7 @@ const Workout = () => {
   
       // Update exercise data in the backend with the token in headers
       const response = await axios.put(
-        `http://localhost:2500/workout/${workout._id}/exercises/${workout.exercises[currentExerciseIndex]._id}`
+        `${apiUrl}/workout/${workout._id}/exercises/${workout.exercises[currentExerciseIndex]._id}`
         ,
 
         dataToSend,

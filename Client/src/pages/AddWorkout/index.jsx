@@ -6,6 +6,8 @@ import Button from '../../components/Button';
 import axios from 'axios'; // Import Axios
 
 export default function AddWorkout() {
+
+  const apiUrl = import.meta.env.VITE_API_URL;
   const [exercises, setExercises] = useState([]);
   const [workoutData, setWorkoutData] = useState({
     workoutName: '',
@@ -44,7 +46,7 @@ export default function AddWorkout() {
     try {
       const token = localStorage.getItem('logym_token');
 
-      const response = await axios.post('http://localhost:2500/workout', fullWorkout, {
+      const response = await axios.post(`${apiUrl}/workout`, fullWorkout, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

@@ -9,7 +9,7 @@ db.connect();
 const cors = require('cors');
 
 app.use(cors({
-  origin: 'http://localhost:5173',  // או כתובת הקליינט שלך
+  origin: 'http://localhost:5173',
   credentials: true,
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
