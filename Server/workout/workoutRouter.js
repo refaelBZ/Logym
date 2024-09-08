@@ -14,7 +14,21 @@ router.get('/', authenticateToken, async (req, res) => {
 });
 
 // update the exercise
+// router.put('/:workoutId/exercises/:exerciseId', async (req, res) => {
+//     try {
+//         const updatedWorkout = await workoutService.updateExercise(req.params.workoutId, req.params.exerciseId, req.body);        
+//         res.send(updatedWorkout);
+//     } catch (err) {
+//         res.status(400).json({ error: err.message });
+//     }
+// });
 router.put('/:workoutId/exercises/:exerciseId', authenticateToken, async (req, res) => {
+    console.log('Received PUT request');
+    console.log('Workout ID:', req.params.workoutId);
+    console.log('Exercise ID:', req.params.exerciseId);
+    console.log('User ID:', req.user.userId);
+    console.log('Request body:', req.body);
+
     try {
         const updatedWorkout = await workoutService.updateExercise(
             req.user.userId, 
@@ -22,9 +36,11 @@ router.put('/:workoutId/exercises/:exerciseId', authenticateToken, async (req, r
             req.params.exerciseId, 
             req.body
         );
+        console.log('Updated workout:', updatedWorkout);
         res.send(updatedWorkout);
     } catch (error) {
-        res.status(500).send({ message: error.message });
+        console.error('Error in workout update:', error);
+        res.status(500).send({ message: error.message, stack: error.stack });
     }
 });
 

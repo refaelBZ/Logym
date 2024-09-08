@@ -36,6 +36,20 @@
 .header {
   @include text-center;
   color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  .backArrow{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    .icon{
+      color: white;
+      font-size: 20px;
+    }
+  }
 }
 
 .exerciseTitle {
@@ -88,6 +102,8 @@
   max-width: 400px;
   text-align: center;
   color: white;
+  flex-grow: 1;
+
 
 
 
@@ -100,4 +116,9 @@
   //         margin: 10px 0;
   //     }
   // }
+}
+
+.mid{
+  flex-grow: 2;
+
 }

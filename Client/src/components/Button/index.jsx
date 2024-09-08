@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import styles from './style.module.scss';
 
-export default function Button({ title = 'Click', type = 'primary', onClick }) {
+export default function Button({ title = 'Click', loadingTitle = 'Sending...', type = 'primary', onClick }) {
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleClick = () => {
-    setIsLoading(true);
-    if (onClick) {
-      onClick();
+  const handleClick = async () => {
+    if (onClick && !isLoading) {
+      setIsLoading(true);
+      try {
+        await onClick();
+      } finally {
+        setIsLoading(false);
+      }
     }
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 3000);
   };
 
   return (
@@ -20,7 +21,7 @@ export default function Button({ title = 'Click', type = 'primary', onClick }) {
       className={type === 'primary' ? styles.primary : styles.secondary}
     >
       <button className={isLoading ? styles.loading : ''}>
-        {isLoading ? '' : title}
+        {isLoading ? loadingTitle : title}
       </button>
     </div>
   );

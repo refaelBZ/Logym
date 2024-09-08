@@ -4,10 +4,13 @@ import AddExerciseForm from '../../components/AddExerciseForm';
 import AddWorkoutForm from '../../components/AddWorkoutForm';
 import Button from '../../components/Button';
 import axios from 'axios'; // Import Axios
+import ExerciseItem from '../../components/ExerciseItem';
+import List from '../../components/List';
 
 export default function AddWorkout() {
 
   const apiUrl = import.meta.env.VITE_API_URL;
+  const [isExerciseFormVisible, setIsExerciseFormVisible] = useState(false);
   const [exercises, setExercises] = useState([]);
   const [workoutData, setWorkoutData] = useState({
     workoutName: '',
@@ -18,6 +21,7 @@ export default function AddWorkout() {
   const handleSaveExercise = (exerciseData) => {
     setExercises((prevExercises) => [...prevExercises, exerciseData]);
     console.log('Exercises updated:', exercises);
+    setIsExerciseFormVisible(false);
   };
 
   // Update workout data in state
@@ -67,8 +71,21 @@ export default function AddWorkout() {
         <div className={styles.formContent}>
           <AddWorkoutForm workoutData={workoutData} onWorkoutDataChange={handleWorkoutDataChange} />
           <div className={styles.AddExerciseForm}>
-            <AddExerciseForm onFormDataSubmit={handleSaveExercise} />
+            <AddExerciseForm onFormDataSubmit={handleSaveExercise} setIsExerciseFormVisible={setIsExerciseFormVisible}/>
           </div>
+          {exercises.length>0? <div>
+            Your Exercises:
+          </div>:    <div>
+          No Exercises added
+
+          </div>
+          }
+        {!isExerciseFormVisible? 
+    
+
+        <List items={exercises} />
+        :""}
+    
         </div>
         <div className={styles.saveButton}>
           <Button title="Save Workout" type="primary" onClick={handleSaveButtonClick} />

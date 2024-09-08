@@ -66,7 +66,7 @@ export default function Login({ setIsLoggedIn }) {
         disabled={loading}
       />
       <div className={styles.actionButtons}>
-        <Button title="Login" type="primary" onClick={handleLogin} disabled={loading} />
+        <Button title="Login" type="primary" onClick={handleLogin} disabled={loading} loadingTitle={'Logging in...'}/>
       </div>
       <div className={styles.options}>
         <div onClick={handleForgot} className={styles.forgot}>
