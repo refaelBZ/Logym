@@ -9,42 +9,52 @@ import axios from 'axios';
 import AddWorkout from '../../pages/AddWorkout';
 const apiUrl = import.meta.env.VITE_API_URL;
 
-
 export default function Layout() {
-
   const [workouts, setWorkouts] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true);
 
-
   const handleGetWorkouts = async () => {
     try {
-        const token = localStorage.getItem('logym_token');
-        if (!token) {
-            throw new Error("Token not found");
-        }
-        
-        const response = await axios.get(`${apiUrl}/workout`, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        });
-        
-        setWorkouts(response.data); // ודא ש-response.data תואם את הציפיות שלך
-        setLoading(false);
+      const token = localStorage.getItem('logym_token');
+      if (!token) {
+        throw new Error("Token not found");
+      }
+      
+      const response = await axios.get(`${apiUrl}/workout`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      
+      setWorkouts(response.data);
+      setLoading(false);
     } catch (error) {
-        console.error("There was an error fetching the workouts!", error);
-        console.error("Error details:", error.response ? error.response.data : error.message); // הדפסת השגיאה המלאה
-        setLoading(false);
+      console.error("There was an error fetching the workouts!", error);
+      console.error("Error details:", error.response ? error.response.data : error.message);
+      setLoading(false);
+      // If there is an error fetching workouts, assume the token is invalid
+      setIsLoggedIn(false);
+      localStorage.removeItem('logym_token');
     }
-};
+  };
 
+  useEffect(() => {
+    const token = localStorage.getItem('logym_token');
+    if (token) {
+      setIsLoggedIn(true);
+      handleGetWorkouts();
+    } else {
+      setIsLoggedIn(false);
+      setLoading(false);
+    }
+  }, []);
 
   useEffect(() => {
     if (isLoggedIn) {
-        handleGetWorkouts();
+      handleGetWorkouts();
     }
-}, [isLoggedIn]);
+  }, [isLoggedIn]);
 
   return (
     <div>

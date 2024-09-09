@@ -26,3 +26,4 @@ export default function Button({ title = 'Click', loadingTitle = 'Sending...', t
     </div>
   );
 }
+

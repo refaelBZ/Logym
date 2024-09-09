@@ -1,7 +1,7 @@
 @mixin page {
   padding: 20px;
   display: flex;
-  height: calc(100vh - 80px);
+  height: calc(100vh - 79px);
   flex-direction: column;
   // justify-content: space-between;
   justify-content: start;
@@ -102,9 +102,9 @@
 }
 
 @mixin pageName {
-  font-size: 32px;
-  font-weight: 500;
-  padding-top: 40px;
+  font-size: 26px;
+  font-weight: 400;
+  padding-top: 20px;
   color: white;
   text-align: center;
 }

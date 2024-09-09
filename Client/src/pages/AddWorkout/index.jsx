@@ -73,11 +73,10 @@ export default function AddWorkout() {
           <div className={styles.AddExerciseForm}>
             <AddExerciseForm onFormDataSubmit={handleSaveExercise} setIsExerciseFormVisible={setIsExerciseFormVisible}/>
           </div>
-          {exercises.length>0? <div>
+          {exercises.length>0? <div className={styles.exercisesHeader}>
             Your Exercises:
-          </div>:    <div>
+          </div>:    <div className={styles.exercisesHeader}>
           No Exercises added
-
           </div>
           }
         {!isExerciseFormVisible? 
