@@ -6,10 +6,13 @@ import Button from '../../components/Button';
 import axios from 'axios'; // Import Axios
 import ExerciseItem from '../../components/ExerciseItem';
 import List from '../../components/List';
+import { useNavigate } from 'react-router-dom';
 
-export default function AddWorkout() {
+export default function AddWorkout({setWorkouts}) {
 
   const apiUrl = import.meta.env.VITE_API_URL;
+  const navigate = useNavigate();
+
   const [isExerciseFormVisible, setIsExerciseFormVisible] = useState(false);
   const [exercises, setExercises] = useState([]);
   const [workoutData, setWorkoutData] = useState({
@@ -49,18 +52,19 @@ export default function AddWorkout() {
   
     try {
       const token = localStorage.getItem('logym_token');
-
       const response = await axios.post(`${apiUrl}/workout`, fullWorkout, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
       console.log('Workout saved successfully:', response.data);
-      console.log(fullWorkout);
+        setWorkouts((prevWorkouts) => [...prevWorkouts, response.data]);
+        navigate('/home');
     } catch (error) {
       console.error('Error saving workout:', error);
     }
   };
+  
 
   return (
     <div className={styles.addWorkoutPage}>

@@ -93,6 +93,19 @@
       font-weight: 400;
     }
   }
+  .progressBar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .progressBar .exerciseNumber {
+    flex-basis: 20%;
+  }
+  
+  .progressBar .progress {
+    flex-basis: 80%;
+  }
 }
 
 
