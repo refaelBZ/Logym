@@ -117,9 +117,6 @@
   color: white;
   flex-grow: 1;
 
-
-
-
   // .detailsRow {
   //     display: flex;
   //     justify-content: space-between;
@@ -134,4 +131,37 @@
 .mid{
   flex-grow: 2;
 
+}
+
+
+@media screen and (max-height: 800px) {
+  .workoutPage {
+    gap: 10px;
+  }
+  .exerciseInfoBox {
+    padding: 10px;
+    gap: 10px;
+  }
+
+  .prevSkip {
+    gap: 5px;
+
+    button {
+      padding: 5px;
+      font-size: 14px;
+    }
+  }
+
+  .actionButtons {
+    gap: 5px;
+
+    button {
+      padding: 10px;
+      font-size: 14px;
+    }
+  }
+  .mid{
+    display: none;
+  
+  }
 }
