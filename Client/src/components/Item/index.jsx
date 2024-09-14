@@ -45,8 +45,12 @@ export default function Item({ workout }) {
                         {menuVisible && <Menu options={menuOptions} />}
                     </div>
                 </div>
-                <ProgressBar percent={progressPercent} />
+                <div className={styles.progressBar}>
+            <ProgressBar percent={progressPercent} className={styles.progress} />
+            <div className={styles.exerciseNumber}>
+                {completedExercises} / {totalExercises}
             </div>
+        </div>            </div>
         </NavLink>
     );
 }

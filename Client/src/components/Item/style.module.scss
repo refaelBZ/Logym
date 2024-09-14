@@ -44,6 +44,19 @@
             }
         }
     }
+    .progressBar {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      
+      .progressBar .progress {
+        flex-basis: 80%;
+      }
+      
+      .progressBar .exerciseNumber {
+        flex-basis: 20%;
+      }
 }
 
 

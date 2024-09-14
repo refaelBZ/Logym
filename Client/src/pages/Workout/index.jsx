@@ -101,7 +101,7 @@ const Workout = () => {
       );
 
       console.log('Updated workout:', response.data);
-      if(currentExerciseIndex===workout.exercises.length-1){
+      if (currentExerciseIndex === workout.exercises.length - 1) {
         nav('/home');
       } else {
         handleSkip();
@@ -125,20 +125,22 @@ const Workout = () => {
     }
   }, [currentExerciseValues, workout._id, workout.exercises, currentExerciseIndex, handleSkip]);
 
-const handleBack = () => {
-  nav('/home');
-}
+  const handleBack = () => {
+    nav('/home');
+  }
   // Get current exercise and calculate progress
   const currentExercise = workout.exercises[currentExerciseIndex];
   const percent = calculatePercent(currentExerciseIndex, workout.exercises.length);
 
+  const exerciseNumber = currentExerciseIndex + 1;
+  const totalExercises = workout.exercises.length;
   return (
     <div className={styles.workoutPage}>
       <div className={styles.header}>
 
-<div className={styles.backArrow} onClick={handleBack}>
-<FiArrowLeft className={styles.icon} />
-</div>        <div className={styles.pageName}>{workout.name}</div>
+        <div className={styles.backArrow} onClick={handleBack}>
+          <FiArrowLeft className={styles.icon} />
+        </div>        <div className={styles.pageName}>{workout.name}</div>
         <div></div>
       </div>
       <div className={styles.exerciseInfoBox}>
@@ -157,7 +159,11 @@ const handleBack = () => {
             <div className={styles.infoType}>Muscles</div>
           </div>
         </div>
-        <ProgressBar percent={percent} />
+        <div className={styles.progressBar}>
+  <ProgressBar percent={percent} className={styles.progress} />
+  <div className={styles.exerciseNumber}>{exerciseNumber} / {totalExercises}</div>
+</div>
+
       </div>
       <div className={styles.inputs}>
         <Picker title="Weight" arr={weightArr} value={currentExerciseValues.weight} onValueChange={(value) => handleChange('weight', value)} />

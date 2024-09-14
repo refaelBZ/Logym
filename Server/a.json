@@ -1,96 +1,231 @@
 {
-  "_id": {
-    "$oid": "66d3a1b5b0209cf380a25719"
-  },
-  "name": "אימון C",
-  "description": "פלג גוף תחתון",
+  "name": "אימון A: פלג גוף תחתון",
+  "description": "אימון למיקוד בפלג גוף תחתון",
   "exercises": [
     {
-      "_id": {
-        "$oid": "66d3a1b5b0209cf380a2571a"
-      },
-      "name": "סקוואט בסמית",
+      "name": "דד ליפט רומני עם מוט",
       "sets": 3,
       "reps": 8,
-      "muscleGroup": "רגליים",
-      "done": true,
-      "lastdoneDate": {
-        "$date": "2024-07-29T00:00:00Z"
-      },
-      "lastWeight": 5,
-      "lastReps": 8,
+      "muscleGroup": "Lower Body",
+      "lastWeight": 20,
       "lastSets": 3,
-      "lastDifficulty": 8,
-      "notes": "",
+      "lastReps": 8,
+      "lastDifficulty": 10,
       "weightHistory": [
-        {
-          "_id": {
-            "$oid": "66d3a1b5b0209cf380a2571b"
-          },
-          "weight": 5,
-          "date": {
-            "$date": "2024-07-29T00:00:00Z"
-          }
-        }
-      ],
-      "repsHistory": [
-        {
-          "_id": {
-            "$oid": "66d3a1b5b0209cf380a2571c"
-          },
-          "reps": 8,
-          "date": {
-            "$date": "2024-07-29T00:00:00Z"
-          }
-        }
+        {"_id": "new ObjectId()", "weight": 20, "date": "2024-08-01"},
+        {"_id": "new ObjectId()", "weight": 20, "date": "2024-08-08"},
+        {"_id": "new ObjectId()", "weight": 20, "date": "2024-08-15"},
+        {"_id": "new ObjectId()", "weight": 20, "date": "2024-08-22"}
       ],
       "setsHistory": [
-        {
-          "_id": {
-            "$oid": "66d3a1b5b0209cf380a2571d"
-          },
-          "sets": 3,
-          "date": {
-            "$date": "2024-07-29T00:00:00Z"
-          }
-        }
+        {"_id": "new ObjectId()", "sets": 12, "date": "2024-08-01"},
+        {"_id": "new ObjectId()", "sets": 12, "date": "2024-08-08"},
+        {"_id": "new ObjectId()", "sets": 4, "date": "2024-08-15"},
+        {"_id": "new ObjectId()", "sets": 3, "date": "2024-08-22"}
+      ],
+      "repsHistory": [
+        {"_id": "new ObjectId()", "reps": 4, "date": "2024-08-01"},
+        {"_id": "new ObjectId()", "reps": 2, "date": "2024-08-08"},
+        {"_id": "new ObjectId()", "reps": 8, "date": "2024-08-15"},
+        {"_id": "new ObjectId()", "reps": 8, "date": "2024-08-22"}
       ],
       "difficultyHistory": [
-        {
-          "_id": {
-            "$oid": "66d3a1b5b0209cf380a2571e"
-          },
-          "difficulty": 8,
-          "date": {
-            "$date": "2024-07-29T00:00:00Z"
-          }
-        }
+        {"_id": "new ObjectId()", "difficulty": 10, "date": "2024-08-01"},
+        {"_id": "new ObjectId()", "difficulty": 9, "date": "2024-08-08"},
+        {"_id": "new ObjectId()", "difficulty": 9, "date": "2024-08-15"},
+        {"_id": "new ObjectId()", "difficulty": 10, "date": "2024-08-22"}
+      ]
+    },
+    {
+      "name": "היפ טראסט בסמית משין",
+      "sets": 4,
+      "reps": 10,
+      "muscleGroup": "Lower Body",
+      "lastWeight": 85,
+      "lastSets": 4,
+      "lastReps": 10,
+      "lastDifficulty": 10,
+      "weightHistory": [
+        {"_id": "new ObjectId()", "weight": 80, "date": "2024-08-01"},
+        {"_id": "new ObjectId()", "weight": 85, "date": "2024-08-08"},
+        {"_id": "new ObjectId()", "weight": 85, "date": "2024-08-15"},
+        {"_id": "new ObjectId()", "weight": 85, "date": "2024-08-22"}
       ],
-      "scoreHistory": [
-        {
-          "_id": {
-            "$oid": "66d3a1b5b0209cf380a2571f"
-          },
-          "score": 5,
-          "date": {
-            "$date": "2024-07-29T00:00:00Z"
-          }
-        }
+      "setsHistory": [
+        {"_id": "new ObjectId()", "sets": 4, "date": "2024-08-01"},
+        {"_id": "new ObjectId()", "sets": 4, "date": "2024-08-08"},
+        {"_id": "new ObjectId()", "sets": 4, "date": "2024-08-15"},
+        {"_id": "new ObjectId()", "sets": 4, "date": "2024-08-22"}
+      ],
+      "repsHistory": [
+        {"_id": "new ObjectId()", "reps": 12, "date": "2024-08-01"},
+        {"_id": "new ObjectId()", "reps": 10, "date": "2024-08-08"},
+        {"_id": "new ObjectId()", "reps": 10, "date": "2024-08-15"},
+        {"_id": "new ObjectId()", "reps": 10, "date": "2024-08-22"}
+      ],
+      "difficultyHistory": [
+        {"_id": "new ObjectId()", "difficulty": 10, "date": "2024-08-01"},
+        {"_id": "new ObjectId()", "difficulty": 9, "date": "2024-08-08"},
+        {"_id": "new ObjectId()", "difficulty": 10, "date": "2024-08-15"},
+        {"_id": "new ObjectId()", "difficulty": 10, "date": "2024-08-22"}
+      ]
+    },
+    {
+      "name": "כפיפת ברכיים במכונה",
+      "sets": 8,
+      "reps": 2,
+      "muscleGroup": "Lower Body",
+      "lastWeight": 26,
+      "lastSets": 8,
+      "lastReps": 2,
+      "lastDifficulty": null,
+      "weightHistory": [
+        {"_id": "new ObjectId()", "weight": 26, "date": "2024-08-01"},
+        {"_id": "new ObjectId()", "weight": 19, "date": "2024-08-08"},
+        {"_id": "new ObjectId()", "weight": 26, "date": "2024-08-22"}
+      ],
+      "setsHistory": [
+        {"_id": "new ObjectId()", "sets": 4, "date": "2024-08-01"},
+        {"_id": "new ObjectId()", "sets": 15, "date": "2024-08-08"},
+        {"_id": "new ObjectId()", "sets": 8, "date": "2024-08-22"}
+      ],
+      "repsHistory": [
+        {"_id": "new ObjectId()", "reps": 10, "date": "2024-08-01"},
+        {"_id": "new ObjectId()", "reps": 3, "date": "2024-08-08"},
+        {"_id": "new ObjectId()", "reps": 2, "date": "2024-08-22"}
+      ],
+      "difficultyHistory": [
+        {"_id": "new ObjectId()", "difficulty": 10, "date": "2024-08-01"},
+        {"_id": "new ObjectId()", "difficulty": 9, "date": "2024-08-08"}
+      ]
+    },
+    {
+      "name": "הרחקות ירך לצדדים במכונה",
+      "sets": 12,
+      "reps": 3,
+      "muscleGroup": "Lower Body",
+      "lastWeight": 96,
+      "lastSets": 12,
+      "lastReps": 3,
+      "lastDifficulty": 9,
+      "weightHistory": [
+        {"_id": "new ObjectId()", "weight": 89, "date": "2024-08-01"},
+        {"_id": "new ObjectId()", "weight": 89, "date": "2024-08-08"},
+        {"_id": "new ObjectId()", "weight": 89, "date": "2024-08-15"},
+        {"_id": "new ObjectId()", "weight": 96, "date": "2024-08-22"}
+      ],
+      "setsHistory": [
+        {"_id": "new ObjectId()", "sets": 2, "date": "2024-08-01"},
+        {"_id": "new ObjectId()", "sets": 2, "date": "2024-08-08"},
+        {"_id": "new ObjectId()", "sets": 2, "date": "2024-08-15"},
+        {"_id": "new ObjectId()", "sets": 12, "date": "2024-08-22"}
+      ],
+      "repsHistory": [
+        {"_id": "new ObjectId()", "reps": 12, "date": "2024-08-01"},
+        {"_id": "new ObjectId()", "reps": 12, "date": "2024-08-08"},
+        {"_id": "new ObjectId()", "reps": 12, "date": "2024-08-15"},
+        {"_id": "new ObjectId()", "reps": 3, "date": "2024-08-22"}
+      ],
+      "difficultyHistory": [
+        {"_id": "new ObjectId()", "difficulty": 10, "date": "2024-08-01"},
+        {"_id": "new ObjectId()", "difficulty": 10, "date": "2024-08-08"},
+        {"_id": "new ObjectId()", "difficulty": 10, "date": "2024-08-15"},
+        {"_id": "new ObjectId()", "difficulty": 9, "date": "2024-08-22"}
+      ]
+    },
+    {
+      "name": "פשיטת ירך לאחור בכבלים",
+      "sets": 12,
+      "reps": 3,
+      "muscleGroup": "Lower Body",
+      "lastWeight": 8.75,
+      "lastSets": 12,
+      "lastReps": 3,
+      "lastDifficulty": 10,
+      "weightHistory": [
+        {"_id": "new ObjectId()", "weight": 8.75, "date": "2024-08-01"},
+        {"_id": "new ObjectId()", "weight": 8.75, "date": "2024-08-08"},
+        {"_id": "new ObjectId()", "weight": 8.75, "date": "2024-08-15"},
+        {"_id": "new ObjectId()", "weight": 8.75, "date": "2024-08-22"}
+      ],
+      "setsHistory": [
+        {"_id": "new ObjectId()", "sets": 12, "date": "2024-08-01"},
+        {"_id": "new ObjectId()", "sets": 12, "date": "2024-08-08"},
+        {"_id": "new ObjectId()", "sets": 12, "date": "2024-08-15"},
+        {"_id": "new ObjectId()", "sets": 12, "date": "2024-08-22"}
+      ],
+      "repsHistory": [
+        {"_id": "new ObjectId()", "reps": 3, "date": "2024-08-01"},
+        {"_id": "new ObjectId()", "reps": 3, "date": "2024-08-08"},
+        {"_id": "new ObjectId()", "reps": 3, "date": "2024-08-15"},
+        {"_id": "new ObjectId()", "reps": 3, "date": "2024-08-22"}
+      ],
+      "difficultyHistory": [
+        {"_id": "new ObjectId()", "difficulty": 10, "date": "2024-08-01"},
+        {"_id": "new ObjectId()", "difficulty": 10, "date": "2024-08-08"},
+        {"_id": "new ObjectId()", "difficulty": 10, "date": "2024-08-15"},
+        {"_id": "new ObjectId()", "difficulty": 10, "date": "2024-08-22"}
+      ]
+    },
+    {
+      "name": "תאומים בעמידה בסמית / לחיצת רגליים",
+      "sets": 12,
+      "reps": 3,
+      "muscleGroup": "Lower Body",
+      "lastWeight": 65,
+      "lastSets": 12,
+      "lastReps": 3,
+      "lastDifficulty": null,
+      "weightHistory": [
+        {"_id": "new ObjectId()", "weight": 40, "date": "2024-08-01"},
+        {"_id": "new ObjectId()", "weight": 65, "date": "2024-08-15"}
+      ],
+      "setsHistory": [
+        {"_id": "new ObjectId()", "sets": 12, "date": "2024-08-01"},
+        {"_id": "new ObjectId()", "sets": 12, "date": "2024-08-15"}
+      ],
+      "repsHistory": [
+        {"_id": "new ObjectId()", "reps": 4, "date": "2024-08-01"},
+        {"_id": "new ObjectId()", "reps": 12, "date": "2024-08-15"}
+      ]
+    },
+    {
+      "name": "כפיפה בכיסא רומי",
+      "sets": 4,
+      "reps": 12,
+      "muscleGroup": "Lower Body",
+      "lastWeight": 10,
+      "lastSets": 4,
+      "lastReps": 12,
+      "lastDifficulty": 8,
+      "weightHistory": [
+        {"_id": "new ObjectId()", "weight": 10, "date": "2024-08-01"},
+        {"_id": "new ObjectId()", "weight": 10, "date": "2024-08-08"},
+        {"_id": "new ObjectId()", "weight": 10, "date": "2024-08-15"}
+      ],
+      "setsHistory": [
+        {"_id": "new ObjectId()", "sets": 3, "date": "2024-08-01"},
+        {"_id": "new ObjectId()", "sets": 4, "date": "2024-08-08"},
+        {"_id": "new ObjectId()", "sets": 4, "date": "2024-08-15"}
+      ],
+      "repsHistory": [
+        {"_id": "new ObjectId()", "reps": 12, "date": "2024-08-01"},
+        {"_id": "new ObjectId()", "reps": 12, "date": "2024-08-08"},
+        {"_id": "new ObjectId()", "reps": 12, "date": "2024-08-15"}
+      ],
+      "difficultyHistory": [
+        {"_id": "new ObjectId()", "difficulty": 8, "date": "2024-08-01"},
+        {"_id": "new ObjectId()", "difficulty": 8, "date": "2024-08-08"},
+        {"_id": "new ObjectId()", "difficulty": 8, "date": "2024-08-15"}
       ]
     }
   ],
-  "numberOfExercises": 1,
+  "numberOfExercises": 7,
   "completionRate": 0,
-  "startDate": {
-    "$date": "2024-07-01T00:00:00Z"
-  },
-  "lastDate": {
-    "$date": "2024-07-29T00:00:00Z"
-  },
+  "startDate": "2024-09-14T00:00:00.000Z",
+  "lastDate": "2024-09-14T00:00:00.000Z",
   "status": "In Progress",
   "generalNotes": "",
-  "user": {
-    "$oid": "66d39f954f541e06cabf0c79"
-  },
+  "user": null,
   "duration": null
 }

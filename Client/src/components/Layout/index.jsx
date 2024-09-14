@@ -69,7 +69,7 @@ export default function Layout() {
             <Route path="/" element={<Home workouts={workouts} loading={loading} />} />
             <Route path="/home" element={<Home workouts={workouts} loading={loading} />} />
             <Route path="/workout/:id" element={<Workout />} />
-            <Route path="/add" element={<AddWorkout />} />
+            <Route path="/add" element={<AddWorkout setWorkouts={setWorkouts} />} />
             <Route path="/progress" element={<Progress workouts={workouts} />} />
             <Route path="*" element={<Navigate to="/home" />} />
           </>
