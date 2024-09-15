@@ -1,3 +1,5 @@
+@import '/src/mixins.scss';
+
 .noTextDecoration {
     text-decoration: none;
 }
@@ -56,6 +58,10 @@
       
       .progressBar .exerciseNumber {
         flex-basis: 20%;
+        @include text;
+        align-items: center;
+        text-align: center;
+        display: block;
       }
 }
 

@@ -12,7 +12,7 @@ export default function AddWorkoutForm({ workoutData, onWorkoutDataChange }) {
     <div className={styles.workoutForm}>
       <form className={styles.form}>
         <label>
-          Name:
+          {/* Name: */}
           <input
             type="text"
             name="workoutName"
@@ -23,7 +23,7 @@ export default function AddWorkoutForm({ workoutData, onWorkoutDataChange }) {
           />
         </label>
         <label>
-          Description:
+          {/* Description: */}
           <input
             type="text"
             name="description"

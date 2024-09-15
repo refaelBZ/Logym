@@ -59,7 +59,6 @@ export default function AddExerciseForm({ onFormDataSubmit , setIsExerciseFormVi
   const handleShowForm = () => {
     setAddExercise(!addExercise);
     setIsExerciseFormVisible(!addExercise); // עדכון מצב הטופס
-
   };
 
   return (
@@ -67,9 +66,9 @@ export default function AddExerciseForm({ onFormDataSubmit , setIsExerciseFormVi
       {addExercise ? (
         <div className={styles.exerciseForm}>
           <form className={styles.form} onSubmit={handleExerciseSubmit}>
-            <div className={styles.formGrid}>
+            <div className={styles.exerciseName}>
               <label>
-                Exercise Name:
+                {/* Exercise Name: */}
                 <input
                   type="text"
                   name="exerciseName"
@@ -79,59 +78,72 @@ export default function AddExerciseForm({ onFormDataSubmit , setIsExerciseFormVi
                   required
                 />
               </label>
-              <label>
-                Muscle Group:
-                <select
-                  name="muscleGroup"
-                  value={exerciseData.muscleGroup}  
-                  onChange={handleChange}
-                >
-                  <option value="">Select muscle group</option>
-                  {muscleGroups.map((group) => (
-                    <option key={group} value={group}>{group}</option>
-                  ))}
-                </select>
-              </label>
             </div>
-            <div className={styles.parameters}>
-              <label>
-                Sets:
-                <input
-                  type="number"
-                  name="sets"
-                  value={exerciseData.sets}  
-                  onChange={handleChange}
-                  required
-                  min="1"
-                />
-              </label>
-              <label>
-                Weight:
-                <input
-                  type="number"
-                  name="weight"
-                  value={exerciseData.weight}  
-                  onChange={handleChange}
-                  required
-                  min="0"
-                  step="0.5"
-                />
-              </label>
-              <label>
-                Reps:
-                <input
-                  type="number"
-                  name="reps"
-                  value={exerciseData.reps}  
-                  onChange={handleChange}
-                  required
-                  min="1"
-                />
-              </label>
+            <div className={styles.formGrid}>
+              <div className={styles.column}>
+                <label>
+                  {/* Sets: */}
+                  <input
+                    type="number"
+                    name="sets"
+                    value={exerciseData.sets}  
+                    onChange={handleChange}
+                    required
+                    min="1"
+                    placeholder='Sets'
+                  />
+                </label>
+              </div>
+              <div className={styles.column}>
+                <label>
+                  {/* Reps: */}
+                  <input
+                    type="number"
+                    name="reps"
+                    value={exerciseData.reps}  
+                    onChange={handleChange}
+                    required
+                    min="1"
+                    placeholder='Reps'
+                  />
+                </label>
+              </div>
+            </div>
+            <div className={styles.formGrid}>
+              <div className={styles.column}>
+                <label>
+                  {/* Weight: */}
+                  <input
+                    type="number"
+                    name="weight"
+                    value={exerciseData.weight}  
+                    onChange={handleChange}
+                    required
+                    min="0"
+                    step="0.5"
+                    placeholder='Weight'
+                  />
+                </label>
+              </div>
+              <div className={styles.column}>
+                <label>
+                  {/* Muscle Group: */}
+                  <select
+                    name="muscleGroup"
+                    value={exerciseData.muscleGroup}  
+                    onChange={handleChange}
+                  >
+                    <option value="">Select muscle group</option>
+                    {muscleGroups.map((group) => (
+                      <option key={group} value={group}>{group}</option>
+                    ))}
+                  </select>
+                </label>
+              </div>
             </div>
             <div className={styles.notes}>
               <label>
-                Notes:
+                {/* Notes: */}
                 <input
                   type="text"
                   name="notes"
