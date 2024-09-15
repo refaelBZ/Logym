@@ -1,26 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styles from './style.module.scss';
 import Button from '../../components/Button';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 export default function Login({ setIsLoggedIn }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [workouts, setWorkouts] = useState([]);
   const apiUrl = import.meta.env.VITE_API_URL;
   
-
   const navigate = useNavigate();
 
   const handleForgot = () => {
     //TODO: handleForgot
-  };
-
-  const handleSignUp = () => {
-    //TODO: handleSignUp
   };
 
   const handleLogin = async () => {
@@ -66,20 +60,20 @@ export default function Login({ setIsLoggedIn }) {
         disabled={loading}
       />
       <div className={styles.actionButtons}>
-        <Button title="Login" type="primary" onClick={handleLogin} disabled={loading} loadingTitle={'Logging in...'}/>
+        <Button title="Login" type="primary" onClick={handleLogin} disabled={loading} loadingTitle='Logging in...'/>
       </div>
       <div className={styles.options}>
         <div onClick={handleForgot} className={styles.forgot}>
           Forgot Password?
         </div>
-        <div onClick={handleSignUp} className={styles.signup}>
-          Sign Up
+        <div onClick={() => navigate('/signup')} className={styles.login}>
+        Sign Up
         </div>
       </div>
-<div className={styles.loaderAndError}>
-{error && <div className={styles.errorMessage}>{error}</div>}
-{loading && <div className={styles.loader}></div>}
-</div>
+      <div className={styles.loaderAndError}>
+        {error && <div className={styles.errorMessage}>{error}</div>}
+        {loading && <div className={styles.loader}></div>}
+      </div>
     </div>
   );
 }

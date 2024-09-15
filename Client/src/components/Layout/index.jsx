@@ -7,6 +7,7 @@ import Footer from '../Footer';
 import Login from '../../pages/Login';
 import axios from 'axios';
 import AddWorkout from '../../pages/AddWorkout';
+import Signup from '../../pages/Signup';
 const apiUrl = import.meta.env.VITE_API_URL;
 
 export default function Layout() {
@@ -62,6 +63,7 @@ export default function Layout() {
         {!isLoggedIn ? (
           <>
             <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
+            <Route path="/signup" element={<Signup setIsLoggedIn={setIsLoggedIn} />} />
             <Route path="*" element={<Navigate to="/login" />} />
           </>
         ) : (

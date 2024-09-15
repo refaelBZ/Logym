@@ -74,18 +74,18 @@ export default function AddWorkout({setWorkouts}) {
       <div className={styles.AddWorkoutForm}>
         <div className={styles.formContent}>
           <AddWorkoutForm workoutData={workoutData} onWorkoutDataChange={handleWorkoutDataChange} />
+          <div className={styles.subTitle}>Add exercises to your workout</div>
+
           <div className={styles.AddExerciseForm}>
             <AddExerciseForm onFormDataSubmit={handleSaveExercise} setIsExerciseFormVisible={setIsExerciseFormVisible}/>
           </div>
-          {exercises.length>0? <div className={styles.exercisesHeader}>
+          {exercises.length>0 && !isExerciseFormVisible? <div className={styles.exercisesHeader}>
             Your Exercises:
-          </div>:    <div className={styles.exercisesHeader}>
+          </div>:!isExerciseFormVisible?    <div className={styles.exercisesHeader}>
           No Exercises added
-          </div>
-          }
+          </div>:""}
+          
         {!isExerciseFormVisible? 
-    
-
         <List items={exercises} />
         :""}
     
