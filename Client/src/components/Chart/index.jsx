@@ -10,6 +10,7 @@ export default function Chart({ workout }) {
     const handleClick = (index) => {
         setClickedIndex(index);
     }
+
     useEffect(() => {
         if (workout?.exercises) {
             //get all scores by date
@@ -17,11 +18,12 @@ export default function Chart({ workout }) {
 
             workout.exercises.forEach(exercise => {
                 exercise.scoreHistory.forEach(scoreItem => {
-                    const date = new Date(scoreItem.date).toLocaleDateString('he-IL');
-                    if (!scoreDataByDate[date]) {
-                        scoreDataByDate[date] = [];
+                    const dateObj = new Date(scoreItem.date);
+                    const formattedDate = `${dateObj.getDate()}/${dateObj.getMonth() + 1}`; // פורמט 9/8
+                    if (!scoreDataByDate[formattedDate]) {
+                        scoreDataByDate[formattedDate] = [];
                     }
-                    scoreDataByDate[date].push(scoreItem.score);
+                    scoreDataByDate[formattedDate].push(scoreItem.score);
                 });
             });
 
@@ -29,7 +31,7 @@ export default function Chart({ workout }) {
             const averages = Object.keys(scoreDataByDate).map(date => {
                 const scores = scoreDataByDate[date];
                 const averageScore = scores.reduce((total, score) => total + score, 0) / scores.length;
-                return { date, averageScore };
+                return { date, averageScore: Math.ceil(averageScore) };
             });
 
             setAverageScoresByDate(averages);
@@ -49,7 +51,6 @@ export default function Chart({ workout }) {
                         date={item.date}
                         isActive={clickedIndex === index}
                         onClick={() => handleClick(index)}
-            
                     />
                 ))}
             </div>

@@ -44,6 +44,9 @@ async function updateExercise(userId, workoutId, exerciseId, data) {
         }
     });
 
+        // Update lastDate
+        workout.lastDate = new Date();
+
     // update the history
     const historyFields = [
         { field: 'lastWeight', history: 'weightHistory' },
@@ -138,7 +141,7 @@ function calculateExerciseScore(weightHistory, repsHistory, setsHistory, difficu
     }
 
     // Ensure the score is within the 0-10 range
-    return Math.max(0, Math.min(10, score));
+    return Math.ceil(Math.max(0, Math.min(10, score)));
 }
 
 module.exports = { updateExercise, getWorkouts , createWorkout, getWorkoutsByUser };

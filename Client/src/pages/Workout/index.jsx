@@ -16,6 +16,9 @@ const Workout = () => {
 
   const nav = useNavigate();
 
+  const LastExerciseIndex = workout.exercises.length - 1;
+  const lastExercise = workout.exercises[LastExerciseIndex];
+
   // Arrays of values for picker
   const weightArr = useMemo(() => Array.from({ length: 199 }, (_, i) => i + 2), []);
   const repsArr = useMemo(() => Array.from({ length: 17 }, (_, i) => i + 4), []);
@@ -75,7 +78,7 @@ const Workout = () => {
       lastReps: currentExerciseValues.reps,
       lastDifficulty: currentExerciseValues.difficulty,
       done: true,
-      lastdoneDate: new Date().toISOString(),  // שימוש ב-ISO string לתאריכים
+      lastdoneDate: new Date().toISOString(),
       weightHistory: { weight: currentExerciseValues.weight, date: new Date().toISOString() },
       repsHistory: { reps: currentExerciseValues.reps, date: new Date().toISOString() },
       setsHistory: { sets: currentExerciseValues.sets, date: new Date().toISOString() },
@@ -101,7 +104,7 @@ const Workout = () => {
       );
 
       console.log('Updated workout:', response.data);
-      if (currentExerciseIndex === workout.exercises.length - 1) {
+      if (currentExerciseIndex === LastExerciseIndex) {
         nav('/home');
       } else {
         handleSkip();
@@ -160,9 +163,9 @@ const Workout = () => {
           </div>
         </div>
         <div className={styles.progressBar}>
-  <ProgressBar percent={percent} className={styles.progress} />
-  <div className={styles.exerciseNumber}>{exerciseNumber} / {totalExercises}</div>
-</div>
+          <ProgressBar percent={percent} className={styles.progress} />
+          <div className={styles.exerciseNumber}>{exerciseNumber} / {totalExercises}</div>
+        </div>
 
       </div>
       <div className={styles.inputs}>
@@ -175,7 +178,13 @@ const Workout = () => {
 
       </div>
       <div className={styles.actionButtons}>
-        <Button title="Done" type="primary" onClick={handleDone} loadingTitle="Saving..." />
+        <Button
+          title={currentExerciseIndex === LastExerciseIndex ? "Complete Workout" : "Done"}
+          type="primary"
+          onClick={handleDone}
+          loadingTitle="Saving..."
+        />
+
         <div className={styles.prevSkip}>
           <Button title="Prev" type="secondary" onClick={handlePrevious} />
           <Button title="Skip" type="secondary" onClick={handleSkip} />

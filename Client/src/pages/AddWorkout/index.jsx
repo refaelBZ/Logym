@@ -40,6 +40,7 @@ export default function AddWorkout({setWorkouts}) {
     const fullWorkout = {
       name: workoutData.workoutName,
       description: workoutData.description,
+      lastDate: new Date(),
       exercises: exercises.map(exercise => ({
         name: exercise.exerciseName,
         muscleGroup: exercise.muscleGroup,
