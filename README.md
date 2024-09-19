@@ -19,10 +19,8 @@ Logym provides a streamlined interface where users can:
 ### Frontend
 
 - **React.js**: Modular, component-based architecture with reusable and dynamic components, avoiding hard-coded values. This allows for scalable code and efficient updates. Hooks like `useState` and `useEffect` are used to manage UI states and application logic. React Router is used for navigation between pages.
-- **SCSS**: Modularized CSS for consistent, scalable, and responsive design. SCSS mixins and variables help ensure reusability across the application, optimized for mobile.
-- **Axios**: Manages HTTP requests to the backend, handling authentication tokens for secure data access.
-- **React Context API**: Manages global state for user authentication and workout data, simplifying the sharing of data across components without excessive prop drilling.
-
+- **SCSS**: Built from scratch with custom mixins and variables to ensure a responsive, scalable, and mobile-first design. No existing templates were used—all UI/UX design is original and designed for maximum usability.
+- 
 ### Backend
 
 - **Node.js & Express.js**: RESTful API structure for handling authentication and workout management with an MVC pattern for separation of concerns.
