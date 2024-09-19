@@ -1,6 +1,6 @@
 # Logym
 
-Logym is a simple and efficient fitness tracking platform designed to help users monitor their workout progress, track performance, and stay motivated with clear, visual feedback. Built with a focus on user experience, it allows for real-time input of workout data and provides insightful progress tracking through graphs and percentages.
+Logym is a simple and efficient mobile web application, originally conceptualized, designed, and fully developed by me as a fullstack project. It helps users monitor their workout progress, track performance, and stay motivated with clear, visual feedback. Built from scratch with a focus on user experience, it allows for real-time input of workout data and provides insightful progress tracking through graphs and daily scores.
 
 ## Problem Statement
 
@@ -30,6 +30,11 @@ Logym provides a streamlined interface where users can:
 ### Database
 
 - **MongoDB**: NoSQL database with a schema that supports user-workout relationships and stores complex workout structures (e.g., exercises, sets, reps, weights).
+
+## Live Demo
+
+- Since environment variables (ENVs) are not exposed in the repository, you can access the live demo via the following link: [Logym](https://logym.vercel.app/)
+
 ## Installation
 
 To set up the project locally:
@@ -62,5 +67,3 @@ To set up the project locally:
    MONGODB_URI=<replace-with-your-mongodb-uri>
    JWT_SECRET=<your-jwt-secret>
    ```
-
-Since environment variables (ENVs) are not exposed in the repository, you can access the live demo via the following link: [https://logym.vercel.app/](Logym)
