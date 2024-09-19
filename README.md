@@ -30,3 +30,37 @@ Logym provides a streamlined interface where users can:
 ### Database
 
 - **MongoDB**: NoSQL database with a schema that supports user-workout relationships and stores complex workout structures (e.g., exercises, sets, reps, weights).
+## Installation
+
+To set up the project locally:
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/refaelBZ/Logym.git
+   ```
+
+2. Navigate to the client folder, install dependencies by, and run the app:
+
+   ```bash
+   cd client
+   npm install
+   npm run dev
+   ```
+
+3. For the server:
+
+   ```bash
+   cd server
+   npm install
+   npm run dev
+   ```
+
+4. Set up environment variables in a `.env` file:
+
+   ```bash
+   MONGODB_URI=<replace-with-your-mongodb-uri>
+   JWT_SECRET=<your-jwt-secret>
+   ```
+
+Since environment variables (ENVs) are not exposed in the repository, you can access the live demo via the following link: [https://logym.vercel.app/](Logym)
