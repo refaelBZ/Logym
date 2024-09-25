@@ -7,11 +7,10 @@ import ProgressBar from '../../components/ProgressBar';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { FiArrowLeft } from "react-icons/fi";
 
-
 const Workout = () => {
   // Get workout from navlink state
   const location = useLocation();
-  const workout = location.state?.workout;
+  const [workout, setWorkout] = useState(location.state?.workout);
   const apiUrl = import.meta.env.VITE_API_URL;
 
   const nav = useNavigate();
@@ -34,8 +33,9 @@ const Workout = () => {
     difficulty: workout.exercises[currentExerciseIndex].lastDifficulty,
   });
 
-  // Hndle loading state for button click
+  // Handle loading state for button click
   const [isLoading, setIsLoading] = useState(false);
+
   // Handle value changes
   const handleChange = useCallback((type, value) => {
     setCurrentExerciseValues(prevValues => ({
@@ -92,9 +92,7 @@ const Workout = () => {
 
       // Update exercise data in the backend with the token in headers
       const response = await axios.put(
-        `${apiUrl}/workout/${workout._id}/exercises/${workout.exercises[currentExerciseIndex]._id}`
-        ,
-
+        `${apiUrl}/workout/${workout._id}/exercises/${workout.exercises[currentExerciseIndex]._id}`,
         dataToSend,
         {
           headers: {
@@ -104,11 +102,21 @@ const Workout = () => {
       );
 
       console.log('Updated workout:', response.data);
+
+      // Update the local state with the new values
+      setWorkout(prevWorkout => {
+        const updatedExercises = [...prevWorkout.exercises];
+        updatedExercises[currentExerciseIndex] = {
+          ...updatedExercises[currentExerciseIndex],
+          ...dataToSend
+        };
+        return { ...prevWorkout, exercises: updatedExercises };
+      });
+
       if (currentExerciseIndex === LastExerciseIndex) {
         nav('/home');
       } else {
         handleSkip();
-
       }
     } catch (error) {
       if (error.response) {
@@ -122,28 +130,29 @@ const Workout = () => {
         // Something happened in setting up the request that triggered an Error
         console.error('Error updating exercise:', error.message);
       }
-
     } finally {
       setIsLoading(false);
     }
-  }, [currentExerciseValues, workout._id, workout.exercises, currentExerciseIndex, handleSkip]);
+  }, [currentExerciseValues, workout._id, workout.exercises, currentExerciseIndex, LastExerciseIndex, apiUrl, nav, handleSkip]);
 
   const handleBack = () => {
     nav('/home');
   }
+
   // Get current exercise and calculate progress
   const currentExercise = workout.exercises[currentExerciseIndex];
   const percent = calculatePercent(currentExerciseIndex, workout.exercises.length);
 
   const exerciseNumber = currentExerciseIndex + 1;
   const totalExercises = workout.exercises.length;
+
   return (
     <div className={styles.workoutPage}>
       <div className={styles.header}>
-
         <div className={styles.backArrow} onClick={handleBack}>
           <FiArrowLeft className={styles.icon} />
-        </div>        <div className={styles.pageName}>{workout.name}</div>
+        </div>
+        <div className={styles.pageName}>{workout.name}</div>
         <div></div>
       </div>
       <div className={styles.exerciseInfoBox}>
@@ -166,7 +175,6 @@ const Workout = () => {
           <ProgressBar percent={percent} className={styles.progress} />
           <div className={styles.exerciseNumber}>{exerciseNumber} / {totalExercises}</div>
         </div>
-
       </div>
       <div className={styles.inputs}>
         <Picker title="Weight" arr={weightArr} value={currentExerciseValues.weight} onValueChange={(value) => handleChange('weight', value)} />
@@ -176,9 +184,9 @@ const Workout = () => {
       </div>
       <div className={styles.mid}>
         <div className={styles.title}>
-          Notes:
+          {/* Notes: */}
         </div>
-      {currentExercise.notes}
+        {currentExercise.notes}
       </div>
       <div className={styles.actionButtons}>
         <Button
@@ -186,8 +194,8 @@ const Workout = () => {
           type="primary"
           onClick={handleDone}
           loadingTitle="Saving..."
+          isLoading={isLoading}
         />
-
         <div className={styles.prevSkip}>
           <Button title="Prev" type="secondary" onClick={handlePrevious} />
           <Button title="Skip" type="secondary" onClick={handleSkip} />

@@ -141,11 +141,13 @@
   width: 100%;
   height: auto;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   gap: 10px;
+  @include text;
+
+
   .title{
     @include text;
-
   }
 }
 
