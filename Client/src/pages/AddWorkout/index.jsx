@@ -70,31 +70,44 @@ export default function AddWorkout({setWorkouts}) {
   return (
     <div className={styles.addWorkoutPage}>
       <div className={styles.header}>
-        <div className={styles.pageName}>Add New Workout</div>
+        <div className={styles.pageName}>
+          {isExerciseFormVisible ? 'Add New Exercise' : 'Add New Workout'}
+        </div>
       </div>
+      
       <div className={styles.AddWorkoutForm}>
         <div className={styles.formContent}>
-          <AddWorkoutForm workoutData={workoutData} onWorkoutDataChange={handleWorkoutDataChange} />
-          <div className={styles.subTitle}>Add exercises to your workout</div>
-
+          {!isExerciseFormVisible && (
+            <AddWorkoutForm
+              workoutData={workoutData}
+              onWorkoutDataChange={handleWorkoutDataChange}
+            />
+          )}  
           <div className={styles.AddExerciseForm}>
-            <AddExerciseForm onFormDataSubmit={handleSaveExercise} setIsExerciseFormVisible={setIsExerciseFormVisible}/>
+            <AddExerciseForm
+              onFormDataSubmit={handleSaveExercise}
+              setIsExerciseFormVisible={setIsExerciseFormVisible}
+            />
           </div>
-          {exercises.length>0 && !isExerciseFormVisible? <div className={styles.exercisesHeader}>
-            Your Exercises:
-          </div>:!isExerciseFormVisible?    <div className={styles.exercisesHeader}>
-          No Exercises added
-          </div>:""}
-          
-        {!isExerciseFormVisible? 
-        <List items={exercises} />
-        :""}
-    
+  
+          {exercises.length > 0 && !isExerciseFormVisible ? (
+            <div className={styles.exercisesHeader}>Your Exercises:</div>
+          ) : !isExerciseFormVisible ? (
+            <div className={styles.exercisesHeader}>No Exercises added</div>
+          ) : (
+            ''
+          )}
+  
+          {!isExerciseFormVisible ? <List items={exercises} /> : ''}
         </div>
-        <div className={styles.saveButton}>
-          <Button title="Save Workout" type="primary" onClick={handleSaveButtonClick} />
-        </div>
+          {!isExerciseFormVisible && (
+          <div className={styles.saveButton}>
+            <Button title="Save Workout" type="primary" onClick={handleSaveButtonClick} />
+          </div>
+        )}
       </div>
     </div>
   );
+  
+  
 }

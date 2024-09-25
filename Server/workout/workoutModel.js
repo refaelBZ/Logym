@@ -5,45 +5,49 @@ const exerciseSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     default: () => new mongoose.Types.ObjectId()
   },
-  name: { 
-    type: String, 
-    required: true 
+  name: {
+    type: String,
+    required: true
   },
-  sets: { 
-    type: Number, 
-    required: true 
+  sets: {
+    type: Number,
+    required: true
   },
-  reps: { 
-    type: Number, 
-    required: true 
+  reps: {
+    type: Number,
+    required: true
   },
-  muscleGroup: { 
-    type: String, 
-    required: true 
+  muscleGroup: {
+    type: String,
+    required: true
   },
-  done: { 
-    type: Boolean, 
-    default: false 
+  done: {
+    type: Boolean,
+    default: false
   },
-  lastdoneDate: { 
-    type: Date 
+  lastdoneDate: {
+    type: Date
   },
-  lastWeight: { 
-    type: Number 
+  lastWeight: {
+    type: Number
   },
-  lastReps: { 
-    type: Number 
+  lastReps: {
+    type: Number
   },
-  lastSets: { 
-    type: Number 
+  lastSets: {
+    type: Number
   },
-  lastDifficulty: { 
-    type: Number, 
-    min: 1, 
-    max: 10 
+  lastDifficulty: {
+    type: Number,
+    min: 1,
+    max: 10
   },
-  notes: { 
-    type: String 
+  notes: {
+    type: String
+  },
+  isActive: {
+    type: Boolean,
+    default: true
   },
   weightHistory: [
     {
@@ -79,45 +83,45 @@ const exerciseSchema = new mongoose.Schema({
 
 
 const workoutSchema = new mongoose.Schema({
-  name: { 
-    type: String, 
-    required: true 
+  name: {
+    type: String,
+    required: true
   },
-  description: { 
-    type: String 
+  description: {
+    type: String
   },
-  exercises: { 
-    type: [exerciseSchema], 
-    required: true 
+  exercises: {
+    type: [exerciseSchema],
+    required: true
   },
-  numberOfExercises: { 
-    type: Number, 
+  numberOfExercises: {
+    type: Number,
   },
-  completionRate: { 
-    type: Number, 
-    default: 0 
+  completionRate: {
+    type: Number,
+    default: 0
   },
-  startDate: { 
-    type: Date, 
-    default: Date.now 
+  startDate: {
+    type: Date,
+    default: Date.now
   },
-  lastDate: { 
-    type: Date 
+  lastDate: {
+    type: Date
   },
-  status: { 
-    type: String, 
-    enum: ['In Progress', 'Completed'], 
-    default: 'In Progress' 
+  status: {
+    type: String,
+    enum: ['In Progress', 'Completed'],
+    default: 'In Progress'
   },
-  generalNotes: { 
-    type: String 
+  generalNotes: {
+    type: String
   },
-  user: { 
-    type: mongoose.Schema.Types.ObjectId, 
-    ref: 'User' 
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
   },
-  duration: { 
-    type: Number 
+  duration: {
+    type: Number
   }
 });
 

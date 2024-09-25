@@ -17,16 +17,31 @@ async function updateExerciseInWorkout(workoutId, exerciseId, updatedExercise) {
     );
 }
 
+// update a workout
+async function update(workoutId, updatedWorkout) {
+    return await workoutModel.findByIdAndUpdate(workoutId, updatedWorkout, { new: true });
+}
+
 // get one workout
 async function readOne(workoutId) {
     return await workoutModel.findById(workoutId);
 }
+
 
 // add new workout
 async function create(workout) {
     const newWorkout = new workoutModel(workout);
     return await newWorkout.save();
 }
+//delte an exercise from a workout
+async function deleteExercise(workoutId, exerciseId) {
+    return await Workout.findOneAndUpdate(
+        { _id: workoutId, "exercises._id": exerciseId },
+        { $set: { "exercises.$.isActive": false } },
+        { new: true }
+    );
+}
+
 
 
 // Get all workouts for a specific user
@@ -98,4 +113,4 @@ async function readOneByUser(userId, workoutId) {
 
 
 
-module.exports = {  updateExerciseInWorkout, readOne, read,create, readByUser, readOneByUser }; 
+module.exports = {  updateExerciseInWorkout, readOne, read,create, readByUser, readOneByUser,deleteExercise ,update}; 
