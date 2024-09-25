@@ -151,7 +151,6 @@ export default function EditWorkout({ setWorkouts }) {
           <EditExerciseForm
             exercise={editingExercise}
             onFormDataSubmit={handleSaveExercise}
-            onCancel={handleCancelEdit}
           />
         )}
       </div>
