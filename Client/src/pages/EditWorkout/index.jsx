@@ -111,49 +111,52 @@ export default function EditWorkout({ setWorkouts }) {
   };
 
   return (
-    <div className={styles.addWorkoutPage}>
-      <div className={styles.header}>
-        <div className={styles.pageName}>
-          {editingExercise ? 'Edit Exercise' : 'Edit Workout'}
-        </div>
-      </div>
-      
-      <div className={styles.addWorkoutForm}>
-        {!editingExercise ? (
-          <>
-            <AddWorkoutForm
-              workoutData={workoutData}
-              onWorkoutDataChange={handleWorkoutDataChange}
-            />
-            <div className={styles.addExerciseButton}>
-              <Button 
-                title="Add Exercise" 
-                type="secondary" 
-                onClick={() => setEditingExercise({})}
-              />
-            </div>
-            {exercises.length > 0 ? (
-              <div className={styles.exercisesHeader}>Your Exercises:</div>
-            ) : (
-              <div className={styles.exercisesHeader}>No Exercises added</div>
-            )}
-            <List 
-              items={exercises}
-              loading={loading}
-              onDelete={handleDeleteExercise}
-              onEdit={handleEditExercise}
-            />
-            <div className={styles.saveButton}>
-              <Button title="Save Changes" type="primary" onClick={handleSaveButtonClick} />
-            </div>
-          </>
-        ) : (
-          <EditExerciseForm
-            exercise={editingExercise}
-            onFormDataSubmit={handleSaveExercise}
-          />
-        )}
-      </div>
+<div className={styles.addWorkoutPage}>
+  <div className={styles.header}>
+    <div className={styles.pageName}>
+      {editingExercise ? 'Edit Exercise' : 'Edit Workout'}
     </div>
+  </div>
+
+  <div className={styles.AddWorkoutForm}>
+    <div className={styles.formContent}>  {/* הוסף את ה-div הזה */}
+      {!editingExercise ? (
+        <>
+          <AddWorkoutForm
+            workoutData={workoutData}
+            onWorkoutDataChange={handleWorkoutDataChange}
+          />
+          <div className={styles.addExerciseButton}>
+            <Button 
+              title="Add Exercise" 
+              type="secondary" 
+              onClick={() => setEditingExercise({})}
+            />
+          </div>
+          {exercises.length > 0 ? (
+            <div className={styles.exercisesHeader}>Your Exercises:</div>
+          ) : (
+            <div className={styles.exercisesHeader}>No Exercises added</div>
+          )}
+          <List 
+            items={exercises}
+            loading={loading}
+            onDelete={handleDeleteExercise}
+            onEdit={handleEditExercise}
+          />
+          <div className={styles.saveButton}>
+            <Button title="Save Changes" type="primary" onClick={handleSaveButtonClick} />
+          </div>
+        </>
+      ) : (
+        <EditExerciseForm
+          exercise={editingExercise}
+          onFormDataSubmit={handleSaveExercise}
+        />
+      )}
+    </div>
+  </div>
+</div>
+
   );
 }
