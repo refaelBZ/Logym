@@ -8,6 +8,7 @@ import Login from '../../pages/Login';
 import axios from 'axios';
 import AddWorkout from '../../pages/AddWorkout';
 import Signup from '../../pages/Signup';
+import EditWorkout from '../../pages/EditWorkout';
 const apiUrl = import.meta.env.VITE_API_URL;
 
 export default function Layout() {
@@ -71,7 +72,7 @@ export default function Layout() {
             <Route path="/" element={<Home workouts={workouts} loading={loading} />} />
             <Route path="/home" element={<Home workouts={workouts} loading={loading} />} />
             <Route path="/workout/:id" element={<Workout />} />
-            <Route path="/add" element={<AddWorkout setWorkouts={setWorkouts} />} />
+            <Route path="/edit-workout/:workoutId" element={<EditWorkout setWorkouts={setWorkouts} />} />            <Route path="/add" element={<AddWorkout setWorkouts={setWorkouts} />} />
             <Route path="/progress" element={<Progress workouts={workouts} />} />
             <Route path="*" element={<Navigate to="/home" />} />
           </>

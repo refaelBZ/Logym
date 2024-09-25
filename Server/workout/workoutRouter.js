@@ -57,4 +57,35 @@ router.post('/', authenticateToken, async (req, res) => {
     }
   });
 
+  //delete workout
+  router.delete('/:workoutId/exercises/:exerciseId', authenticateToken, async (req, res) => {
+    try {
+        const updatedWorkout = await workoutService.deleteExercise({
+            workoutId: req.params.workoutId,
+            exerciseId: req.params.exerciseId
+        });
+        res.status(200).json(updatedWorkout);
+    } catch (err) {
+        res.status(400).json({ error: err.message });
+    }
+});
+  
+
+  //update workout
+
+  router.put('/:workoutId', authenticateToken, async (req, res) => {
+    try {
+        const updatedWorkout = await workoutService.updateWorkout(
+            req.user.userId, 
+            req.params.workoutId, 
+            req.body
+        );
+        console.log('Updated workout:', updatedWorkout);
+        res.send(updatedWorkout);
+    } catch (error) {
+        console.error('Error in workout update:', error);
+        res.status(500).send({ message: error.message, stack: error.stack });
+    }
+});
+
 module.exports = router;

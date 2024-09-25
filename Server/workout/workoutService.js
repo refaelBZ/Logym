@@ -25,7 +25,20 @@ async function createWorkout(data) {
 
 // Gets all workouts for a specific user
 async function getWorkoutsByUser(userId) {
-    return await workoutController.readByUser(userId);
+    // שליפת האימונים של המשתמש
+    const workouts = await workoutController.readByUser(userId);
+
+    // עבור כל אימון, נבדוק את ההערות בתרגילים
+    for (let workout of workouts) {
+        for (let exercise of workout.exercises) {
+            // אם אין הערות, נבצע ג'נרציה באמצעות OpenAI
+            if (!exercise.notes || exercise.notes.trim() === '') {
+                exercise.notes = await generateAIRecommendation(exercise.name);
+            }
+        }
+    }
+
+    return workouts;
 }
 
 // update the exercise
@@ -144,4 +157,86 @@ function calculateExerciseScore(weightHistory, repsHistory, setsHistory, difficu
     return Math.ceil(Math.max(0, Math.min(10, score)));
 }
 
-module.exports = { updateExercise, getWorkouts , createWorkout, getWorkoutsByUser };
+
+//delete exercise from workout
+async function deleteExercise(data) {
+    const { workoutId, exerciseId } = data;
+    const workout = await workoutController.readOne(workoutId);
+    if (!workout) {
+        throw new Error('Workout not found');
+    }
+
+    const exercise = workout.exercises.id(exerciseId);
+    if (!exercise) {
+        throw new Error('Exercise not found');
+    }
+
+    const updatedWorkout = await workoutController.deleteExercise(workoutId, exerciseId);
+    if (!updatedWorkout) {
+        throw new Error('Failed to delete exercise');
+    }
+
+    return updatedWorkout;
+}
+
+//update workout
+async function updateWorkout(userId, workoutId, data) {
+    const workout = await workoutController.readOneByUser(userId, workoutId);
+    if (!workout) throw new Error("Workout not found or you do not have permission");
+
+    // Update the basic workout information
+    workout.name = data.name;
+    workout.description = data.description;
+    workout.lastDate = new Date();
+
+    // Update exercises
+    workout.exercises = data.exercises.map(exercise => ({
+        ...exercise,
+        weightHistory: exercise.weightHistory || [{ weight: exercise.lastWeight || 0, date: new Date() }],
+        repsHistory: exercise.repsHistory || [{ reps: exercise.lastReps || 0, date: new Date() }],
+        setsHistory: exercise.setsHistory || [{ sets: exercise.lastSets || 0, date: new Date() }],
+        difficultyHistory: exercise.difficultyHistory || [{ difficulty: exercise.lastDifficulty || 1, date: new Date() }],
+        scoreHistory: exercise.scoreHistory || [{ score: 5, date: new Date() }]
+    }));
+
+    workout.numberOfExercises = workout.exercises.length;
+
+    const updatedWorkout = await workoutController.update(workoutId, workout);
+    if (!updatedWorkout) throw new Error("Failed to update workout");
+
+    return updatedWorkout;
+}
+
+
+
+
+const OpenAI = require("openai");
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+});
+
+async function generateAIRecommendation(exerciseName) {
+  try {
+    const prompt = `Provide a concise fitness recommendation for the exercise "${exerciseName}". The recommendation should be exactly 7 words or less. Do not include introductory phrases like "Sure" or "Here is". Example hints: "Keep back straight", "Legs at 90 degrees".`;
+
+    const response = await openai.chat.completions.create({
+      model: "gpt-4o-mini",
+      messages: [
+        { role: "system", content: "You are a fitness assistant." },
+        { role: "user", content: prompt },
+      ],
+      max_tokens: 20,
+      temperature: 0.5,
+    });
+
+    const recommendation = response.choices[0].message.content.trim();
+    return recommendation;
+  } catch (error) {
+    console.error("Error generating AI recommendation:", error);
+    return "No notes available.";
+  }
+}
+
+
+
+module.exports = { updateExercise, getWorkouts , createWorkout, getWorkoutsByUser,deleteExercise ,updateWorkout};

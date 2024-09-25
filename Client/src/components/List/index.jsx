@@ -3,7 +3,7 @@ import Item from '../../components/Item';
 import ExerciseItem from '../../components/ExerciseItem';
 import styles from './style.module.scss';
 
-export default function List({ items, loading }) {
+export default function List({ items, loading, onDelete, onEdit }) {
   if (loading) {
     return (
       <div className={styles.list}>
@@ -21,7 +21,12 @@ export default function List({ items, loading }) {
     <div className={styles.list}>
       {items.map((item, index) => (
         item.exerciseName ? (
-          <ExerciseItem key={index} exercise={item} />
+          <ExerciseItem 
+            key={item._id} 
+            exercise={item} 
+            onDelete={() => onDelete(item._id)}
+            onEdit={() => onEdit(item)}
+          />
         ) : (
           <Item key={index} workout={item} index={index} />
         )

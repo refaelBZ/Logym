@@ -170,12 +170,15 @@ const Workout = () => {
       </div>
       <div className={styles.inputs}>
         <Picker title="Weight" arr={weightArr} value={currentExerciseValues.weight} onValueChange={(value) => handleChange('weight', value)} />
-        <Picker title="Sets" arr={setsArr} value={currentExerciseValues.sets} onValueChange={(value) => handleChange('sets', value)} />
         <Picker title="Reps" arr={repsArr} value={currentExerciseValues.reps} onValueChange={(value) => handleChange('reps', value)} />
+        <Picker title="Sets" arr={setsArr} value={currentExerciseValues.sets} onValueChange={(value) => handleChange('sets', value)} />
         <Picker title="Difficulty" arr={difficultyArr} value={currentExerciseValues.difficulty} onValueChange={(value) => handleChange('difficulty', value)} />
       </div>
       <div className={styles.mid}>
-
+        <div className={styles.title}>
+          Notes:
+        </div>
+      {currentExercise.notes}
       </div>
       <div className={styles.actionButtons}>
         <Button

@@ -9,7 +9,7 @@
   }
 
   .exerciseTitle {
-    font-size: 20px;
+    font-size: 18px;
     color: var(--main-color);
     font-weight: 500;
   }
@@ -79,7 +79,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin: 10px;
+      gap: 5px;
     }
 
     .infoType {
@@ -89,7 +89,7 @@
 
     .infoValue {
       font-size: 18px;
-      color: white;
+      color: var(--main-color);
       font-weight: 400;
     }
   }
@@ -119,7 +119,7 @@
   max-width: 400px;
   text-align: center;
   color: white;
-  flex-grow: 1;
+  flex-grow: 2;
 
   // .detailsRow {
   //     display: flex;
@@ -133,42 +133,55 @@
 }
 
 .mid{
-  flex-grow: 2;
+  flex-grow: 1;
+  color: var(--gray-color);
+  background-color: var(--dark-gray);
+  border-radius: 15px;
+  padding: 20px;
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  .title{
+    @include text;
+
+  }
 }
 
 
-@media screen and (max-height: 800px) {
-  .workoutPage {
-    gap: 10px;
-  }
-  .exerciseInfoBox {
-    padding: 10px;
-    gap: 10px;
-  }
-  .inputs{
-    flex-grow: 0;
-    max-height: 300px;
-  }
+// @media screen and (max-height: 800px) {
+//   .workoutPage {
+//     gap: 10px;
+//   }
+//   .exerciseInfoBox {
+//     padding: 10px;
+//     gap: 10px;
+//   }
+//   .inputs{
+//     flex-grow: 0;
+//     max-height: 300px;
+//   }
 
-  .prevSkip {
-    gap: 5px;
+//   .prevSkip {
+//     gap: 5px;
 
-    button {
-      padding: 5px;
-      font-size: 14px;
-    }
-  }
+//     button {
+//       padding: 5px;
+//       font-size: 14px;
+//     }
+//   }
 
-  .actionButtons {
-    gap: 5px;
+//   .actionButtons {
+//     gap: 5px;
 
-    button {
-      padding: 10px;
-      font-size: 14px;
-    }
-  }
-  .mid{
-    display: none;
+//     button {
+//       padding: 10px;
+//       font-size: 14px;
+//     }
+//   }
+//   .mid{
+//     display: none;
   
-  }
-}
+//   }
+// }

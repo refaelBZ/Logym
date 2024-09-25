@@ -8,7 +8,9 @@ export default function ScoreBar({ score, date, isActive, onClick }) {
             <div className={`${styles.score} ${isActive ? styles.active : ''}`}>
                 {isActive ? score : ''}
             </div>
-            <div className={styles.column} style={{ height: `${score*10}px` }}>
+            <div className={styles.columnWrapper}>
+                <div className={styles.backgroundFill}></div>
+                <div className={styles.column} style={{ height: `${score * 10}px` }}></div>
             </div>
             <div className={styles.date}>
                 {date}

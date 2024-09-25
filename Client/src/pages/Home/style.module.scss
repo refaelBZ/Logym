@@ -9,7 +9,7 @@
   }
 
   .exerciseTitle {
-    font-size: 20px;
+    font-size: 18px;
     color: var(--main-color);
     font-weight: 500;
   }
@@ -36,11 +36,12 @@
     color: white;
   }
 
-  .exerciseTitle {
-    @include text-highlight;
-    font-size: 24px;
-    margin-bottom: 10px;
-  }
+  // .exerciseTitle {
+  //   @include text-highlight;
+  //   font-size: 24px;
+  //   margin-bottom: 10px;
+  //   background-color: aqua;
+  // }
 
   .exerciseInfoBox {
     background-color: var(--dark-gray);
@@ -67,14 +68,14 @@
         margin: 10px;
       }
 
-      .infoType {
-        font-size: 14px;
-        color: var(--gray-color);
-      }
+      // .infoType {
+      //   font-size: 14px;
+      //   color: var(--dark-gray);
+      // }
 
       .infoValue {
         font-size: 18px;
-        color: white;
+        color: var(--main-color);
         font-weight: 400;
       }
     }
