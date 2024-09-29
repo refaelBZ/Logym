@@ -45,13 +45,81 @@ async function deleteExercise(workoutId, exerciseId) {
 
 // Get all workouts for a specific user
 async function readByUser(userId) {
-    return await workoutModel.find({ user: userId });
+    const workouts = await workoutModel.find({ user: userId, isActive: true }).lean();
+    return workouts.map(filterActiveExercises);
+}
+
+function filterActiveExercises(workout) {
+    return {
+        ...workout,
+        exercises: workout.exercises.filter(exercise => exercise.isActive)
+    };
 }
 
 // Get a single workout by user and workout ID
 async function readOneByUser(userId, workoutId) {
     return await workoutModel.findOne({ _id: workoutId, user: userId });
 }
+
+module.exports = {  updateExerciseInWorkout, readOne, read,create, readByUser, readOneByUser,deleteExercise ,update}; 
+
+
+//OLD VERSION THAT WORKONG
+
+// const workoutModel = require('./workoutModel');
+// const mongoose = require('mongoose');
+
+// // get all the workouts
+// async function read() {
+//     return await workoutModel.find();
+// }
+
+// // update an exercise in a workout
+
+// async function updateExerciseInWorkout(workoutId, exerciseId, updatedExercise) {
+//     return await workoutModel.findOneAndUpdate(
+//         { _id: workoutId, "exercises._id": exerciseId },
+//         { $set: { "exercises.$": updatedExercise } },
+//         { new: true }
+//     );
+// }
+
+// // update a workout
+// async function update(workoutId, updatedWorkout) {
+//     return await workoutModel.findByIdAndUpdate(workoutId, updatedWorkout, { new: true });
+// }
+
+// // get one workout
+// async function readOne(workoutId) {
+//     return await workoutModel.findById(workoutId);
+// }
+
+
+// // add new workout
+// async function create(workout) {
+//     const newWorkout = new workoutModel(workout);
+//     return await newWorkout.save();
+// }
+// //delte an exercise from a workout
+// async function deleteExercise(workoutId, exerciseId) {
+//     return await Workout.findOneAndUpdate(
+//         { _id: workoutId, "exercises._id": exerciseId },
+//         { $set: { "exercises.$.isActive": false } },
+//         { new: true }
+//     );
+// }
+
+
+
+// // Get all workouts for a specific user
+// async function readByUser(userId) {
+//     return await workoutModel.find({ user: userId });
+// }
+
+// // Get a single workout by user and workout ID
+// async function readOneByUser(userId, workoutId) {
+//     return await workoutModel.findOne({ _id: workoutId, user: userId });
+// }
 
 
 //add workouts manually
@@ -112,7 +180,6 @@ async function readOneByUser(userId, workoutId) {
 
 
 
-module.exports = {  updateExerciseInWorkout, readOne, read,create, readByUser, readOneByUser,deleteExercise ,update}; 
 
 
 //code with filtered exercises, but make errors on handledone exercise:
