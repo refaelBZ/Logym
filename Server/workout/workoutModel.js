@@ -123,6 +123,11 @@ const workoutSchema = new mongoose.Schema({
   duration: {
     type: Number
   }
+  ,
+  isActive: {
+    type: Boolean,
+    default: true
+  }
 });
 
 const workoutModel = mongoose.model("Workout", workoutSchema);

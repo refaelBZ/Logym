@@ -25,6 +25,7 @@ const Workout = () => {
   const difficultyArr = useMemo(() => Array.from({ length: 10 }, (_, i) => i + 1), []);
 
   // State
+  
   const [currentExerciseIndex, setCurrentExerciseIndex] = useState(0);
   const [currentExerciseValues, setCurrentExerciseValues] = useState({
     weight: workout.exercises[currentExerciseIndex].lastWeight,
@@ -175,6 +176,9 @@ const Workout = () => {
           <ProgressBar percent={percent} className={styles.progress} />
           <div className={styles.exerciseNumber}>{exerciseNumber} / {totalExercises}</div>
         </div>
+        <div className={styles.notes}>
+        {currentExercise.notes}
+        </div>
       </div>
       <div className={styles.inputs}>
         <Picker title="Weight" arr={weightArr} value={currentExerciseValues.weight} onValueChange={(value) => handleChange('weight', value)} />
@@ -182,12 +186,9 @@ const Workout = () => {
         <Picker title="Sets" arr={setsArr} value={currentExerciseValues.sets} onValueChange={(value) => handleChange('sets', value)} />
         <Picker title="Difficulty" arr={difficultyArr} value={currentExerciseValues.difficulty} onValueChange={(value) => handleChange('difficulty', value)} />
       </div>
-      <div className={styles.mid}>
-        <div className={styles.title}>
-          {/* Notes: */}
-        </div>
+      {/* <div className={styles.mid}>
         {currentExercise.notes}
-      </div>
+      </div> */}
       <div className={styles.actionButtons}>
         <Button
           title={currentExerciseIndex === LastExerciseIndex ? "Complete Workout" : "Done"}
