@@ -1,0 +1,38 @@
+@import '/src/mixins.scss';
+
+.errorContainer {
+    background-color: var(--dark-gray);
+    border: 1px solid var(--main-color);
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    
+    .iconWrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+      .icon {
+        color: var(--main-color);
+        width: 24px;
+        height: 24px;
+      }
+    }
+    
+    .messageWrapper {
+      flex: 1;
+      
+      .title {
+        display: block;
+        font-weight: var(--font-weight-normal);
+        color: var(--main-color);
+      }
+      
+      .message {
+      @include text;
+      }
+    }
+  }
