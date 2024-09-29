@@ -37,7 +37,7 @@ export default function ExerciseItem({ exercise, onDelete, onEdit }) {
     ];
 
     return (
-        <div className={styles.exerciseInfoBox}>
+        <div className={styles.eserciseItem}>
             <div className={styles.top}>
                 <div className={styles.exerciseTitle}>
                     {exercise.exerciseName}

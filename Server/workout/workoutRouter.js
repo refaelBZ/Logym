@@ -88,4 +88,19 @@ router.post('/', authenticateToken, async (req, res) => {
     }
 });
 
+//delete workout
+router.delete('/:workoutId', authenticateToken, async (req, res) => {
+    try {
+        const deletedWorkout = await workoutService.deleteWorkout(
+            req.user.userId, 
+            req.params.workoutId
+        );
+        console.log('deleted workout:', deletedWorkout);
+        res.send(deletedWorkout);
+    } catch (error) {
+        console.error('Error in workout delete:', error);
+        res.status(500).send({ message: error.message, stack: error.stack });
+    }
+});
+
 module.exports = router;

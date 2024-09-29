@@ -3,14 +3,13 @@
 .chartContainer {
     @include border-card-style;
     width: 100%;
-    height: 220px;
+    height: 225px;
     display: flex;
     flex-direction: column;
     // gap: 10px;
     
     .name {
       @include text;
-      color: white;
       align-self: flex-start;
     }
   

@@ -15,6 +15,7 @@ export default function Layout() {
   const [workouts, setWorkouts] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const handleGetWorkouts = async () => {
     try {
@@ -33,6 +34,7 @@ export default function Layout() {
       setLoading(false);
     } catch (error) {
       console.error("There was an error fetching the workouts!", error);
+      setError("Three was an error fetching the workouts. Please try again.");
       console.error("Error details:", error.response ? error.response.data : error.message);
       setLoading(false);
       // If there is an error fetching workouts, assume the token is invalid
@@ -69,8 +71,8 @@ export default function Layout() {
           </>
         ) : (
           <>
-            <Route path="/" element={<Home workouts={workouts} loading={loading} />} />
-            <Route path="/home" element={<Home workouts={workouts} loading={loading} />} />
+           <Route path="/" element={<Home workouts={workouts} loading={loading} error={error} />} />
+           <Route path="/home" element={<Home workouts={workouts} loading={loading} error={error} />} />
             <Route path="/workout/:id" element={<Workout />} />
             <Route path="/edit-workout/:workoutId" element={<EditWorkout setWorkouts={setWorkouts} />} />            <Route path="/add" element={<AddWorkout setWorkouts={setWorkouts} />} />
             <Route path="/progress" element={<Progress workouts={workouts} />} />

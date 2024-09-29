@@ -14,7 +14,9 @@ export default function EditWorkout({ setWorkouts }) {
   const location = useLocation();
   const apiUrl = import.meta.env.VITE_API_URL;
 
-  const [exercises, setExercises] = useState([]);
+  const [exercises, setExercises] = useState([]);  // Full list of exercises, including inactive ones
+  const [visibleExercises, setVisibleExercises] = useState([]); // Exercises to display in the UI
+    
   const [workoutData, setWorkoutData] = useState({
     workoutName: '',
     description: ''
@@ -29,7 +31,7 @@ export default function EditWorkout({ setWorkouts }) {
         workoutName: name,
         description: description
       });
-      setExercises(exercises.map(exercise => ({
+      const initialExercises = exercises.map(exercise => ({
         _id: exercise._id,
         exerciseName: exercise.name,
         muscleGroup: exercise.muscleGroup,
@@ -37,26 +39,32 @@ export default function EditWorkout({ setWorkouts }) {
         reps: exercise.reps,
         weight: exercise.lastWeight,
         notes: exercise.notes,
-      })));
+        isActive: true, // Initialize all exercises as active
+      }));
+      setExercises(initialExercises);
+      setVisibleExercises(initialExercises);
     }
   }, [location.state]);
 
   const handleSaveExercise = (exerciseData) => {
-    // Check if we're editing an existing exercise
     if (editingExercise && editingExercise._id) {
-      // Update the existing exercise in the array
+      // Update existing exercise
       setExercises(prevExercises => 
         prevExercises.map(existingExercise => 
-          existingExercise._id === exerciseData._id ? exerciseData : existingExercise
+          existingExercise._id === exerciseData._id ? { ...exerciseData, isActive: true } : existingExercise
+        )
+      );
+      setVisibleExercises(prevExercises => 
+        prevExercises.map(existingExercise => 
+          existingExercise._id === exerciseData._id ? { ...exerciseData, isActive: true } : existingExercise
         )
       );
     } else {
-      // Add a new exercise to the array with a new ID
-      setExercises(prevExercises => 
-        [...prevExercises, { ...exerciseData, _id: Date.now().toString() }]
-      );
+      // Add new exercise
+      const newExercise = { ...exerciseData, _id: Date.now().toString(), isActive: true };
+      setExercises(prevExercises => [...prevExercises, newExercise]);
+      setVisibleExercises(prevExercises => [...prevExercises, newExercise]);
     }
-    // Clear the editing state
     setEditingExercise(null);
   };
 
@@ -67,16 +75,26 @@ export default function EditWorkout({ setWorkouts }) {
     }));
   };
 
-  const handleDeleteExercise = (exerciseId) => {
-    setExercises(prevExercises => prevExercises.filter(exercise => exercise._id !== exerciseId));
-  };
-
   const handleEditExercise = (exercise) => {
     setEditingExercise(exercise);
   };
 
+  const handleDeleteExercise = (exerciseId) => {
+    // Mark the exercise as inactive in the full list
+    setExercises(prevExercises => 
+      prevExercises.map(exercise => 
+        exercise._id === exerciseId ? { ...exercise, isActive: false } : exercise
+      )
+    );
+    // Remove the exercise from the visible list
+    setVisibleExercises(prevExercises => 
+      prevExercises.filter(exercise => exercise._id !== exerciseId)
+    );
+  };
+  
   const handleSaveButtonClick = async () => {
     setLoading(true);
+  
     const updatedWorkout = {
       name: workoutData.workoutName,
       description: workoutData.description,
@@ -88,9 +106,10 @@ export default function EditWorkout({ setWorkouts }) {
         reps: Number(exercise.reps),
         lastWeight: Number(exercise.weight),
         notes: exercise.notes,
+        isActive: exercise.isActive
       }))
     };
-
+  
     try {
       const token = localStorage.getItem('logym_token');
       const response = await axios.put(`${apiUrl}/workout/${workoutId}`, updatedWorkout, {
@@ -98,6 +117,7 @@ export default function EditWorkout({ setWorkouts }) {
           Authorization: `Bearer ${token}`,
         },
       });
+  
       console.log('Workout updated successfully:', response.data);
       setWorkouts(prevWorkouts => prevWorkouts.map(workout => 
         workout._id === workoutId ? response.data : workout
@@ -111,52 +131,51 @@ export default function EditWorkout({ setWorkouts }) {
   };
 
   return (
-<div className={styles.addWorkoutPage}>
-  <div className={styles.header}>
-    <div className={styles.pageName}>
-      {editingExercise ? 'Edit Exercise' : 'Edit Workout'}
-    </div>
-  </div>
+    <div className={styles.addWorkoutPage}>
+      <div className={styles.header}>
+        <div className={styles.pageName}>
+          {editingExercise ? 'Edit Exercise' : 'Edit Workout'}
+        </div>
+      </div>
 
-  <div className={styles.AddWorkoutForm}>
-    <div className={styles.formContent}>  {/* הוסף את ה-div הזה */}
-      {!editingExercise ? (
-        <>
-          <AddWorkoutForm
-            workoutData={workoutData}
-            onWorkoutDataChange={handleWorkoutDataChange}
-          />
-          <div className={styles.addExerciseButton}>
-            <Button 
-              title="Add Exercise" 
-              type="secondary" 
-              onClick={() => setEditingExercise({})}
-            />
-          </div>
-          {exercises.length > 0 ? (
-            <div className={styles.exercisesHeader}>Your Exercises:</div>
+      <div className={styles.AddWorkoutForm}>
+        <div className={styles.formContent}>
+          {!editingExercise ? (
+            <>
+              <AddWorkoutForm
+                workoutData={workoutData}
+                onWorkoutDataChange={handleWorkoutDataChange}
+              />
+              <div className={styles.addExerciseButton}>
+                <Button 
+                  title="Add Exercise" 
+                  type="secondary" 
+                  onClick={() => setEditingExercise({})}
+                />
+              </div>
+              {visibleExercises.length > 0 ? (
+                <div className={styles.exercisesHeader}>Your Exercises:</div>
+              ) : (
+                <div className={styles.exercisesHeader}>No Exercises added</div>
+              )}
+              <List 
+                items={visibleExercises}
+                loading={loading}
+                onDelete={handleDeleteExercise}
+                onEdit={handleEditExercise}
+              />
+              <div className={styles.saveButton}>
+                <Button title="Save Changes" type="primary" onClick={handleSaveButtonClick} />
+              </div>
+            </>
           ) : (
-            <div className={styles.exercisesHeader}>No Exercises added</div>
+            <EditExerciseForm
+              exercise={editingExercise}
+              onFormDataSubmit={handleSaveExercise}
+            />
           )}
-          <List 
-            items={exercises}
-            loading={loading}
-            onDelete={handleDeleteExercise}
-            onEdit={handleEditExercise}
-          />
-          <div className={styles.saveButton}>
-            <Button title="Save Changes" type="primary" onClick={handleSaveButtonClick} />
-          </div>
-        </>
-      ) : (
-        <EditExerciseForm
-          exercise={editingExercise}
-          onFormDataSubmit={handleSaveExercise}
-        />
-      )}
+        </div>
+      </div>
     </div>
-  </div>
-</div>
-
   );
 }

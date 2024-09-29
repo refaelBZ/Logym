@@ -28,15 +28,15 @@ async function getWorkoutsByUser(userId) {
     // שליפת האימונים של המשתמש
     const workouts = await workoutController.readByUser(userId);
 
-    // עבור כל אימון, נבדוק את ההערות בתרגילים
-    for (let workout of workouts) {
-        for (let exercise of workout.exercises) {
-            // אם אין הערות, נבצע ג'נרציה באמצעות OpenAI
-            if (!exercise.notes || exercise.notes.trim() === '') {
-                exercise.notes = await generateAIRecommendation(exercise.name);
-            }
-        }
-    }
+    // // עבור כל אימון, נבדוק את ההערות בתרגילים
+    // for (let workout of workouts) {
+    //     for (let exercise of workout.exercises) {
+    //         // אם אין הערות, נבצע ג'נרציה באמצעות OpenAI
+    //         if (!exercise.notes || exercise.notes.trim() === '') {
+    //             exercise.notes = await generateAIRecommendation(exercise.name);
+    //         }
+    //     }
+    // }
 
     return workouts;
 }
@@ -189,6 +189,12 @@ async function updateWorkout(userId, workoutId, data) {
     workout.description = data.description;
     workout.lastDate = new Date();
 
+      // update the isActive status 
+  workout.exercises = data.exercises.map(exercise => ({
+    ...exercise,
+    isActive: exercise.isActive 
+  }));
+
     // Update exercises
     workout.exercises = data.exercises.map(exercise => ({
         ...exercise,
@@ -207,36 +213,57 @@ async function updateWorkout(userId, workoutId, data) {
     return updatedWorkout;
 }
 
+//delete workout
+async function deleteWorkout(userId, workoutId) {
+    try {
+        const workout = await workoutController.readOneByUser(userId, workoutId);
+        
+        if (!workout) {
+            throw new Error("Workout not found or you do not have permission");
+        }
 
+        workout.isActive = false;
+        const updatedWorkout = await workoutController.update(workoutId, workout);
+        
+        if (!updatedWorkout) {
+            throw new Error("Failed to delete workout");
+        }
 
-
-const OpenAI = require("openai");
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
-
-async function generateAIRecommendation(exerciseName) {
-  try {
-    const prompt = `Provide a concise fitness recommendation for the exercise "${exerciseName}". The recommendation should be exactly 7 words or less. Do not include introductory phrases like "Sure" or "Here is". Example hints: "Keep back straight", "Legs at 90 degrees".`;
-
-    const response = await openai.chat.completions.create({
-      model: "gpt-4o-mini",
-      messages: [
-        { role: "system", content: "You are a fitness assistant." },
-        { role: "user", content: prompt },
-      ],
-      max_tokens: 20,
-      temperature: 0.5,
-    });
-
-    const recommendation = response.choices[0].message.content.trim();
-    return recommendation;
-  } catch (error) {
-    console.error("Error generating AI recommendation:", error);
-    return "No notes available.";
-  }
+        return { message: "Workout deleted successfully" };
+    } catch (error) {
+        console.error("Error in deleteWorkout:", error);
+        throw error;
+    }
 }
 
 
+// const OpenAI = require("openai");
+// const openai = new OpenAI({
+//   apiKey: process.env.OPENAI_API_KEY,
+// });
 
-module.exports = { updateExercise, getWorkouts , createWorkout, getWorkoutsByUser,deleteExercise ,updateWorkout};
+// async function generateAIRecommendation(exerciseName) {
+//   try {
+//     const prompt = `Provide a concise fitness recommendation for the exercise "${exerciseName}". The recommendation should be exactly 7 words or less. Do not include introductory phrases like "Sure" or "Here is". Example hints: "Keep back straight", "Legs at 90 degrees".`;
+
+//     const response = await openai.chat.completions.create({
+//       model: "gpt-4o-mini",
+//       messages: [
+//         { role: "system", content: "You are a fitness assistant." },
+//         { role: "user", content: prompt },
+//       ],
+//       max_tokens: 20,
+//       temperature: 0.5,
+//     });
+
+//     const recommendation = response.choices[0].message.content.trim();
+//     return recommendation;
+//   } catch (error) {
+//     console.error("Error generating AI recommendation:", error);
+//     return "No notes available.";
+//   }
+// }
+
+
+
+module.exports = { updateExercise, getWorkouts , createWorkout, getWorkoutsByUser,deleteExercise ,updateWorkout,deleteWorkout};
