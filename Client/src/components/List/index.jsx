@@ -1,9 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Item from '../../components/Item';
 import ExerciseItem from '../../components/ExerciseItem';
 import styles from './style.module.scss';
 
 export default function List({ items, loading, onDelete, onEdit }) {
+  // State to keep track of which menu is currently open
+  const [openMenuId, setOpenMenuId] = useState(null);
+  
+
+  // Function to toggle menu open/close
+  const handleToggleMenu = (id) => {
+    setOpenMenuId(prevId => prevId === id ? null : id);
+  };
+
+  // Show skeleton loading state
   if (loading) {
     return (
       <div className={styles.list}>
@@ -19,16 +29,25 @@ export default function List({ items, loading, onDelete, onEdit }) {
 
   return (
     <div className={styles.list}>
-      {items.map((item, index) => (
+      {items.map((item) => (
         item.exerciseName ? (
-          <ExerciseItem 
-            key={item._id} 
-            exercise={item} 
+          // Render ExerciseItem for exercises
+          <ExerciseItem
+            key={item._id}
+            exercise={item}
             onDelete={() => onDelete(item._id)}
             onEdit={() => onEdit(item)}
+            isMenuOpen={openMenuId === item._id}
+            onToggleMenu={() => handleToggleMenu(item._id)}
           />
         ) : (
-          <Item key={index} workout={item} index={index} />
+          // Render Item for workouts
+          <Item
+            key={item._id}
+            workout={item}
+            isMenuOpen={openMenuId === item._id}
+            onToggleMenu={() => handleToggleMenu(item._id)}
+          />
         )
       ))}
     </div>

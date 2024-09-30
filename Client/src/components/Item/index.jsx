@@ -8,18 +8,19 @@ import axios from 'axios';
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
-export default function Item({ workout }) {
-    const [menuVisible, setMenuVisible] = useState(false);
+export default function Item({ workout, isMenuOpen, onToggleMenu }) {
     const [isDeleting, setIsDeleting] = useState(false);
-    const [isVisible, setIsVisible] = useState(true);  // New state for visibility
+    const [isVisible, setIsVisible] = useState(true);
     const navigate = useNavigate();
 
+    // Toggle menu visibility
     const toggleMenu = (event) => {
         event.preventDefault();
         event.stopPropagation();
-        setMenuVisible(!menuVisible);
+        onToggleMenu();
     };
 
+    // Delete workout function
     const deleteWorkout = async (event) => {
         event.preventDefault();
         event.stopPropagation();
@@ -36,14 +37,16 @@ export default function Item({ workout }) {
             console.error('Error deleting workout:', error);
         } finally {
             setIsDeleting(false);
-            setMenuVisible(false);
+            onToggleMenu(); // Close menu after deletion attempt
         }
     };
 
+    // Calculate progress
     const completedExercises = workout.exercises.filter(exercise => exercise.done).length;
     const totalExercises = workout.exercises.length;
     const progressPercent = (completedExercises / totalExercises) * 100;
 
+    // Menu options
     const menuOptions = [
         { 
             icon: <FiEdit />, 
@@ -54,7 +57,7 @@ export default function Item({ workout }) {
                 navigate(`/edit-workout/${workout._id}`, { state: { workout } });
             }
         },       
-        { icon: <FiCopy />, name: 'Duplicate', onClick: () => console.log('Duplicate clicked') },
+        // { icon: <FiCopy />, name: 'Duplicate', onClick: () => console.log('Duplicate clicked') },
         { 
             icon: <FiTrash2 />, 
             name: 'Delete', 
@@ -63,8 +66,9 @@ export default function Item({ workout }) {
         },
     ];
 
+    // Don't render anything if the workout is not visible
     if (!isVisible) {
-        return null;  // Don't render anything if the workout is not visible
+        return null;
     }
 
     return (
@@ -84,7 +88,7 @@ export default function Item({ workout }) {
                         <div onClick={toggleMenu} className={styles.moreIcon}>
                             <img src="/Icon more horiz.svg" alt="more options" />
                         </div>
-                        {menuVisible && <Menu options={menuOptions} />}
+                        {isMenuOpen && <Menu options={menuOptions} />}
                     </div>
                 </div>
                 <div className={styles.progressBar}>

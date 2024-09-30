@@ -14,7 +14,10 @@
     position: relative;
     overflow: hidden;
     transition: background-color 0.3s ease;
-  
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
     &.loading {
     background-color: var(--background-color);
       border: 1px solid transparent;
@@ -70,6 +73,10 @@
         font-size: var(--font-size-lg);
         font-weight: 300;
         outline: none;
+    }
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
     }
 
 }

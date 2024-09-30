@@ -11,7 +11,12 @@ async function read() {
 async function updateExerciseInWorkout(workoutId, exerciseId, updatedExercise) {
     return await workoutModel.findOneAndUpdate(
         { _id: workoutId, "exercises._id": exerciseId },
-        { $set: { "exercises.$": updatedExercise } },
+        { 
+            $set: { 
+                "exercises.$": updatedExercise,
+                "lastDate": new Date()
+            }
+        },
         { new: true }
     );
 }

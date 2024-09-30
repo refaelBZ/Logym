@@ -15,7 +15,7 @@ async function createWorkout(data) {
         repsHistory: exercise.repsHistory && exercise.repsHistory.length > 0 ? exercise.repsHistory : [{ reps: exercise.lastReps || 0, date: new Date() }],
         setsHistory: exercise.setsHistory && exercise.setsHistory.length > 0 ? exercise.setsHistory : [{ sets: exercise.lastSets || 0, date: new Date() }],
         difficultyHistory: exercise.difficultyHistory && exercise.difficultyHistory.length > 0 ? exercise.difficultyHistory : [{ difficulty: exercise.lastDifficulty || 1, date: new Date() }],
-        scoreHistory: exercise.scoreHistory && exercise.scoreHistory.length > 0 ? exercise.scoreHistory : [{ score: 5, date: new Date() }]  // ציון בסיסי של 5
+        scoreHistory: []
     }));
 
     const newWorkout = await workoutController.create(data);

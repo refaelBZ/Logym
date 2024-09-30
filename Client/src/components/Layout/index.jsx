@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Home from '../../pages/Home';
 import Workout from '../../pages/Workout';
@@ -60,6 +60,15 @@ export default function Layout() {
     }
   }, [isLoggedIn]);
 
+
+  const sortedWorkouts = useMemo(() => {
+    return [...workouts].sort((a, b) => {
+      const dateA = a.lastDate ? new Date(a.lastDate) : new Date(0);
+      const dateB = b.lastDate ? new Date(b.lastDate) : new Date(0);
+      return dateA - dateB; // סדר עולה (מהישן לחדש)
+    });
+  }, [workouts]);
+
   return (
     <div>
       <Routes>
@@ -71,11 +80,12 @@ export default function Layout() {
           </>
         ) : (
           <>
-           <Route path="/" element={<Home workouts={workouts} loading={loading} error={error} />} />
-           <Route path="/home" element={<Home workouts={workouts} loading={loading} error={error} />} />
+           <Route path="/" element={<Home workouts={sortedWorkouts} loading={loading} error={error} />} />
+           <Route path="/home" element={<Home workouts={sortedWorkouts} loading={loading} error={error} />} />
             <Route path="/workout/:id" element={<Workout />} />
-            <Route path="/edit-workout/:workoutId" element={<EditWorkout setWorkouts={setWorkouts} />} />            <Route path="/add" element={<AddWorkout setWorkouts={setWorkouts} />} />
-            <Route path="/progress" element={<Progress workouts={workouts} />} />
+            <Route path="/edit-workout/:workoutId" element={<EditWorkout setWorkouts={setWorkouts} />} />
+            <Route path="/add" element={<AddWorkout setWorkouts={setWorkouts} />} />
+            <Route path="/progress" element={<Progress workouts={sortedWorkouts} />} />
             <Route path="*" element={<Navigate to="/home" />} />
           </>
         )}

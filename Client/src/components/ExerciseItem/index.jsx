@@ -1,40 +1,44 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './style.module.scss';
 import Menu from '../Menu';
 import { FiTrash2, FiEdit, FiCopy } from 'react-icons/fi';
 
-export default function ExerciseItem({ exercise, onDelete, onEdit }) {
-    const [menuVisible, setMenuVisible] = useState(false);
-
-    const toggleMenu = (event) => {
-        event.preventDefault();
-        event.stopPropagation();
-        setMenuVisible(!menuVisible);
-    };
-
+export default function ExerciseItem({ exercise, onDelete, onEdit, isMenuOpen, onToggleMenu }) {
+    // Menu options
     const menuOptions = [
         { 
             icon: <FiEdit />, 
             name: 'Edit', 
-            onClick: () => {
+            onClick: (event) => {
+                event.preventDefault();
+                event.stopPropagation();
                 if (onEdit && typeof onEdit === 'function') {
                     onEdit(exercise);
-                    setMenuVisible(false);
+                    onToggleMenu(); // Close menu after edit
                 }
             }
         },
-        { icon: <FiCopy />, name: 'Duplicate', onClick: () => console.log('Duplicate clicked') },
+        // { icon: <FiCopy />, name: 'Duplicate', onClick: () => console.log('Duplicate clicked') },
         { 
             icon: <FiTrash2 />, 
             name: 'Delete', 
-            onClick: () => {
+            onClick: (event) => {
+                event.preventDefault();
+                event.stopPropagation();
                 if (onDelete && typeof onDelete === 'function') {
                     onDelete(exercise._id);
-                    setMenuVisible(false);
+                    onToggleMenu(); // Close menu after delete
                 }
             }
         },
     ];
+
+    // Toggle menu visibility
+    const toggleMenu = (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        onToggleMenu();
+    };
 
     return (
         <div className={styles.eserciseItem}>
@@ -46,7 +50,7 @@ export default function ExerciseItem({ exercise, onDelete, onEdit }) {
                     <div onClick={toggleMenu} className={styles.moreIcon}>
                         <img src="/Icon more horiz.svg" alt="more options" />
                     </div>
-                    {menuVisible && <Menu options={menuOptions} />}
+                    {isMenuOpen && <Menu options={menuOptions} />}
                 </div>
             </div>
             <div className={styles.subtitle}>
