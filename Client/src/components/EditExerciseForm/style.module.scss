@@ -40,7 +40,7 @@
     .notes {
       width: 100%;
 
-      input {
+      input,textarea {
         @include input;
         width: 100%;
         height: 100px;

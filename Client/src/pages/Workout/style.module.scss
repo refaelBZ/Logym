@@ -192,3 +192,39 @@
   
 //   }
 // }
+
+
+@media screen and (max-height: 812px) { // iPhone X height
+  .workoutPage {
+    gap: 10px;
+    justify-content: space-between;
+  }
+  .exerciseInfoBox {
+    padding: 10px;
+    gap: 10px;
+  }
+
+  .inputs {
+    flex-grow: 0;
+  }
+
+  .prevSkip {
+
+    button {
+      padding: 5px;
+      font-size: 14px;
+    }
+  }
+
+  .actionButtons {
+
+    button {
+      padding: 10px;
+      font-size: 14px;
+    }
+  }
+
+  .notes {
+    display: none; // Hide notes on small screens to save space
+  }
+}

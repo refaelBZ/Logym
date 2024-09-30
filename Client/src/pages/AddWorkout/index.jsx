@@ -7,11 +7,15 @@ import axios from 'axios'; // Import Axios
 import ExerciseItem from '../../components/ExerciseItem';
 import List from '../../components/List';
 import { useNavigate } from 'react-router-dom';
+import ErrorItem from '../../components/ErrorItem';
+
 
 export default function AddWorkout({setWorkouts}) {
 
   const apiUrl = import.meta.env.VITE_API_URL;
   const navigate = useNavigate();
+
+  const [error, setError] = useState(null);
 
   const [isExerciseFormVisible, setIsExerciseFormVisible] = useState(false);
   const [exercises, setExercises] = useState([]);
@@ -25,6 +29,8 @@ export default function AddWorkout({setWorkouts}) {
     setExercises((prevExercises) => [...prevExercises, exerciseData]);
     console.log('Exercises updated:', exercises);
     setIsExerciseFormVisible(false);
+      setError(null); // Clear any existing error when an exercise is added
+
   };
 
   // Update workout data in state
@@ -37,10 +43,22 @@ export default function AddWorkout({setWorkouts}) {
 
   // Handle save button click to submit workout and exercises data
   const handleSaveButtonClick = async () => {
+
+    // Check if there are any exercises in the list. if not, show error and return.
+    if (exercises.length === 0) {
+      setError("Cannot save workout without exercises. Please add at least one exercise.");
+      return;
+    }
+
+    if (workoutData.workoutName === '') {
+      setError("Cannot save workout without a name. Please enter a name.");
+      return;
+    }
+
     const fullWorkout = {
       name: workoutData.workoutName,
       description: workoutData.description,
-      lastDate: new Date(),
+      // lastDate: new Date(),
       exercises: exercises.map(exercise => ({
         name: exercise.exerciseName,
         muscleGroup: exercise.muscleGroup,
@@ -63,6 +81,7 @@ export default function AddWorkout({setWorkouts}) {
         navigate('/home');
     } catch (error) {
       console.error('Error saving workout:', error);
+      setError("Failed to save workout. Please try again.");
     }
   };
   
@@ -100,6 +119,7 @@ export default function AddWorkout({setWorkouts}) {
   
           {!isExerciseFormVisible ? <List items={exercises} /> : ''}
         </div>
+        {error && <ErrorItem message={error} />}
           {!isExerciseFormVisible && (
           <div className={styles.saveButton}>
             <Button title="Save Workout" type="primary" onClick={handleSaveButtonClick} />

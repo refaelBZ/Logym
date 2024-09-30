@@ -120,7 +120,7 @@ export default function EditExerciseForm({ exercise, onFormDataSubmit, onCancel 
         </div>
         <div className={styles.notes}>
           <label>
-            <input
+            <textarea
               type="text"
               name="notes"
               value={exerciseData.notes}

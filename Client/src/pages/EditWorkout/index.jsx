@@ -80,16 +80,19 @@ export default function EditWorkout({ setWorkouts }) {
   };
 
   const handleDeleteExercise = (exerciseId) => {
+    
     // Mark the exercise as inactive in the full list
     setExercises(prevExercises => 
       prevExercises.map(exercise => 
         exercise._id === exerciseId ? { ...exercise, isActive: false } : exercise
       )
+      
     );
     // Remove the exercise from the visible list
     setVisibleExercises(prevExercises => 
       prevExercises.filter(exercise => exercise._id !== exerciseId)
     );
+    
   };
   
   const handleSaveButtonClick = async () => {
