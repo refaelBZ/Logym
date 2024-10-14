@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useState, useCallback, useMemo, useEffect } from 'react';
 import axios from 'axios';
 import styles from './style.module.scss';
 import Button from '../../components/Button';
@@ -21,12 +21,12 @@ const Workout = () => {
   // State
   const [currentExerciseIndex, setCurrentExerciseIndex] = useState(0);
   const [completedExercises, setCompletedExercises] = useState(new Set());
-  const [currentExerciseValues, setCurrentExerciseValues] = useState({
-    weight: workout.exercises[currentExerciseIndex].lastWeight,
-    sets: workout.exercises[currentExerciseIndex].lastSets,
-    reps: workout.exercises[currentExerciseIndex].lastReps,
-    difficulty: workout.exercises[currentExerciseIndex].lastDifficulty,
-  });
+const [currentExerciseValues, setCurrentExerciseValues] = useState({
+    weight: workout.exercises[currentExerciseIndex]?.lastWeight || 0,
+    sets: workout.exercises[currentExerciseIndex]?.lastSets || 0,
+    reps: workout.exercises[currentExerciseIndex]?.lastReps || 0,
+    difficulty: workout.exercises[currentExerciseIndex]?.difficultyHistory[workout.exercises[currentExerciseIndex]?.difficultyHistory.length - 1]?.difficulty || 8,  });
+
 
   // Handle loading state for button click
   const [isLoading, setIsLoading] = useState(false);
@@ -44,6 +44,20 @@ const Workout = () => {
       [type]: value,
     }));
   }, []);
+
+// //updates the currentExerciseValues whenever the currentExerciseIndex changes.
+// //This ensures that we're always using the most up-to-date values from the server.
+//   useEffect(() => {
+//     if (workout.exercises[currentExerciseIndex]) {
+//       const exercise = workout.exercises[currentExerciseIndex];
+//       setCurrentExerciseValues({
+//         weight: exercise.lastWeight || 0,
+//         sets: exercise.lastSets || 0,
+//         reps: exercise.lastReps || 0,
+//         difficulty: exercise.lastDifficulty || 1,
+//       });
+//     }
+//   }, [currentExerciseIndex, workout.exercises]);
 
   // Calculate progress percentage
   const calculatePercent = useCallback((index, total) => {
@@ -77,8 +91,8 @@ const Workout = () => {
       lastWeight: currentExerciseValues.weight,
       lastSets: currentExerciseValues.sets,
       lastReps: currentExerciseValues.reps,
-      lastDifficulty: currentExerciseValues.difficulty,
-      done: true,
+      lastDifficulty: currentExerciseValues.difficulty || workout.exercises[currentExerciseIndex].lastDifficulty,
+      done: true, 
       lastdoneDate: new Date().toISOString(),
       weightHistory: { weight: currentExerciseValues.weight, date: new Date().toISOString() },
       repsHistory: { reps: currentExerciseValues.reps, date: new Date().toISOString() },
@@ -168,18 +182,18 @@ const Workout = () => {
         <div></div>
       </div>
       <div className={styles.exerciseInfoBox}>
-        <div className={styles.exerciseTitle}>{currentExercise.name}</div>
+        <div className={styles.exerciseTitle}>{currentExercise?.name || ''}</div>
         <div className={styles.exerciseInfo}>
           <div className={styles.infoItem}>
-            <div className={styles.infoValue}>{currentExercise.sets}</div>
+            <div className={styles.infoValue}>{currentExercise?.sets || ''}</div>
             <div className={styles.infoType}>Sets</div>
           </div>
           <div className={styles.infoItem}>
-            <div className={styles.infoValue}>{currentExercise.reps}</div>
+            <div className={styles.infoValue}>{currentExercise?.reps||''}</div>
             <div className={styles.infoType}>Reps</div>
           </div>
           <div className={styles.infoItem}>
-            <div className={styles.infoValue}>{currentExercise.muscleGroup}</div>
+            <div className={styles.infoValue}>{currentExercise?.muscleGroup || ''}</div>
             <div className={styles.infoType}>Muscles</div>
           </div>
         </div>
@@ -188,7 +202,7 @@ const Workout = () => {
           <div className={styles.exerciseNumber}>{exerciseNumber} / {totalExercises}</div>
         </div>
         <div className={styles.notes}>
-        {currentExercise.notes}
+        {currentExercise?.notes || ''}
         </div>
       </div>
       <div className={styles.inputs}>
