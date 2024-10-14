@@ -14,7 +14,7 @@ async function createWorkout(data) {
         weightHistory: exercise.weightHistory && exercise.weightHistory.length > 0 ? exercise.weightHistory : [{ weight: exercise.lastWeight || 0, date: new Date() }],
         repsHistory: exercise.repsHistory && exercise.repsHistory.length > 0 ? exercise.repsHistory : [{ reps: exercise.lastReps || 0, date: new Date() }],
         setsHistory: exercise.setsHistory && exercise.setsHistory.length > 0 ? exercise.setsHistory : [{ sets: exercise.lastSets || 0, date: new Date() }],
-        difficultyHistory: exercise.difficultyHistory && exercise.difficultyHistory.length > 0 ? exercise.difficultyHistory : [{ difficulty: exercise.lastDifficulty || 1, date: new Date() }],
+        difficultyHistory: exercise.difficultyHistory && exercise.difficultyHistory.length > 0 ? exercise.difficultyHistory : [{ difficulty: exercise.lastDifficulty || 8, date: new Date() }], // Default difficulty to 8 if not provided
         scoreHistory: []
     }));
 
@@ -180,6 +180,39 @@ async function deleteExercise(data) {
 }
 
 //update workout
+// async function updateWorkout(userId, workoutId, data) {
+//     const workout = await workoutController.readOneByUser(userId, workoutId);
+//     if (!workout) throw new Error("Workout not found or you do not have permission");
+
+//     // Update the basic workout information
+//     workout.name = data.name;
+//     workout.description = data.description;
+//     workout.lastDate = new Date();
+
+//       // update the isActive status 
+//   workout.exercises = data.exercises.map(exercise => ({
+//     ...exercise,
+//     isActive: exercise.isActive 
+//   }));
+
+//     // Update exercises
+//     workout.exercises = data.exercises.map(exercise => ({
+//         ...exercise,
+//         weightHistory: exercise.weightHistory || [{ weight: exercise.lastWeight || 0, date: new Date() }],
+//         repsHistory: exercise.repsHistory || [{ reps: exercise.lastReps || 0, date: new Date() }],
+//         setsHistory: exercise.setsHistory || [{ sets: exercise.lastSets || 0, date: new Date() }],
+//         difficultyHistory: exercise.difficultyHistory || [{ difficulty: exercise.lastDifficulty || (exercise.difficultyHistory && exercise.difficultyHistory.length > 0 ? exercise.difficultyHistory[exercise.difficultyHistory.length - 1].difficulty : 8), date: new Date() }],
+//         scoreHistory: exercise.scoreHistory || [{ score: 5, date: new Date() }]
+//     }));
+
+//     workout.numberOfExercises = workout.exercises.length;
+
+//     const updatedWorkout = await workoutController.update(workoutId, workout);
+//     if (!updatedWorkout) throw new Error("Failed to update workout");
+
+//     return updatedWorkout;
+// }
+
 async function updateWorkout(userId, workoutId, data) {
     const workout = await workoutController.readOneByUser(userId, workoutId);
     if (!workout) throw new Error("Workout not found or you do not have permission");
@@ -189,21 +222,20 @@ async function updateWorkout(userId, workoutId, data) {
     workout.description = data.description;
     workout.lastDate = new Date();
 
-      // update the isActive status 
-  workout.exercises = data.exercises.map(exercise => ({
-    ...exercise,
-    isActive: exercise.isActive 
-  }));
-
     // Update exercises
-    workout.exercises = data.exercises.map(exercise => ({
-        ...exercise,
-        weightHistory: exercise.weightHistory || [{ weight: exercise.lastWeight || 0, date: new Date() }],
-        repsHistory: exercise.repsHistory || [{ reps: exercise.lastReps || 0, date: new Date() }],
-        setsHistory: exercise.setsHistory || [{ sets: exercise.lastSets || 0, date: new Date() }],
-        difficultyHistory: exercise.difficultyHistory || [{ difficulty: exercise.lastDifficulty || 1, date: new Date() }],
-        scoreHistory: exercise.scoreHistory || [{ score: 5, date: new Date() }]
-    }));
+    workout.exercises = data.exercises.map((updatedExercise, index) => {
+        const existingExercise = workout.exercises[index] || {};
+        return {
+            ...existingExercise,
+            ...updatedExercise,
+            weightHistory: existingExercise.weightHistory || updatedExercise.weightHistory || [{ weight: updatedExercise.lastWeight || 0, date: new Date() }],
+            repsHistory: existingExercise.repsHistory || updatedExercise.repsHistory || [{ reps: updatedExercise.lastReps || 0, date: new Date() }],
+            setsHistory: existingExercise.setsHistory || updatedExercise.setsHistory || [{ sets: updatedExercise.lastSets || 0, date: new Date() }],
+            difficultyHistory: existingExercise.difficultyHistory || updatedExercise.difficultyHistory || [{ difficulty: updatedExercise.lastDifficulty || 8, date: new Date() }],
+            scoreHistory: existingExercise.scoreHistory || updatedExercise.scoreHistory || [{ score: 5, date: new Date() }],
+            isActive: updatedExercise.isActive
+        };
+    });
 
     workout.numberOfExercises = workout.exercises.length;
 

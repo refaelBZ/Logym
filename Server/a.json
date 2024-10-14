@@ -1,231 +1,918 @@
 {
-  "name": "אימון A: פלג גוף תחתון",
-  "description": "אימון למיקוד בפלג גוף תחתון",
+  "_id": {
+    "$oid": "66ed24efb7e23f51735a5cd7"
+  },
+  "name": "Workout C AYALA",
+  "description": "",
   "exercises": [
     {
-      "name": "דד ליפט רומני עם מוט",
-      "sets": 3,
-      "reps": 8,
-      "muscleGroup": "Lower Body",
-      "lastWeight": 20,
-      "lastSets": 3,
-      "lastReps": 8,
-      "lastDifficulty": 10,
-      "weightHistory": [
-        {"_id": "new ObjectId()", "weight": 20, "date": "2024-08-01"},
-        {"_id": "new ObjectId()", "weight": 20, "date": "2024-08-08"},
-        {"_id": "new ObjectId()", "weight": 20, "date": "2024-08-15"},
-        {"_id": "new ObjectId()", "weight": 20, "date": "2024-08-22"}
-      ],
-      "setsHistory": [
-        {"_id": "new ObjectId()", "sets": 12, "date": "2024-08-01"},
-        {"_id": "new ObjectId()", "sets": 12, "date": "2024-08-08"},
-        {"_id": "new ObjectId()", "sets": 4, "date": "2024-08-15"},
-        {"_id": "new ObjectId()", "sets": 3, "date": "2024-08-22"}
-      ],
-      "repsHistory": [
-        {"_id": "new ObjectId()", "reps": 4, "date": "2024-08-01"},
-        {"_id": "new ObjectId()", "reps": 2, "date": "2024-08-08"},
-        {"_id": "new ObjectId()", "reps": 8, "date": "2024-08-15"},
-        {"_id": "new ObjectId()", "reps": 8, "date": "2024-08-22"}
-      ],
-      "difficultyHistory": [
-        {"_id": "new ObjectId()", "difficulty": 10, "date": "2024-08-01"},
-        {"_id": "new ObjectId()", "difficulty": 9, "date": "2024-08-08"},
-        {"_id": "new ObjectId()", "difficulty": 9, "date": "2024-08-15"},
-        {"_id": "new ObjectId()", "difficulty": 10, "date": "2024-08-22"}
-      ]
-    },
-    {
-      "name": "היפ טראסט בסמית משין",
+      "_id": {
+        "$oid": "66ed24efb7e23f51735a5cdd"
+      },
+      "name": "סקוואט",
       "sets": 4,
-      "reps": 10,
-      "muscleGroup": "Lower Body",
-      "lastWeight": 85,
+      "reps": 8,
+      "muscleGroup": "Legs",
+      "done": true,
+      "lastdoneDate": {
+        "$date": "2024-09-20T08:14:43.810Z"
+      },
+      "lastWeight": 15,
+      "lastReps": 8,
       "lastSets": 4,
-      "lastReps": 10,
-      "lastDifficulty": 10,
-      "weightHistory": [
-        {"_id": "new ObjectId()", "weight": 80, "date": "2024-08-01"},
-        {"_id": "new ObjectId()", "weight": 85, "date": "2024-08-08"},
-        {"_id": "new ObjectId()", "weight": 85, "date": "2024-08-15"},
-        {"_id": "new ObjectId()", "weight": 85, "date": "2024-08-22"}
-      ],
-      "setsHistory": [
-        {"_id": "new ObjectId()", "sets": 4, "date": "2024-08-01"},
-        {"_id": "new ObjectId()", "sets": 4, "date": "2024-08-08"},
-        {"_id": "new ObjectId()", "sets": 4, "date": "2024-08-15"},
-        {"_id": "new ObjectId()", "sets": 4, "date": "2024-08-22"}
-      ],
-      "repsHistory": [
-        {"_id": "new ObjectId()", "reps": 12, "date": "2024-08-01"},
-        {"_id": "new ObjectId()", "reps": 10, "date": "2024-08-08"},
-        {"_id": "new ObjectId()", "reps": 10, "date": "2024-08-15"},
-        {"_id": "new ObjectId()", "reps": 10, "date": "2024-08-22"}
-      ],
-      "difficultyHistory": [
-        {"_id": "new ObjectId()", "difficulty": 10, "date": "2024-08-01"},
-        {"_id": "new ObjectId()", "difficulty": 9, "date": "2024-08-08"},
-        {"_id": "new ObjectId()", "difficulty": 10, "date": "2024-08-15"},
-        {"_id": "new ObjectId()", "difficulty": 10, "date": "2024-08-22"}
-      ]
-    },
-    {
-      "name": "כפיפת ברכיים במכונה",
-      "sets": 8,
-      "reps": 2,
-      "muscleGroup": "Lower Body",
-      "lastWeight": 26,
-      "lastSets": 8,
-      "lastReps": 2,
-      "lastDifficulty": null,
-      "weightHistory": [
-        {"_id": "new ObjectId()", "weight": 26, "date": "2024-08-01"},
-        {"_id": "new ObjectId()", "weight": 19, "date": "2024-08-08"},
-        {"_id": "new ObjectId()", "weight": 26, "date": "2024-08-22"}
-      ],
-      "setsHistory": [
-        {"_id": "new ObjectId()", "sets": 4, "date": "2024-08-01"},
-        {"_id": "new ObjectId()", "sets": 15, "date": "2024-08-08"},
-        {"_id": "new ObjectId()", "sets": 8, "date": "2024-08-22"}
-      ],
-      "repsHistory": [
-        {"_id": "new ObjectId()", "reps": 10, "date": "2024-08-01"},
-        {"_id": "new ObjectId()", "reps": 3, "date": "2024-08-08"},
-        {"_id": "new ObjectId()", "reps": 2, "date": "2024-08-22"}
-      ],
-      "difficultyHistory": [
-        {"_id": "new ObjectId()", "difficulty": 10, "date": "2024-08-01"},
-        {"_id": "new ObjectId()", "difficulty": 9, "date": "2024-08-08"}
-      ]
-    },
-    {
-      "name": "הרחקות ירך לצדדים במכונה",
-      "sets": 12,
-      "reps": 3,
-      "muscleGroup": "Lower Body",
-      "lastWeight": 96,
-      "lastSets": 12,
-      "lastReps": 3,
       "lastDifficulty": 9,
+      "notes": "",
+      "isActive": true,
       "weightHistory": [
-        {"_id": "new ObjectId()", "weight": 89, "date": "2024-08-01"},
-        {"_id": "new ObjectId()", "weight": 89, "date": "2024-08-08"},
-        {"_id": "new ObjectId()", "weight": 89, "date": "2024-08-15"},
-        {"_id": "new ObjectId()", "weight": 96, "date": "2024-08-22"}
-      ],
-      "setsHistory": [
-        {"_id": "new ObjectId()", "sets": 2, "date": "2024-08-01"},
-        {"_id": "new ObjectId()", "sets": 2, "date": "2024-08-08"},
-        {"_id": "new ObjectId()", "sets": 2, "date": "2024-08-15"},
-        {"_id": "new ObjectId()", "sets": 12, "date": "2024-08-22"}
+        {
+          "weight": 10,
+          "date": {
+            "$date": "2024-09-20T07:31:59.870Z"
+          },
+          "_id": {
+            "$oid": "66ed24efb7e23f51735a5cd8"
+          }
+        },
+        {
+          "weight": 15,
+          "date": {
+            "$date": "2024-09-20T07:34:01.067Z"
+          },
+          "_id": {
+            "$oid": "66ed2569b7e23f51735a5d83"
+          }
+        },
+        {
+          "weight": 15,
+          "date": {
+            "$date": "2024-09-20T07:39:55.829Z"
+          },
+          "_id": {
+            "$oid": "66ed26cbb7e23f51735a5efe"
+          }
+        },
+        {
+          "weight": 15,
+          "date": {
+            "$date": "2024-09-20T08:02:40.306Z"
+          },
+          "_id": {
+            "$oid": "66ed2c20b7e23f51735a61c1"
+          }
+        },
+        {
+          "weight": 15,
+          "date": {
+            "$date": "2024-09-20T08:14:43.809Z"
+          },
+          "_id": {
+            "$oid": "66ed2ef3b7e23f51735a64e0"
+          }
+        }
       ],
       "repsHistory": [
-        {"_id": "new ObjectId()", "reps": 12, "date": "2024-08-01"},
-        {"_id": "new ObjectId()", "reps": 12, "date": "2024-08-08"},
-        {"_id": "new ObjectId()", "reps": 12, "date": "2024-08-15"},
-        {"_id": "new ObjectId()", "reps": 3, "date": "2024-08-22"}
+        {
+          "reps": 0,
+          "date": {
+            "$date": "2024-09-20T07:31:59.870Z"
+          },
+          "_id": {
+            "$oid": "66ed24efb7e23f51735a5cd9"
+          }
+        },
+        {
+          "reps": 8,
+          "date": {
+            "$date": "2024-09-20T07:34:01.067Z"
+          },
+          "_id": {
+            "$oid": "66ed2569b7e23f51735a5d84"
+          }
+        },
+        {
+          "reps": 8,
+          "date": {
+            "$date": "2024-09-20T07:39:55.829Z"
+          },
+          "_id": {
+            "$oid": "66ed26cbb7e23f51735a5eff"
+          }
+        },
+        {
+          "reps": 8,
+          "date": {
+            "$date": "2024-09-20T08:02:40.306Z"
+          },
+          "_id": {
+            "$oid": "66ed2c20b7e23f51735a61c2"
+          }
+        },
+        {
+          "reps": 8,
+          "date": {
+            "$date": "2024-09-20T08:14:43.809Z"
+          },
+          "_id": {
+            "$oid": "66ed2ef3b7e23f51735a64e1"
+          }
+        }
+      ],
+      "setsHistory": [
+        {
+          "sets": 0,
+          "date": {
+            "$date": "2024-09-20T07:31:59.870Z"
+          },
+          "_id": {
+            "$oid": "66ed24efb7e23f51735a5cda"
+          }
+        },
+        {
+          "sets": 4,
+          "date": {
+            "$date": "2024-09-20T07:34:01.067Z"
+          },
+          "_id": {
+            "$oid": "66ed2569b7e23f51735a5d85"
+          }
+        },
+        {
+          "sets": 4,
+          "date": {
+            "$date": "2024-09-20T07:39:55.830Z"
+          },
+          "_id": {
+            "$oid": "66ed26cbb7e23f51735a5f00"
+          }
+        },
+        {
+          "sets": 4,
+          "date": {
+            "$date": "2024-09-20T08:02:40.306Z"
+          },
+          "_id": {
+            "$oid": "66ed2c20b7e23f51735a61c3"
+          }
+        },
+        {
+          "sets": 4,
+          "date": {
+            "$date": "2024-09-20T08:14:43.809Z"
+          },
+          "_id": {
+            "$oid": "66ed2ef3b7e23f51735a64e2"
+          }
+        }
       ],
       "difficultyHistory": [
-        {"_id": "new ObjectId()", "difficulty": 10, "date": "2024-08-01"},
-        {"_id": "new ObjectId()", "difficulty": 10, "date": "2024-08-08"},
-        {"_id": "new ObjectId()", "difficulty": 10, "date": "2024-08-15"},
-        {"_id": "new ObjectId()", "difficulty": 9, "date": "2024-08-22"}
+        {
+          "difficulty": 1,
+          "date": {
+            "$date": "2024-09-20T07:31:59.870Z"
+          },
+          "_id": {
+            "$oid": "66ed24efb7e23f51735a5cdb"
+          }
+        },
+        {
+          "difficulty": 9,
+          "date": {
+            "$date": "2024-09-20T07:34:01.068Z"
+          },
+          "_id": {
+            "$oid": "66ed2569b7e23f51735a5d86"
+          }
+        },
+        {
+          "difficulty": 9,
+          "date": {
+            "$date": "2024-09-20T07:39:55.830Z"
+          },
+          "_id": {
+            "$oid": "66ed26cbb7e23f51735a5f01"
+          }
+        },
+        {
+          "difficulty": 9,
+          "date": {
+            "$date": "2024-09-20T08:02:40.306Z"
+          },
+          "_id": {
+            "$oid": "66ed2c20b7e23f51735a61c4"
+          }
+        },
+        {
+          "difficulty": 9,
+          "date": {
+            "$date": "2024-09-20T08:14:43.809Z"
+          },
+          "_id": {
+            "$oid": "66ed2ef3b7e23f51735a64e3"
+          }
+        }
+      ],
+      "scoreHistory": [
+        {
+          "score": 5,
+          "date": {
+            "$date": "2024-09-20T07:31:59.870Z"
+          },
+          "_id": {
+            "$oid": "66ed24efb7e23f51735a5cdc"
+          }
+        },
+        {
+          "score": 10,
+          "date": {
+            "$date": "2024-09-20T07:34:01.068Z"
+          },
+          "_id": {
+            "$oid": "66ed2569b7e23f51735a5d87"
+          }
+        },
+        {
+          "score": 5,
+          "date": {
+            "$date": "2024-09-20T07:39:55.830Z"
+          },
+          "_id": {
+            "$oid": "66ed26cbb7e23f51735a5f02"
+          }
+        },
+        {
+          "score": 5,
+          "date": {
+            "$date": "2024-09-20T08:02:40.307Z"
+          },
+          "_id": {
+            "$oid": "66ed2c20b7e23f51735a61c5"
+          }
+        },
+        {
+          "score": 5,
+          "date": {
+            "$date": "2024-09-20T08:14:43.809Z"
+          },
+          "_id": {
+            "$oid": "66ed2ef3b7e23f51735a64e4"
+          }
+        }
       ]
     },
     {
-      "name": "פשיטת ירך לאחור בכבלים",
-      "sets": 12,
-      "reps": 3,
-      "muscleGroup": "Lower Body",
-      "lastWeight": 8.75,
-      "lastSets": 12,
-      "lastReps": 3,
-      "lastDifficulty": 10,
+      "_id": {
+        "$oid": "66ed24efb7e23f51735a5ce3"
+      },
+      "name": "ספליט סקוואט",
+      "sets": 4,
+      "reps": 8,
+      "muscleGroup": "Legs",
+      "done": true,
+      "lastdoneDate": {
+        "$date": "2024-09-20T08:14:44.961Z"
+      },
+      "lastWeight": 6,
+      "notes": "",
+      "isActive": true,
       "weightHistory": [
-        {"_id": "new ObjectId()", "weight": 8.75, "date": "2024-08-01"},
-        {"_id": "new ObjectId()", "weight": 8.75, "date": "2024-08-08"},
-        {"_id": "new ObjectId()", "weight": 8.75, "date": "2024-08-15"},
-        {"_id": "new ObjectId()", "weight": 8.75, "date": "2024-08-22"}
-      ],
-      "setsHistory": [
-        {"_id": "new ObjectId()", "sets": 12, "date": "2024-08-01"},
-        {"_id": "new ObjectId()", "sets": 12, "date": "2024-08-08"},
-        {"_id": "new ObjectId()", "sets": 12, "date": "2024-08-15"},
-        {"_id": "new ObjectId()", "sets": 12, "date": "2024-08-22"}
+        {
+          "weight": 6,
+          "date": {
+            "$date": "2024-09-20T07:31:59.870Z"
+          },
+          "_id": {
+            "$oid": "66ed24efb7e23f51735a5cde"
+          }
+        },
+        {
+          "weight": 6,
+          "date": {
+            "$date": "2024-09-20T08:02:47.189Z"
+          },
+          "_id": {
+            "$oid": "66ed2c27b7e23f51735a6240"
+          }
+        },
+        {
+          "weight": 6,
+          "date": {
+            "$date": "2024-09-20T08:14:44.961Z"
+          },
+          "_id": {
+            "$oid": "66ed2ef4b7e23f51735a6580"
+          }
+        }
       ],
       "repsHistory": [
-        {"_id": "new ObjectId()", "reps": 3, "date": "2024-08-01"},
-        {"_id": "new ObjectId()", "reps": 3, "date": "2024-08-08"},
-        {"_id": "new ObjectId()", "reps": 3, "date": "2024-08-15"},
-        {"_id": "new ObjectId()", "reps": 3, "date": "2024-08-22"}
+        {
+          "reps": 0,
+          "date": {
+            "$date": "2024-09-20T07:31:59.870Z"
+          },
+          "_id": {
+            "$oid": "66ed24efb7e23f51735a5cdf"
+          }
+        }
+      ],
+      "setsHistory": [
+        {
+          "sets": 0,
+          "date": {
+            "$date": "2024-09-20T07:31:59.870Z"
+          },
+          "_id": {
+            "$oid": "66ed24efb7e23f51735a5ce0"
+          }
+        }
       ],
       "difficultyHistory": [
-        {"_id": "new ObjectId()", "difficulty": 10, "date": "2024-08-01"},
-        {"_id": "new ObjectId()", "difficulty": 10, "date": "2024-08-08"},
-        {"_id": "new ObjectId()", "difficulty": 10, "date": "2024-08-15"},
-        {"_id": "new ObjectId()", "difficulty": 10, "date": "2024-08-22"}
-      ]
+        {
+          "difficulty": 1,
+          "date": {
+            "$date": "2024-09-20T07:31:59.870Z"
+          },
+          "_id": {
+            "$oid": "66ed24efb7e23f51735a5ce1"
+          }
+        }
+      ],
+      "scoreHistory": [
+        {
+          "score": 5,
+          "date": {
+            "$date": "2024-09-20T07:31:59.870Z"
+          },
+          "_id": {
+            "$oid": "66ed24efb7e23f51735a5ce2"
+          }
+        },
+        {
+          "score": 5,
+          "date": {
+            "$date": "2024-09-20T08:02:47.189Z"
+          },
+          "_id": {
+            "$oid": "66ed2c27b7e23f51735a6241"
+          }
+        },
+        {
+          "score": 5,
+          "date": {
+            "$date": "2024-09-20T08:14:44.961Z"
+          },
+          "_id": {
+            "$oid": "66ed2ef4b7e23f51735a6581"
+          }
+        }
+      ],
+      "lastDifficulty": 8,
+      "lastReps": 8,
+      "lastSets": 4
     },
     {
-      "name": "תאומים בעמידה בסמית / לחיצת רגליים",
-      "sets": 12,
-      "reps": 3,
-      "muscleGroup": "Lower Body",
-      "lastWeight": 65,
-      "lastSets": 12,
-      "lastReps": 3,
-      "lastDifficulty": null,
-      "weightHistory": [
-        {"_id": "new ObjectId()", "weight": 40, "date": "2024-08-01"},
-        {"_id": "new ObjectId()", "weight": 65, "date": "2024-08-15"}
-      ],
-      "setsHistory": [
-        {"_id": "new ObjectId()", "sets": 12, "date": "2024-08-01"},
-        {"_id": "new ObjectId()", "sets": 12, "date": "2024-08-15"}
-      ],
-      "repsHistory": [
-        {"_id": "new ObjectId()", "reps": 4, "date": "2024-08-01"},
-        {"_id": "new ObjectId()", "reps": 12, "date": "2024-08-15"}
-      ]
-    },
-    {
-      "name": "כפיפה בכיסא רומי",
+      "_id": {
+        "$oid": "66ed24efb7e23f51735a5ce9"
+      },
+      "name": "פשיטת ברכיים",
       "sets": 4,
       "reps": 12,
-      "muscleGroup": "Lower Body",
-      "lastWeight": 10,
-      "lastSets": 4,
+      "muscleGroup": "Legs",
+      "done": true,
+      "lastdoneDate": {
+        "$date": "2024-09-20T08:14:46.045Z"
+      },
+      "lastWeight": 26,
       "lastReps": 12,
-      "lastDifficulty": 8,
+      "notes": "",
+      "isActive": true,
       "weightHistory": [
-        {"_id": "new ObjectId()", "weight": 10, "date": "2024-08-01"},
-        {"_id": "new ObjectId()", "weight": 10, "date": "2024-08-08"},
-        {"_id": "new ObjectId()", "weight": 10, "date": "2024-08-15"}
-      ],
-      "setsHistory": [
-        {"_id": "new ObjectId()", "sets": 3, "date": "2024-08-01"},
-        {"_id": "new ObjectId()", "sets": 4, "date": "2024-08-08"},
-        {"_id": "new ObjectId()", "sets": 4, "date": "2024-08-15"}
+        {
+          "weight": 26,
+          "date": {
+            "$date": "2024-09-20T07:31:59.870Z"
+          },
+          "_id": {
+            "$oid": "66ed24efb7e23f51735a5ce4"
+          }
+        },
+        {
+          "weight": 26,
+          "date": {
+            "$date": "2024-09-20T08:02:56.114Z"
+          },
+          "_id": {
+            "$oid": "66ed2c30b7e23f51735a62b3"
+          }
+        },
+        {
+          "weight": 26,
+          "date": {
+            "$date": "2024-09-20T08:14:46.045Z"
+          },
+          "_id": {
+            "$oid": "66ed2ef6b7e23f51735a6611"
+          }
+        }
       ],
       "repsHistory": [
-        {"_id": "new ObjectId()", "reps": 12, "date": "2024-08-01"},
-        {"_id": "new ObjectId()", "reps": 12, "date": "2024-08-08"},
-        {"_id": "new ObjectId()", "reps": 12, "date": "2024-08-15"}
+        {
+          "reps": 0,
+          "date": {
+            "$date": "2024-09-20T07:31:59.870Z"
+          },
+          "_id": {
+            "$oid": "66ed24efb7e23f51735a5ce5"
+          }
+        },
+        {
+          "reps": 12,
+          "date": {
+            "$date": "2024-09-20T08:02:56.114Z"
+          },
+          "_id": {
+            "$oid": "66ed2c30b7e23f51735a62b4"
+          }
+        },
+        {
+          "reps": 12,
+          "date": {
+            "$date": "2024-09-20T08:14:46.045Z"
+          },
+          "_id": {
+            "$oid": "66ed2ef6b7e23f51735a6612"
+          }
+        }
+      ],
+      "setsHistory": [
+        {
+          "sets": 0,
+          "date": {
+            "$date": "2024-09-20T07:31:59.870Z"
+          },
+          "_id": {
+            "$oid": "66ed24efb7e23f51735a5ce6"
+          }
+        }
       ],
       "difficultyHistory": [
-        {"_id": "new ObjectId()", "difficulty": 8, "date": "2024-08-01"},
-        {"_id": "new ObjectId()", "difficulty": 8, "date": "2024-08-08"},
-        {"_id": "new ObjectId()", "difficulty": 8, "date": "2024-08-15"}
-      ]
+        {
+          "difficulty": 1,
+          "date": {
+            "$date": "2024-09-20T07:31:59.870Z"
+          },
+          "_id": {
+            "$oid": "66ed24efb7e23f51735a5ce7"
+          }
+        }
+      ],
+      "scoreHistory": [
+        {
+          "score": 5,
+          "date": {
+            "$date": "2024-09-20T07:31:59.870Z"
+          },
+          "_id": {
+            "$oid": "66ed24efb7e23f51735a5ce8"
+          }
+        },
+        {
+          "score": 9,
+          "date": {
+            "$date": "2024-09-20T08:02:56.114Z"
+          },
+          "_id": {
+            "$oid": "66ed2c30b7e23f51735a62b5"
+          }
+        },
+        {
+          "score": 5,
+          "date": {
+            "$date": "2024-09-20T08:14:46.045Z"
+          },
+          "_id": {
+            "$oid": "66ed2ef6b7e23f51735a6613"
+          }
+        }
+      ],
+      "lastDifficulty": 8,
+      "lastSets": 4
+    },
+    {
+      "_id": {
+        "$oid": "66ed24efb7e23f51735a5cef"
+      },
+      "name": "הרחקת ירכיים",
+      "sets": 3,
+      "reps": 12,
+      "muscleGroup": "Legs",
+      "done": true,
+      "lastdoneDate": {
+        "$date": "2024-09-20T08:14:47.132Z"
+      },
+      "lastWeight": 96,
+      "lastSets": 3,
+      "lastDifficulty": 8,
+      "notes": "",
+      "isActive": true,
+      "weightHistory": [
+        {
+          "weight": 89,
+          "date": {
+            "$date": "2024-09-20T07:31:59.870Z"
+          },
+          "_id": {
+            "$oid": "66ed24efb7e23f51735a5cea"
+          }
+        },
+        {
+          "weight": 96,
+          "date": {
+            "$date": "2024-09-20T08:03:10.626Z"
+          },
+          "_id": {
+            "$oid": "66ed2c3eb7e23f51735a632e"
+          }
+        },
+        {
+          "weight": 96,
+          "date": {
+            "$date": "2024-09-20T08:14:47.131Z"
+          },
+          "_id": {
+            "$oid": "66ed2ef7b7e23f51735a66ab"
+          }
+        }
+      ],
+      "repsHistory": [
+        {
+          "reps": 0,
+          "date": {
+            "$date": "2024-09-20T07:31:59.870Z"
+          },
+          "_id": {
+            "$oid": "66ed24efb7e23f51735a5ceb"
+          }
+        }
+      ],
+      "setsHistory": [
+        {
+          "sets": 0,
+          "date": {
+            "$date": "2024-09-20T07:31:59.870Z"
+          },
+          "_id": {
+            "$oid": "66ed24efb7e23f51735a5cec"
+          }
+        },
+        {
+          "sets": 3,
+          "date": {
+            "$date": "2024-09-20T08:03:10.626Z"
+          },
+          "_id": {
+            "$oid": "66ed2c3eb7e23f51735a632f"
+          }
+        },
+        {
+          "sets": 3,
+          "date": {
+            "$date": "2024-09-20T08:14:47.131Z"
+          },
+          "_id": {
+            "$oid": "66ed2ef7b7e23f51735a66ac"
+          }
+        }
+      ],
+      "difficultyHistory": [
+        {
+          "difficulty": 1,
+          "date": {
+            "$date": "2024-09-20T07:31:59.870Z"
+          },
+          "_id": {
+            "$oid": "66ed24efb7e23f51735a5ced"
+          }
+        },
+        {
+          "difficulty": 8,
+          "date": {
+            "$date": "2024-09-20T08:03:10.626Z"
+          },
+          "_id": {
+            "$oid": "66ed2c3eb7e23f51735a6330"
+          }
+        },
+        {
+          "difficulty": 8,
+          "date": {
+            "$date": "2024-09-20T08:14:47.132Z"
+          },
+          "_id": {
+            "$oid": "66ed2ef7b7e23f51735a66ad"
+          }
+        }
+      ],
+      "scoreHistory": [
+        {
+          "score": 5,
+          "date": {
+            "$date": "2024-09-20T07:31:59.870Z"
+          },
+          "_id": {
+            "$oid": "66ed24efb7e23f51735a5cee"
+          }
+        },
+        {
+          "score": 10,
+          "date": {
+            "$date": "2024-09-20T08:03:10.626Z"
+          },
+          "_id": {
+            "$oid": "66ed2c3eb7e23f51735a6331"
+          }
+        },
+        {
+          "score": 5,
+          "date": {
+            "$date": "2024-09-20T08:14:47.132Z"
+          },
+          "_id": {
+            "$oid": "66ed2ef7b7e23f51735a66ae"
+          }
+        }
+      ],
+      "lastReps": 12
+    },
+    {
+      "name": "פשיטת רגליים לאחור",
+      "sets": 3,
+      "reps": 12,
+      "muscleGroup": "Legs",
+      "done": false,
+      "lastWeight": 8,
+      "notes": "",
+      "isActive": true,
+      "weightHistory": [
+        {
+          "weight": 8,
+          "date": {
+            "$date": "2024-09-20T07:31:59.870Z"
+          },
+          "_id": {
+            "$oid": "66ed24efb7e23f51735a5cf0"
+          }
+        }
+      ],
+      "repsHistory": [
+        {
+          "reps": 0,
+          "date": {
+            "$date": "2024-09-20T07:31:59.870Z"
+          },
+          "_id": {
+            "$oid": "66ed24efb7e23f51735a5cf1"
+          }
+        }
+      ],
+      "setsHistory": [
+        {
+          "sets": 0,
+          "date": {
+            "$date": "2024-09-20T07:31:59.870Z"
+          },
+          "_id": {
+            "$oid": "66ed24efb7e23f51735a5cf2"
+          }
+        }
+      ],
+      "difficultyHistory": [
+        {
+          "difficulty": 1,
+          "date": {
+            "$date": "2024-09-20T07:31:59.870Z"
+          },
+          "_id": {
+            "$oid": "66ed24efb7e23f51735a5cf3"
+          }
+        }
+      ],
+      "scoreHistory": [
+        {
+          "score": 5,
+          "date": {
+            "$date": "2024-09-20T07:31:59.870Z"
+          },
+          "_id": {
+            "$oid": "66ed24efb7e23f51735a5cf4"
+          }
+        }
+      ],
+      "_id": {
+        "$oid": "66ed24efb7e23f51735a5cf5"
+      },
+      "lastDifficulty": 8,
+      "lastReps": 12,
+      "lastSets": 3
+    },
+    {
+      "_id": {
+        "$oid": "66ed24efb7e23f51735a5cfb"
+      },
+      "name": "תאומים",
+      "sets": 4,
+      "reps": 12,
+      "muscleGroup": "Legs",
+      "done": true,
+      "lastdoneDate": {
+        "$date": "2024-09-20T08:14:54.763Z"
+      },
+      "lastWeight": 95,
+      "notes": "",
+      "isActive": true,
+      "weightHistory": [
+        {
+          "weight": 95,
+          "date": {
+            "$date": "2024-09-20T07:31:59.870Z"
+          },
+          "_id": {
+            "$oid": "66ed24efb7e23f51735a5cf6"
+          }
+        },
+        {
+          "weight": 95,
+          "date": {
+            "$date": "2024-09-20T08:14:54.762Z"
+          },
+          "_id": {
+            "$oid": "66ed2efeb7e23f51735a6750"
+          }
+        }
+      ],
+      "repsHistory": [
+        {
+          "reps": 0,
+          "date": {
+            "$date": "2024-09-20T07:31:59.870Z"
+          },
+          "_id": {
+            "$oid": "66ed24efb7e23f51735a5cf7"
+          }
+        }
+      ],
+      "setsHistory": [
+        {
+          "sets": 0,
+          "date": {
+            "$date": "2024-09-20T07:31:59.870Z"
+          },
+          "_id": {
+            "$oid": "66ed24efb7e23f51735a5cf8"
+          }
+        }
+      ],
+      "difficultyHistory": [
+        {
+          "difficulty": 1,
+          "date": {
+            "$date": "2024-09-20T07:31:59.870Z"
+          },
+          "_id": {
+            "$oid": "66ed24efb7e23f51735a5cf9"
+          }
+        }
+      ],
+      "scoreHistory": [
+        {
+          "score": 5,
+          "date": {
+            "$date": "2024-09-20T07:31:59.870Z"
+          },
+          "_id": {
+            "$oid": "66ed24efb7e23f51735a5cfa"
+          }
+        },
+        {
+          "score": 5,
+          "date": {
+            "$date": "2024-09-20T08:14:54.763Z"
+          },
+          "_id": {
+            "$oid": "66ed2efeb7e23f51735a6751"
+          }
+        }
+      ],
+      "lastDifficulty": 8,
+      "lastReps": 12,
+      "lastSets": 4
+    },
+    {
+      "_id": {
+        "$oid": "66ed24efb7e23f51735a5d01"
+      },
+      "name": "בטן",
+      "sets": 3,
+      "reps": 8,
+      "muscleGroup": "Abs",
+      "done": true,
+      "lastdoneDate": {
+        "$date": "2024-09-20T08:15:49.573Z"
+      },
+      "lastWeight": 2,
+      "notes": "",
+      "isActive": true,
+      "weightHistory": [
+        {
+          "weight": 0,
+          "date": {
+            "$date": "2024-09-20T07:31:59.870Z"
+          },
+          "_id": {
+            "$oid": "66ed24efb7e23f51735a5cfc"
+          }
+        },
+        {
+          "weight": 2,
+          "date": {
+            "$date": "2024-09-20T08:15:49.573Z"
+          },
+          "_id": {
+            "$oid": "66ed2f35b7e23f51735a6cbd"
+          }
+        }
+      ],
+      "repsHistory": [
+        {
+          "reps": 0,
+          "date": {
+            "$date": "2024-09-20T07:31:59.870Z"
+          },
+          "_id": {
+            "$oid": "66ed24efb7e23f51735a5cfd"
+          }
+        }
+      ],
+      "setsHistory": [
+        {
+          "sets": 0,
+          "date": {
+            "$date": "2024-09-20T07:31:59.870Z"
+          },
+          "_id": {
+            "$oid": "66ed24efb7e23f51735a5cfe"
+          }
+        }
+      ],
+      "difficultyHistory": [
+        {
+          "difficulty": 1,
+          "date": {
+            "$date": "2024-09-20T07:31:59.870Z"
+          },
+          "_id": {
+            "$oid": "66ed24efb7e23f51735a5cff"
+          }
+        }
+      ],
+      "scoreHistory": [
+        {
+          "score": 5,
+          "date": {
+            "$date": "2024-09-20T07:31:59.870Z"
+          },
+          "_id": {
+            "$oid": "66ed24efb7e23f51735a5d00"
+          }
+        },
+        {
+          "score": 9,
+          "date": {
+            "$date": "2024-09-20T08:15:49.573Z"
+          },
+          "_id": {
+            "$oid": "66ed2f35b7e23f51735a6cbe"
+          }
+        }
+      ],
+      "lastDifficulty": 8,
+      "lastReps": 8,
+      "lastSets": 3
     }
   ],
-  "numberOfExercises": 7,
+  "numberOfExercises": 8,
   "completionRate": 0,
-  "startDate": "2024-09-14T00:00:00.000Z",
-  "lastDate": "2024-09-14T00:00:00.000Z",
+  "lastDate": {
+    "$date": "2024-09-20T07:31:59.301Z"
+  },
   "status": "In Progress",
   "generalNotes": "",
-  "user": null,
+  "user": {
+    "$oid": "66d39f954f541e06cabf0c79"
+  },
+  "startDate": {
+    "$date": "2024-09-20T07:31:59.882Z"
+  },
+  "__v": 0,
+  "isActive": true,
   "duration": null
 }

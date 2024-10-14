@@ -43,30 +43,35 @@ export default function AddWorkout({setWorkouts}) {
 
   // Handle save button click to submit workout and exercises data
   const handleSaveButtonClick = async () => {
-
     // Check if there are any exercises in the list. if not, show error and return.
     if (exercises.length === 0) {
       setError("Cannot save workout without exercises. Please add at least one exercise.");
       return;
     }
-
+  
     if (workoutData.workoutName === '') {
       setError("Cannot save workout without a name. Please enter a name.");
       return;
     }
-
+  
     const fullWorkout = {
       name: workoutData.workoutName,
       description: workoutData.description,
-      // lastDate: new Date(),
-      exercises: exercises.map(exercise => ({
-        name: exercise.exerciseName,
-        muscleGroup: exercise.muscleGroup,
-        sets: Number(exercise.sets),
-        reps: Number(exercise.reps),
-        lastWeight: Number(exercise.weight),
-        notes: exercise.notes,
-      }))
+      exercises: exercises.map(exercise => {
+        // הדפסת הערך של lastDifficulty
+        console.log('lastDifficulty:', Number(exercise.difficulty));
+        return {
+          name: exercise.exerciseName,
+          muscleGroup: exercise.muscleGroup,
+          sets: Number(exercise.sets),
+          reps: Number(exercise.reps),
+          lastWeight: Number(exercise.weight),
+          lastReps: Number(exercise.reps),
+          lastSets: Number(exercise.sets),
+          lastDifficulty: Number(exercise.difficulty),
+          notes: exercise.notes,
+        };
+      })
     };
   
     try {
@@ -77,13 +82,14 @@ export default function AddWorkout({setWorkouts}) {
         },
       });
       console.log('Workout saved successfully:', response.data);
-        setWorkouts((prevWorkouts) => [...prevWorkouts, response.data]);
-        navigate('/home');
+      setWorkouts((prevWorkouts) => [...prevWorkouts, response.data]);
+      navigate('/home');
     } catch (error) {
       console.error('Error saving workout:', error);
       setError("Failed to save workout. Please try again.");
     }
   };
+  
   
 
   return (
