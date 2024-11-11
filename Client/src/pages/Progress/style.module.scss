@@ -28,12 +28,12 @@
     margin-top: 20px;
 
     .parameterButton {
-      @include button-style(var(--dark-gray), var(--gray-color));
       background-color: transparent;
       border: 2px solid var(--gray-color);
       border-radius: 10px;
       padding: 10px 20px;
       font-size: 16px;
+      @include button-style(var(--dark-gray), var(--gray-color));
 
       &.active {
         background-color: var(--main-color);

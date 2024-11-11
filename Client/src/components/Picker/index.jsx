@@ -1,49 +1,50 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useSwipeable } from 'react-swipeable';
 import styles from './style.module.scss';
 
-const Picker = ({ title, arr, value, onValueChange }) => {
-  // Index of the current value in the array
-  const [currentIndex, setCurrentIndex] = useState(0);
-  // CSS class for animation
+const Picker = ({ title, value, onValueChange, min = 0, max = 1000, step = 1 }) => {
+  // State for the previous, current, and next values
+  const [prevValue, setPrevValue] = useState(value - step);
+  const [currentValue, setCurrentValue] = useState(value);
+  const [nextValue, setNextValue] = useState(value + step);
+  // State for animation class
   const [animationClass, setAnimationClass] = useState('');
 
-  // Update currentIndex when value or arr changes
+  // Update internal state when props change
   useEffect(() => {
-    const index = arr.indexOf(value);
-    if (index !== -1) {
-      setCurrentIndex(index);
-    }
-  }, [arr, value]);
+    setCurrentValue(value);
+    setPrevValue(value - step);
+    setNextValue(value + step);
+  }, [value, step]);
 
-  // Calculate previous and next values
-  const prevValue = useMemo(() => arr[(currentIndex - 1 + arr.length) % arr.length], [arr, currentIndex]);
-  const nextValue = useMemo(() => arr[(currentIndex + 1) % arr.length], [arr, currentIndex]);
-
-  // Handle value change (next or previous)
-  const handleChange = useCallback((direction) => {
+  // Function to update values based on direction (next or previous)
+  const updateValues = useCallback((direction) => {
     // Set animation class based on direction
     setAnimationClass(direction === 'next' ? styles.slideUp : styles.slideDown);
     
     setTimeout(() => {
-      // Calculate new index
-      setCurrentIndex(prevIndex => {
-        const newIndex = direction === 'next'
-          ? (prevIndex + 1) % arr.length
-          : (prevIndex - 1 + arr.length) % arr.length;
-        
-        // Update parent component
-        onValueChange(arr[newIndex]);
-        return newIndex;
-      });
+      if (direction === 'next' && currentValue < max) {
+        // Move to next value
+        setPrevValue(currentValue);
+        setCurrentValue(nextValue);
+        setNextValue(nextValue + step);
+        onValueChange(nextValue);
+      } else if (direction === 'prev' && currentValue > min) {
+        // Move to previous value
+        setNextValue(currentValue);
+        setCurrentValue(prevValue);
+        setPrevValue(prevValue - step);
+        onValueChange(prevValue);
+      }
+      // Clear animation class
       setAnimationClass('');
     }, 200); // Animation duration
-  }, [arr, onValueChange]);
+  }, [currentValue, prevValue, nextValue, min, max, step, onValueChange]);
 
   // Swipe handlers
   const swipeHandlers = useSwipeable({
-    onSwipedUp: () => handleChange('next'),
-    onSwipedDown: () => handleChange('prev'),
+    onSwipedUp: () => updateValues('next'),
+    onSwipedDown: () => updateValues('prev'),
     preventDefaultTouchmoveEvent: true,
     trackMouse: true
   });
@@ -51,7 +52,7 @@ const Picker = ({ title, arr, value, onValueChange }) => {
   return (
     <div className={styles.numb} {...swipeHandlers}>
       <div className={`${styles.prevValue} ${animationClass}`}>{prevValue}</div>
-      <div className={`${styles.currentValue} ${animationClass}`}>{arr[currentIndex]}</div>
+      <div className={`${styles.currentValue} ${animationClass}`}>{currentValue}</div>
       <div className={`${styles.nextValue} ${animationClass}`}>{nextValue}</div>
       <div className={styles.pickerTitle}>
         {title}
@@ -61,6 +62,71 @@ const Picker = ({ title, arr, value, onValueChange }) => {
 };
 
 export default React.memo(Picker);
+
+//the last version:
+// import React, { useState, useEffect, useMemo, useCallback } from 'react';
+// import { useSwipeable } from 'react-swipeable';
+// import styles from './style.module.scss';
+
+// const Picker = ({ title, arr, value, onValueChange }) => {
+//   // Index of the current value in the array
+//   const [currentIndex, setCurrentIndex] = useState(0);
+//   // CSS class for animation
+//   const [animationClass, setAnimationClass] = useState('');
+
+//   // Update currentIndex when value or arr changes
+//   useEffect(() => {
+//     const index = arr.indexOf(value);
+//     if (index !== -1) {
+//       setCurrentIndex(index);
+//     }
+//   }, [arr, value]);
+
+//   // Calculate previous and next values
+//   const prevValue = useMemo(() => arr[(currentIndex - 1 + arr.length) % arr.length], [arr, currentIndex]);
+//   const nextValue = useMemo(() => arr[(currentIndex + 1) % arr.length], [arr, currentIndex]);
+
+//   // Handle value change (next or previous)
+//   const handleChange = useCallback((direction) => {
+//     // Set animation class based on direction
+//     setAnimationClass(direction === 'next' ? styles.slideUp : styles.slideDown);
+    
+//     setTimeout(() => {
+//       // Calculate new index
+//       setCurrentIndex(prevIndex => {
+//         const newIndex = direction === 'next'
+//           ? (prevIndex + 1) % arr.length
+//           : (prevIndex - 1 + arr.length) % arr.length;
+        
+//         // Update parent component
+//         onValueChange(arr[newIndex]);
+//         return newIndex;
+//       });
+//       setAnimationClass('');
+//     }, 200); // Animation duration
+//   }, [arr, onValueChange]);
+
+//   // Swipe handlers
+//   const swipeHandlers = useSwipeable({
+//     onSwipedUp: () => handleChange('next'),
+//     onSwipedDown: () => handleChange('prev'),
+//     preventDefaultTouchmoveEvent: true,
+//     trackMouse: true
+//   });
+
+//   return (
+//     <div className={styles.numb} {...swipeHandlers}>
+//       <div className={`${styles.prevValue} ${animationClass}`}>{prevValue}</div>
+//       <div className={`${styles.currentValue} ${animationClass}`}>{arr[currentIndex]}</div>
+//       <div className={`${styles.nextValue} ${animationClass}`}>{nextValue}</div>
+//       <div className={styles.pickerTitle}>
+//         {title}
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default React.memo(Picker);
 
 
 //PREVIOUS
