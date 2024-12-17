@@ -7,7 +7,7 @@ import Button from '../../components/Button';
 import Picker from '../../components/Picker';
 import ProgressBar from '../../components/ProgressBar';
 
-const Workout = () => {
+const Workout = ({setShouldRefresh}) => {
   const location = useLocation();
   const navigate = useNavigate();
   // Get workout from navigation state
@@ -108,6 +108,7 @@ const Workout = () => {
       setCompletedExercises(prev => new Set(prev).add(currentExerciseIndex));
 
       if (currentExerciseIndex === workout.exercises.length - 1) {
+        setShouldRefresh(true);
         navigate('/home');
       } else {
         handleSkip();
@@ -151,11 +152,11 @@ const Workout = () => {
         <div className={styles.exerciseTitle}>{currentExercise?.name || ''}</div>
         <div className={styles.exerciseInfo}>
           <div className={styles.infoItem}>
-            <div className={styles.infoValue}>{currentExerciseValues.sets}</div>
+            <div className={styles.infoValue}>{currentExercise.sets}</div>
             <div className={styles.infoType}>Sets</div>
           </div>
           <div className={styles.infoItem}>
-            <div className={styles.infoValue}>{currentExerciseValues.reps}</div>
+            <div className={styles.infoValue}>{currentExercise.reps}</div>
             <div className={styles.infoType}>Reps</div>
           </div>
           <div className={styles.infoItem}>
