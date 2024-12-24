@@ -195,14 +195,16 @@ export default function EditWorkout({ setWorkouts }) {
                 onEdit={handleEditExercise}
                 />
                 {error && <ErrorItem message={error} />}
-              <div className={styles.saveButton}>
+              <div className={styles.buttons}>
                 <Button title="Save Changes" type="primary" onClick={handleSaveButtonClick} />
+                <Button title="Cancel" type="secondary" onClick={() => navigate('/home')} />
               </div>
             </>
           ) : (
             <EditExerciseForm
             exercise={editingExercise}
             onFormDataSubmit={handleSaveExercise}
+            workoutId={workoutId}
             />
           )}
         </div>

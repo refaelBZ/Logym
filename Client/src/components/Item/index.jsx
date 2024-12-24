@@ -5,10 +5,11 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import Menu from '../Menu';
 import { FiTrash2, FiEdit, FiCopy } from 'react-icons/fi';
 import axios from 'axios';
+import DialogBox from '../DialogBox';
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
-export default function Item({ workout, isMenuOpen, onToggleMenu }) {
+export default function Item({ workout, isMenuOpen, onToggleMenu, onDeleteClick }) {
     const [isDeleting, setIsDeleting] = useState(false);
     const [isVisible, setIsVisible] = useState(true);
     const navigate = useNavigate();
@@ -21,9 +22,7 @@ export default function Item({ workout, isMenuOpen, onToggleMenu }) {
     };
 
     // Delete workout function
-    const deleteWorkout = async (event) => {
-        event.preventDefault();
-        event.stopPropagation();
+    const handleConfirmDelete = async () => {
         setIsDeleting(true);
         try {
             const token = localStorage.getItem('logym_token');
@@ -32,13 +31,17 @@ export default function Item({ workout, isMenuOpen, onToggleMenu }) {
                     Authorization: `Bearer ${token}`
                 }
             });
-            setIsVisible(false);  // Hide the workout after successful deletion
+            setIsVisible(false);
         } catch (error) {
             console.error('Error deleting workout:', error);
         } finally {
             setIsDeleting(false);
-            onToggleMenu(); // Close menu after deletion attempt
+            setIsDialogOpen(false);
         }
+    };
+
+    const handleCancelDelete = () => {
+        setIsDialogOpen(false);
     };
 
     // Calculate progress
@@ -48,20 +51,25 @@ export default function Item({ workout, isMenuOpen, onToggleMenu }) {
 
     // Menu options
     const menuOptions = [
-        { 
-            icon: <FiEdit />, 
-            name: 'Edit', 
+        {
+            icon: <FiEdit />,
+            name: 'Edit',
             onClick: (e) => {
                 e.preventDefault();
                 e.stopPropagation();
                 navigate(`/edit-workout/${workout._id}`, { state: { workout } });
             }
-        },       
+        },
         // { icon: <FiCopy />, name: 'Duplicate', onClick: () => console.log('Duplicate clicked') },
-        { 
-            icon: <FiTrash2 />, 
-            name: 'Delete', 
-            onClick: deleteWorkout,
+        {
+            icon: <FiTrash2 />,
+            name: 'Delete',
+            onClick: (event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                onDeleteClick(workout);
+                onToggleMenu();
+            },
             disabled: isDeleting
         },
     ];
@@ -72,6 +80,7 @@ export default function Item({ workout, isMenuOpen, onToggleMenu }) {
     }
 
     return (
+        <>
         <NavLink
             to={`/workout/${workout._id}`}
             state={{ workout }}
@@ -99,5 +108,13 @@ export default function Item({ workout, isMenuOpen, onToggleMenu }) {
                 </div>
             </div>
         </NavLink>
+        {/* {isDialogOpen &&
+            <DialogBox
+                questionText="Are you sure you want to delete this workout"
+                onConfirm={handleConfirmDelete}
+                onCancel={handleCancelDelete}
+            />
+        } */}
+        </>
     );
 }
