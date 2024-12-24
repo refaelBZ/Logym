@@ -43,22 +43,20 @@ export default function Layout() {
     }
   };
 
+  const [shouldRefresh, setShouldRefresh] = useState(false);
+
+  
   useEffect(() => {
     const token = localStorage.getItem('logym_token');
     if (token) {
       setIsLoggedIn(true);
       handleGetWorkouts();
+      setShouldRefresh(false);
     } else {
       setIsLoggedIn(false);
       setLoading(false);
     }
-  }, []);
-
-  useEffect(() => {
-    if (isLoggedIn) {
-      handleGetWorkouts();
-    }
-  }, [isLoggedIn]);
+  }, [shouldRefresh]); // תלות בסטייט של shouldRefresh
 
 
   const sortedWorkouts = useMemo(() => {
@@ -82,9 +80,9 @@ export default function Layout() {
           <>
            <Route path="/" element={<Home workouts={sortedWorkouts} loading={loading} error={error} />} />
            <Route path="/home" element={<Home workouts={sortedWorkouts} loading={loading} error={error} />} />
-            <Route path="/workout/:id" element={<Workout />} />
+            <Route path="/workout/:id" element={<Workout setShouldRefresh={setShouldRefresh} />} />
             <Route path="/edit-workout/:workoutId" element={<EditWorkout setWorkouts={setWorkouts} />} />
-            <Route path="/add" element={<AddWorkout setWorkouts={setWorkouts} />} />
+            <Route path="/add" element={<AddWorkout setWorkouts={setWorkouts} setShouldRefresh={setShouldRefresh} />} />
             <Route path="/progress" element={<Progress workouts={sortedWorkouts} />} />
             <Route path="*" element={<Navigate to="/home" />} />
           </>

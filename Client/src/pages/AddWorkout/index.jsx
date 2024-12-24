@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import ErrorItem from '../../components/ErrorItem';
 
 
-export default function AddWorkout({setWorkouts}) {
+export default function AddWorkout({setWorkouts,setShouldRefresh}) {
 
   const apiUrl = import.meta.env.VITE_API_URL;
   const navigate = useNavigate();
@@ -82,7 +82,8 @@ export default function AddWorkout({setWorkouts}) {
         },
       });
       console.log('Workout saved successfully:', response.data);
-      setWorkouts((prevWorkouts) => [...prevWorkouts, response.data]);
+      // setWorkouts((prevWorkouts) => [...prevWorkouts, response.data]);
+      setShouldRefresh(true);
       navigate('/home');
     } catch (error) {
       console.error('Error saving workout:', error);
