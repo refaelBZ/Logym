@@ -46,5 +46,11 @@
         height: 100px;
       }
     }
+
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
   }
 }

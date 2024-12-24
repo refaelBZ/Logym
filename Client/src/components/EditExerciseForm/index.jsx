@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import styles from './style.module.scss';
 import Button from '../Button';
+import { useNavigate } from 'react-router-dom';
 
 const muscleGroups = [
-  "Chest", "Back", "Shoulders", "Biceps", "Triceps", "Legs", "Abs", "Calves", 
+  "Chest", "Back", "Shoulders", "Biceps", "Triceps", "Legs", "Abs", "Calves",
   "Forearms", "Traps", "Glutes", "Hamstrings", "Quadriceps"
 ];
 
-export default function EditExerciseForm({ exercise, onFormDataSubmit, onCancel }) {
+export default function EditExerciseForm({ exercise, onFormDataSubmit, onCancel, workoutId }) {
+  const navigate = useNavigate();
+
   const [exerciseData, setExerciseData] = useState({
     _id: '',
     exerciseName: '',
@@ -129,7 +132,10 @@ export default function EditExerciseForm({ exercise, onFormDataSubmit, onCancel 
             />
           </label>
         </div>
-        <Button title="Update Exercise" type="secondary" />
+        <div className={styles.buttons}>
+        <Button title="Update Exercise" type="primary" />
+        <Button title="Cancel" type="secondary" onClick={() => navigate(`/edit-workout/:${workoutId}`)} />
+        </div>
       </form>
     </div>
   );

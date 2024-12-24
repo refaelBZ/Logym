@@ -84,6 +84,7 @@ export default function Layout() {
             <Route path="/edit-workout/:workoutId" element={<EditWorkout setWorkouts={setWorkouts} />} />
             <Route path="/add" element={<AddWorkout setWorkouts={setWorkouts} setShouldRefresh={setShouldRefresh} />} />
             <Route path="/progress" element={<Progress workouts={sortedWorkouts} />} />
+            <Route path="/edit-workout/:workoutId" element={<EditWorkout setWorkouts={setWorkouts} />} />
             <Route path="*" element={<Navigate to="/home" />} />
           </>
         )}

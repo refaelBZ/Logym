@@ -6,6 +6,7 @@ import styles from './style.module.scss';
 import Button from '../../components/Button';
 import Picker from '../../components/Picker';
 import ProgressBar from '../../components/ProgressBar';
+import DialogBox from '../../components/DialogBox';
 
 const Workout = ({setShouldRefresh}) => {
   const location = useLocation();
@@ -13,6 +14,7 @@ const Workout = ({setShouldRefresh}) => {
   // Get workout from navigation state
   const [workout, setWorkout] = useState(location.state?.workout);
   const apiUrl = import.meta.env.VITE_API_URL;
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   // State for current exercise index and completed exercises
   const [currentExerciseIndex, setCurrentExerciseIndex] = useState(0);
@@ -121,7 +123,16 @@ const Workout = ({setShouldRefresh}) => {
   }, [currentExerciseValues, workout._id, workout.exercises, currentExerciseIndex, apiUrl, navigate, handleSkip]);
 
   const handleBack = () => {
+    setIsDialogOpen(true);
+    // navigate('/home');
+  }
+
+  const handleConfirmBack = () => {
     navigate('/home');
+  }
+
+  const handleCancelBack = () => {
+    setIsDialogOpen(false);
   }
 
   // Get current exercise and calculate progress
@@ -137,6 +148,7 @@ const Workout = ({setShouldRefresh}) => {
   const buttonDisabled = isExerciseCompleted || (isLastExercise && isLoading);
 
   return (
+    <>
     <div className={styles.workoutPage}>
       {/* Header */}
       <div className={styles.header}>
@@ -196,6 +208,12 @@ const Workout = ({setShouldRefresh}) => {
         </div>
       </div>
     </div>
+     {isDialogOpen && 
+      <div className={styles.dialogContainer}>
+        <DialogBox questionText="Are you sure you want to stop working out" onConfirm={handleConfirmBack} onCancel={handleCancelBack} />
+      </div>
+    }
+    </>
   );
 };
 

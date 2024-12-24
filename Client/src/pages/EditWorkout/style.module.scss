@@ -34,9 +34,12 @@
     }
   }
 
-  .saveButton {
+  .buttons {
     width: 100%;
     margin-bottom: 90px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
 
   .subTitle{
