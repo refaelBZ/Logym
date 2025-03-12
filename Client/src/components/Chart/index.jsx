@@ -3,7 +3,6 @@ import styles from './style.module.scss';
 import ScoreBar from '../ScoreBar';
 
 export default function Chart({ workout }) {
-
     const [averageScoresByDate, setAverageScoresByDate] = useState([]);
     const [clickedIndex, setClickedIndex] = useState(null);
 
@@ -22,19 +21,28 @@ export default function Chart({ workout }) {
                     const formattedDate = `${dateObj.getDate()}/${dateObj.getMonth() + 1}`; // פורמט 9/8
                     if (!scoreDataByDate[formattedDate]) {
                         scoreDataByDate[formattedDate] = [];
+
+                        scoreDataByDate[formattedDate].originalDate = new Date(scoreItem.date);
                     }
                     scoreDataByDate[formattedDate].push(scoreItem.score);
                 });
             });
 
-            // calculate average scores for each date
             const averages = Object.keys(scoreDataByDate).map(date => {
                 const scores = scoreDataByDate[date];
                 const averageScore = scores.reduce((total, score) => total + score, 0) / scores.length;
-                return { date, averageScore: Math.ceil(averageScore) };
+                return { 
+                    date, 
+                    averageScore: Math.ceil(averageScore),
+                    originalDate: scoreDataByDate[date].originalDate
+                };
             });
 
-            setAverageScoresByDate(averages);
+            const sortedAverages = [...averages].sort((a, b) => {
+                return a.originalDate - b.originalDate;
+            });
+            
+            setAverageScoresByDate(sortedAverages);
         }
     }, [workout]);
 
