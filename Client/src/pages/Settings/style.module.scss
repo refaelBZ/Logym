@@ -1,0 +1,73 @@
+@import '/src/mixins.scss';
+
+.settingsPage {
+  @include page;
+  @include layout-padding;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  .header {
+    flex-shrink: 0;
+  }
+
+  .pageName {
+    @include pageName;
+  }
+
+  .content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow-y: auto;
+  }
+
+  .profileSection {
+    width: 100%;
+  }
+
+  .stepContainer {
+    @include card-style;
+    gap: 15px;
+    width: 100%;
+    align-items: stretch;
+
+    .sectionTitle {
+      @include pageName;
+      color: var(--main-color);
+      font-size: var(--font-size-lg);
+      padding-top: 0;
+      text-align: center;
+    }
+
+    .stepPicker {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      padding: 20px 0;
+    }
+  }
+
+  .stepButton {
+    width: 100%;
+  }
+
+  .logoutSection {
+    width: 100%;
+  }
+
+  .dialogContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+}

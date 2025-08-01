@@ -7,9 +7,8 @@ db.connect();
 
 const cors = require('cors');
 
-
 app.use(cors({
-  origin: ['https://logym.vercel.app', 'http://localhost:5174'],
+  origin: ['https://logym.vercel.app', 'https://app.logym.fit', 'http://localhost:5174', 'http://localhost:5173'],
   credentials: true
 }));
 
@@ -24,6 +23,20 @@ app.use('/workout', workoutRouter);
 
 const userRouter = require('./User/user.router')
 app.use("/user", userRouter)
+
+// Centralized Error Handling Middleware
+app.use((error, req, res, next) => {
+  console.error(error); // For developer logs
+
+  const statusCode = error.statusCode || 500;
+  const message = error.statusCode ? error.message : 'An unexpected error occurred.';
+
+  res.status(statusCode).json({
+    status: 'error',
+    message: message
+  });
+});
+
 
 const PORT = process.env.PORT || 2500;
 app.listen(PORT, () => console.log(`Server is up and running on port ${PORT}!`));

@@ -1,27 +1,28 @@
 import React, { useState } from 'react';
 import styles from './style.module.scss';
 import Button from '../../components/Button';
-import axios from 'axios';
-import { useNavigate, Link } from 'react-router-dom';
+import apiClient from '../../api';
+import { useNavigate } from 'react-router-dom';
+import { useError } from '../../context/ErrorContext';
+import ErrorItem from '../../components/ErrorItem';
 
 export default function Login({ setIsLoggedIn }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
-  const apiUrl = import.meta.env.VITE_API_URL;
   
   const navigate = useNavigate();
+  const { error, hideError } = useError(); // Get error state and hide function
 
   const handleForgot = () => {
     //TODO: handleForgot
   };
 
   const handleLogin = async () => {
+    hideError(); // Clear previous errors before a new attempt
     setLoading(true);
-    setError('');
     try {
-      const response = await axios.post(`${apiUrl}/user/login`, {
+      const response = await apiClient.post('/user/login', {
         email,
         password,
       });
@@ -31,8 +32,7 @@ export default function Login({ setIsLoggedIn }) {
       setIsLoggedIn(true);
       navigate("/");
     } catch (error) {
-      console.error("There was an error logging in!", error);
-      setError('Login failed. Please check your credentials and try again.');
+        console.error("Login failed (handled globally):", error);
     } finally {
       setLoading(false);
     }
@@ -43,6 +43,9 @@ export default function Login({ setIsLoggedIn }) {
       <div className={styles.header}>
         <div className={styles.pageName}>Welcome Back</div>
       </div>
+      
+      {error && <ErrorItem message={error} onClose={hideError} />}
+
       <input 
         className={styles.input} 
         type="text" 
@@ -71,7 +74,6 @@ export default function Login({ setIsLoggedIn }) {
         </div>
       </div>
       <div className={styles.loaderAndError}>
-        {error && <div className={styles.errorMessage}>{error}</div>}
         {loading && <div className={styles.loader}></div>}
       </div>
     </div>

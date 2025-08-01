@@ -39,7 +39,7 @@ export default function Chart({ workout }) {
             });
 
             const sortedAverages = [...averages].sort((a, b) => {
-                return a.originalDate - b.originalDate;
+                return b.originalDate - a.originalDate;
             });
             
             setAverageScoresByDate(sortedAverages);

@@ -23,6 +23,12 @@ const userSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Workout'
     }],
+    stepSize: {
+        type: Number,
+        default: 1,
+        min: 1,
+        max: 10
+    },
     createdDate: {
         type: Date,
         default: Date.now

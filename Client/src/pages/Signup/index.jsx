@@ -1,45 +1,37 @@
 import React, { useState } from 'react';
 import styles from './style.module.scss';
 import Button from '../../components/Button';
-import axios from 'axios';
+import apiClient from '../../api';
 import { useNavigate } from 'react-router-dom';
+import { useError } from '../../context/ErrorContext';
+import ErrorItem from '../../components/ErrorItem';
 
 export default function Signup() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [username, setUsername] = useState('');  // Added username state
+  const [username, setUsername] = useState('');
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
-  const apiUrl = import.meta.env.VITE_API_URL;
   
   const navigate = useNavigate();
+  const { error, showError, hideError } = useError();
 
   const handleSignup = async () => {
+    hideError(); // Clear previous errors
+    
     if (password !== confirmPassword) {
-      setError("Passwords don't match");
+      showError("Passwords don't match");
       return;
     }
 
     setLoading(true);
-    setError('');
     try {
-      const response = await axios.post(`${apiUrl}/user/signup`, { email, password, username });
-      console.log("Signup successful:", response.data);
+      await apiClient.post('/user/signup', { email, password, username });
+      console.log("Signup successful");
+      // You might want to show a success message here before navigating
       navigate("/login");
     } catch (error) {
-      console.error("Signup error:", error);
-      if (error.response) {
-        // The request was made and the server responded with a status code
-        // that falls out of the range of 2xx
-        setError(error.response.data.error || 'Signup failed. Please try again.');
-      } else if (error.request) {
-        // The request was made but no response was received
-        setError('No response from server. Please try again later.');
-      } else {
-        // Something happened in setting up the request that triggered an Error
-        setError('An error occurred. Please try again.');
-      }
+      console.error("Signup failed (handled globally):", error);
     } finally {
       setLoading(false);
     }
@@ -50,6 +42,9 @@ export default function Signup() {
       <div className={styles.header}>
         <div className={styles.pageName}>Start your Journey</div>
       </div>
+
+      {error && <ErrorItem message={error} onClose={hideError} />}
+
       <input 
         className={styles.input} 
         type="text" 
@@ -97,7 +92,6 @@ export default function Signup() {
         </div>
       </div>
       <div className={styles.loaderAndError}>
-        {error && <div className={styles.errorMessage}>{error}</div>}
         {loading && <div className={styles.loader}></div>}
       </div>
     </div>

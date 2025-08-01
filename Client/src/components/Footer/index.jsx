@@ -6,7 +6,7 @@ export default function Footer() {
     return (
         <>
             <div className={styles.footer}>
-            <NavLink to="/" className={({ isActive }) => isActive ? styles.active : styles.unActive}>
+            <NavLink to="/settings" className={({ isActive }) => isActive ? styles.active : styles.unActive}>
                     <LuUserCog size={24} />
                 </NavLink>
                 <NavLink to="/home" className={({ isActive }) => isActive ? styles.active : styles.unActive}>

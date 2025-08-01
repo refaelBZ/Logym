@@ -44,7 +44,7 @@
   // }
 
   .exerciseInfoBox {
-    background-color: var(--dark-gray);
+    @include background-card-style;
     border-radius: 15px;
     padding: 20px;
     display: flex;

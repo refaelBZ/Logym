@@ -3,19 +3,15 @@ import styles from './style.module.scss';
 import AddExerciseForm from '../../components/AddExerciseForm';
 import AddWorkoutForm from '../../components/AddWorkoutForm';
 import Button from '../../components/Button';
-import axios from 'axios'; // Import Axios
-import ExerciseItem from '../../components/ExerciseItem';
+import apiClient from '../../api';
 import List from '../../components/List';
 import { useNavigate } from 'react-router-dom';
+import { useError } from '../../context/ErrorContext';
 import ErrorItem from '../../components/ErrorItem';
 
-
-export default function AddWorkout({setWorkouts,setShouldRefresh}) {
-
-  const apiUrl = import.meta.env.VITE_API_URL;
+export default function AddWorkout({ setShouldRefresh }) {
   const navigate = useNavigate();
-
-  const [error, setError] = useState(null);
+  const { error, showError, hideError } = useError();
 
   const [isExerciseFormVisible, setIsExerciseFormVisible] = useState(false);
   const [exercises, setExercises] = useState([]);
@@ -24,16 +20,11 @@ export default function AddWorkout({setWorkouts,setShouldRefresh}) {
     description: ''
   });
 
-  // Add exercise to the exercises list
   const handleSaveExercise = (exerciseData) => {
     setExercises((prevExercises) => [...prevExercises, exerciseData]);
-    console.log('Exercises updated:', exercises);
     setIsExerciseFormVisible(false);
-      setError(null); // Clear any existing error when an exercise is added
-
   };
 
-  // Update workout data in state
   const handleWorkoutDataChange = (newWorkoutData) => {
     setWorkoutData((prevData) => ({
       ...prevData,
@@ -41,57 +32,44 @@ export default function AddWorkout({setWorkouts,setShouldRefresh}) {
     }));
   };
 
-  // Handle save button click to submit workout and exercises data
   const handleSaveButtonClick = async () => {
-    // Check if there are any exercises in the list. if not, show error and return.
+    hideError(); // Clear previous errors
+    
     if (exercises.length === 0) {
-      setError("Cannot save workout without exercises. Please add at least one exercise.");
+      showError("Cannot save workout without exercises. Please add at least one exercise.");
       return;
     }
   
     if (workoutData.workoutName === '') {
-      setError("Cannot save workout without a name. Please enter a name.");
+      showError("Cannot save workout without a name. Please enter a name.");
       return;
     }
   
     const fullWorkout = {
       name: workoutData.workoutName,
       description: workoutData.description,
-      exercises: exercises.map(exercise => {
-        // הדפסת הערך של lastDifficulty
-        console.log('lastDifficulty:', Number(exercise.difficulty));
-        return {
-          name: exercise.exerciseName,
-          muscleGroup: exercise.muscleGroup,
-          sets: Number(exercise.sets),
-          reps: Number(exercise.reps),
-          lastWeight: Number(exercise.weight),
-          lastReps: Number(exercise.reps),
-          lastSets: Number(exercise.sets),
-          lastDifficulty: Number(exercise.difficulty),
-          notes: exercise.notes,
-        };
-      })
+      exercises: exercises.map(exercise => ({
+        name: exercise.exerciseName,
+        muscleGroup: exercise.muscleGroup,
+        sets: Number(exercise.sets),
+        reps: Number(exercise.reps),
+        lastWeight: Number(exercise.weight),
+        lastReps: Number(exercise.reps),
+        lastSets: Number(exercise.sets),
+        lastDifficulty: Number(exercise.difficulty),
+        notes: exercise.notes,
+      }))
     };
   
     try {
-      const token = localStorage.getItem('logym_token');
-      const response = await axios.post(`${apiUrl}/workout`, fullWorkout, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      console.log('Workout saved successfully:', response.data);
-      // setWorkouts((prevWorkouts) => [...prevWorkouts, response.data]);
+      await apiClient.post('/workout', fullWorkout);
+      console.log('Workout saved successfully');
       setShouldRefresh(true);
       navigate('/home');
     } catch (error) {
-      console.error('Error saving workout:', error);
-      setError("Failed to save workout. Please try again.");
+      console.error('Error saving workout (handled globally):', error);
     }
   };
-  
-  
 
   return (
     <div className={styles.addWorkoutPage}>
@@ -103,6 +81,9 @@ export default function AddWorkout({setWorkouts,setShouldRefresh}) {
       
       <div className={styles.AddWorkoutForm}>
         <div className={styles.formContent}>
+          
+          {error && <ErrorItem message={error} onClose={hideError} />}
+
           {!isExerciseFormVisible && (
             <AddWorkoutForm
               workoutData={workoutData}
@@ -126,8 +107,7 @@ export default function AddWorkout({setWorkouts,setShouldRefresh}) {
   
           {!isExerciseFormVisible ? <List items={exercises} /> : ''}
         </div>
-        {error && <ErrorItem message={error} />}
-          {!isExerciseFormVisible && (
+        {!isExerciseFormVisible && (
           <div className={styles.saveButton}>
             <Button title="Save Workout" type="primary" onClick={handleSaveButtonClick} />
           </div>
@@ -135,6 +115,4 @@ export default function AddWorkout({setWorkouts,setShouldRefresh}) {
       </div>
     </div>
   );
-  
-  
 }
