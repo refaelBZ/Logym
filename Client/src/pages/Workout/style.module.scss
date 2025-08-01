@@ -60,6 +60,8 @@
 
 .exerciseInfoBox {
   background-color: var(--dark-gray);
+  backdrop-filter: blur(20px);
+  box-shadow: 0px 8px 30px rgba(var(--dark-gray), 0.35);
   border-radius: 15px;
   padding: 20px;
   display: flex;

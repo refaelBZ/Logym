@@ -49,11 +49,11 @@ async function read(filter) {
 }
 
 async function readOne(filter) {
-    return await userModel.findOne(filter);
+    return await userModel.findOne(filter).select('-password');
 }
 
 async function updateByEmail(filter, data) {
-    return await userModel.findOneAndUpdate(filter, data, { new: true });
+    return await userModel.findOneAndUpdate(filter, data, { new: true }).select('-password');
 }
 
 async function del(id) {

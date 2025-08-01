@@ -4,18 +4,18 @@ import styles from './style.module.scss';
 
 const Picker = ({ title, value, onValueChange, min = 0, max = 1000, step = 1 }) => {
   // State for the previous, current, and next values
-  const [prevValue, setPrevValue] = useState(value - step);
+  const [prevValue, setPrevValue] = useState(Math.max(min, value - step));//set the values not to be less than min and not to be greater than max
   const [currentValue, setCurrentValue] = useState(value);
-  const [nextValue, setNextValue] = useState(value + step);
+  const [nextValue, setNextValue] = useState(Math.min(max, value + step));
   // State for animation class
   const [animationClass, setAnimationClass] = useState('');
 
   // Update internal state when props change
   useEffect(() => {
     setCurrentValue(value);
-    setPrevValue(value - step);
-    setNextValue(value + step);
-  }, [value, step]);
+    setPrevValue(Math.max(min, value - step));
+    setNextValue(Math.min(max, value + step));
+  }, [value, step, min, max]);
 
   // Function to update values based on direction (next or previous)
   const updateValues = useCallback((direction) => {
@@ -25,21 +25,23 @@ const Picker = ({ title, value, onValueChange, min = 0, max = 1000, step = 1 }) 
     setTimeout(() => {
       if (direction === 'next' && currentValue < max) {
         // Move to next value
+        const newValue = Math.min(max, currentValue + step);
         setPrevValue(currentValue);
-        setCurrentValue(nextValue);
-        setNextValue(nextValue + step);
-        onValueChange(nextValue);
+        setCurrentValue(newValue);
+        setNextValue(Math.min(max, newValue + step));
+        onValueChange(newValue);
       } else if (direction === 'prev' && currentValue > min) {
         // Move to previous value
+        const newValue = Math.max(min, currentValue - step);
         setNextValue(currentValue);
-        setCurrentValue(prevValue);
-        setPrevValue(prevValue - step);
-        onValueChange(prevValue);
+        setCurrentValue(newValue);
+        setPrevValue(Math.max(min, newValue - step));
+        onValueChange(newValue);
       }
       // Clear animation class
       setAnimationClass('');
     }, 200); // Animation duration
-  }, [currentValue, prevValue, nextValue, min, max, step, onValueChange]);
+  }, [currentValue, min, max, step, onValueChange]);
 
   // Swipe handlers
   const swipeHandlers = useSwipeable({

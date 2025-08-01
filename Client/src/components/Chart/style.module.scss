@@ -17,12 +17,13 @@
     .chart {
       text-align: start;
       color: white;
-      overflow-x: scroll;
+      overflow-x: auto;
       gap: 8px;
       display: flex;
       flex-direction: row;
       align-items: flex-end;
       width: 100%;
+      justify-content: flex-start;
     }
   }
   
