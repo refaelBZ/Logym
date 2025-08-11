@@ -24,6 +24,14 @@ app.use('/workout', workoutRouter);
 const userRouter = require('./User/user.router')
 app.use("/user", userRouter)
 
+// Verify email transporter (non-blocking)
+try {
+  const { verifyTransporter } = require('./User/emailService');
+  verifyTransporter().catch(() => {});
+} catch (_) {
+  // ignore if email service not available
+}
+
 // Centralized Error Handling Middleware
 app.use((error, req, res, next) => {
   console.error(error); // For developer logs

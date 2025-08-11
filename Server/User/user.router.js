@@ -3,7 +3,7 @@ const router = express.Router();
 const userService = require('./user.service');
 const auth = require('./auth');
 const { authenticateToken } = require('./auth');
-const { body, validationResult } = require('express-validator');
+  const { body, validationResult } = require('express-validator');
 
 //get user by email
 router.get('/:id', authenticateToken, async (req, res, next) => {
@@ -50,6 +50,45 @@ router.post('/login', async (req, res, next) => {
     } catch (error) {
         next(error);
     }
+});
+
+// forgot password
+router.post('/password/forgot', [
+  body('email').isEmail().withMessage('Enter a valid email address')
+], async (req, res, next) => {
+  try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      const message = errors.array().map(err => err.msg).join(', ');
+      const error = new Error(message);
+      error.statusCode = 400;
+      throw error;
+    }
+    await auth.requestPasswordReset(req.body.email);
+    res.json({ message: 'If an account exists for this email, a reset link has been sent.' });
+  } catch (error) {
+    next(error);
+  }
+});
+
+// reset password
+router.post('/password/reset', [
+  body('token').not().isEmpty().withMessage('Reset token is required'),
+  body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters long')
+], async (req, res, next) => {
+  try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      const message = errors.array().map(err => err.msg).join(', ');
+      const error = new Error(message);
+      error.statusCode = 400;
+      throw error;
+    }
+    const token = await auth.resetPassword(req.body.token, req.body.password);
+    res.json({ token });
+  } catch (error) {
+    next(error);
+  }
 });
 
 //signup

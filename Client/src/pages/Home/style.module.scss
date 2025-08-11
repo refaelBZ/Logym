@@ -88,6 +88,14 @@
     text-align: center;
     color: white;
   }
+
+  .emptyStateText {
+    color: var(--text-color);
+  }
+
+  .emptyStateActions {
+    margin-top: 12px;
+  }
 }
 
 .dialogContainer {

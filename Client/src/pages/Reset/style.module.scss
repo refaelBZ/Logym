@@ -1,0 +1,40 @@
+@import '/src/mixins.scss';
+
+.homePage {
+  @include page;
+  @include layout-padding;
+  height: 100vh;
+  justify-content: center;
+
+  .pageName {
+    font-size: 32px;
+    font-weight: 500;
+    padding-top: 40px;
+  }
+
+  .actionButtons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .header {
+    @include text-center;
+    color: white;
+  }
+  .input {
+    @include input;
+    color: var(--gray-color);
+  
+    &:focus {
+      outline: none;
+    }
+
+    &:disabled {
+      background-color: var(--light-gray-color);
+      color: var(--gray-color);
+    }
+  }
+}
+
+
