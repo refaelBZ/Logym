@@ -51,6 +51,16 @@ const Home = ({ workouts, loading, error, setShouldRefresh }) => {
       {/* The global ErrorItem now handles API errors, this is for initial load error */}
       {error && !loading ? (
         <ErrorItem message={error} />
+      ) : !loading && Array.isArray(workouts) && workouts.length === 0 ? (
+        <div className={styles.exerciseInfoBox}>
+          <div className={styles.exerciseTitle}>Welcome</div>
+          <div className={styles.emptyStateText}>
+            Start your journey. Add your first workout to start seeing results.
+          </div>
+          <div className={`${styles.actionButtons} ${styles.emptyStateActions}`}>
+            <Button title="Add Workout" type="primary" onClick={handleAddWorkout} />
+          </div>
+        </div>
       ) : (
         <List items={workouts} loading={loading || isDeleting} onDeleteClick={handleDeleteClick} />
       )}

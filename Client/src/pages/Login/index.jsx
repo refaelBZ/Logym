@@ -15,7 +15,7 @@ export default function Login({ setIsLoggedIn }) {
   const { error, hideError } = useError(); // Get error state and hide function
 
   const handleForgot = () => {
-    //TODO: handleForgot
+    navigate('/forgot');
   };
 
   const handleLogin = async () => {

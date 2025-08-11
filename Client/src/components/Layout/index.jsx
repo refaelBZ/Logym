@@ -9,6 +9,8 @@ import AddWorkout from '../../pages/AddWorkout';
 import Signup from '../../pages/Signup';
 import EditWorkout from '../../pages/EditWorkout';
 import Settings from '../../pages/Settings';
+import Forgot from '../../pages/Forgot';
+import Reset from '../../pages/Reset';
 import { useError } from '../../context/ErrorContext';
 import apiClient, { setupErrorInterceptor } from '../../api';
 
@@ -75,6 +77,8 @@ export default function Layout() {
         {!isLoggedIn ? (
           <>
             <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
+            <Route path="/forgot" element={<Forgot />} />
+            <Route path="/reset/:token" element={<Reset setIsLoggedIn={setIsLoggedIn} />} />
             <Route path="/signup" element={<Signup setIsLoggedIn={setIsLoggedIn} />} />
             <Route path="*" element={<Navigate to="/login" />} />
           </>

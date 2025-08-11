@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useError } from '../../context/ErrorContext';
 import ErrorItem from '../../components/ErrorItem';
 
-export default function Signup() {
+export default function Signup({ setIsLoggedIn }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -26,16 +26,28 @@ export default function Signup() {
 
     setLoading(true);
     try {
-      await apiClient.post('/user/signup', { email, password, username });
+      const response = await apiClient.post('/user/signup', { email, password, username });
       console.log("Signup successful");
-      // You might want to show a success message here before navigating
-      navigate("/login");
+      if (response && response.data && response.data.token) {
+        localStorage.setItem('logym_token', response.data.token);
+        localStorage.setItem('logym_userEmail', email);
+        if (typeof setIsLoggedIn === 'function') {
+          setIsLoggedIn(true);
+        }
+        navigate("/");
+      } else {
+        // Fallback: if no token returned for some reason, go to login
+        navigate("/login");
+      }
     } catch (error) {
       console.error("Signup failed (handled globally):", error);
     } finally {
       setLoading(false);
     }
   };
+
+  const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const isFormValid = username.trim().length > 0 && isValidEmail && password.length >= 6 && password === confirmPassword;
 
   return (
     <div className={styles.signupPage}>
@@ -48,14 +60,14 @@ export default function Signup() {
       <input 
         className={styles.input} 
         type="text" 
-        placeholder='Your Username' 
+        placeholder='Choose Your Username' 
         value={username}
         onChange={(e) => setUsername(e.target.value)}
         disabled={loading}
       />
       <input 
         className={styles.input} 
-        type="text" 
+        type="email" 
         placeholder='Your Email' 
         value={email}
         onChange={(e) => setEmail(e.target.value)}
@@ -82,7 +94,7 @@ export default function Signup() {
           title="Sign Up" 
           type="primary" 
           onClick={handleSignup} 
-          disabled={loading} 
+          disabled={loading || !isFormValid} 
           loadingTitle='Signing up...'
         />
       </div>
