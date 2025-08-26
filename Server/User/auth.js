@@ -9,7 +9,8 @@ function generateToken(user) {
 }
 
 async function login(email, password) {
-  const user = await User.findOne({ email }).select('+password');
+  const normalizedEmail = (email || '').toString().trim().toLowerCase();
+  const user = await User.findOne({ email: normalizedEmail }).select('+password');
 
   // For security reasons, give the same error message for both cases
   if (!user) {
@@ -56,8 +57,9 @@ const authenticateToken = (req, res, next) => {
 };
 
 async function signup(userData) {
-  console.log(`Signup: creating user email=${userData.email}, username=${userData.username}`);
-  const existingUser = await User.findOne({ email: userData.email });
+  const normalizedEmail = (userData.email || '').toString().trim().toLowerCase();
+  console.log(`Signup: creating user email=${normalizedEmail}, username=${userData.username}`);
+  const existingUser = await User.findOne({ email: normalizedEmail });
   if (existingUser) {
       const error = new Error('An account with this email already exists.');
       error.statusCode = 409; // Conflict
@@ -69,6 +71,7 @@ async function signup(userData) {
 
   const newUser = new User({
       ...userData,
+      email: normalizedEmail,
       password: hashedPassword
   });
 

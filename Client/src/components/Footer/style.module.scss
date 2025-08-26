@@ -12,6 +12,14 @@
     gap: 2vw;
     font-size: 16px;
     text-align: center;
+
+    @media (min-width: 500px) {
+        //desktop
+        width: 420px;
+        height: 79px;
+        min-width: 300px;
+
+    }
 }
 
 .footer a {

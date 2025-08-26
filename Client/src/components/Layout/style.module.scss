@@ -1,0 +1,12 @@
+.appRoot{
+  @media (min-width: 500px) {
+    //desktop
+  background-color: var(--main-color);
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+  }
+}

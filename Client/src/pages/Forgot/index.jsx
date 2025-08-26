@@ -24,7 +24,8 @@ export default function Forgot() {
     }
     setLoading(true);
     try {
-      await apiClient.post('/user/password/forgot', { email });
+      const normalizedEmail = (email || '').trim().toLowerCase();
+      await apiClient.post('/user/password/forgot', { email: normalizedEmail });
       setSent(true);
     } catch (err) {
       // handled globally

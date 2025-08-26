@@ -2,11 +2,20 @@
 @mixin page {
   padding: 20px;
   display: flex;
-  height: calc(100vh - 79px);
+  height: calc(100vh - var(--footer-height));
   flex-direction: column;
   justify-content: start;
   gap: 20px;
   background-color: var(--background-color);
+
+  @media (min-width: 500px ) {
+    //desktop
+    padding: 20px;
+    width: 420px;
+    min-width: 300px;
+    overflow-y: auto;
+    height: 100vh;
+  }
 }
 
 @mixin layout-padding {
