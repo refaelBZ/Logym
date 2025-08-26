@@ -26,11 +26,12 @@ export default function Signup({ setIsLoggedIn }) {
 
     setLoading(true);
     try {
-      const response = await apiClient.post('/user/signup', { email, password, username });
+      const normalizedEmail = (email || '').trim().toLowerCase();
+      const response = await apiClient.post('/user/signup', { email: normalizedEmail, password, username });
       console.log("Signup successful");
       if (response && response.data && response.data.token) {
         localStorage.setItem('logym_token', response.data.token);
-        localStorage.setItem('logym_userEmail', email);
+        localStorage.setItem('logym_userEmail', normalizedEmail);
         if (typeof setIsLoggedIn === 'function') {
           setIsLoggedIn(true);
         }

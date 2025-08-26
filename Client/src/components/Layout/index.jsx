@@ -13,6 +13,7 @@ import Forgot from '../../pages/Forgot';
 import Reset from '../../pages/Reset';
 import { useError } from '../../context/ErrorContext';
 import apiClient, { setupErrorInterceptor } from '../../api';
+import styles from './style.module.scss';
 
 export default function Layout() {
   const [workouts, setWorkouts] = useState([]);
@@ -71,7 +72,7 @@ export default function Layout() {
   }, [workouts]);
 
   return (
-    <div>
+    <div className={styles.appRoot}>
       {/* ErrorItem is now handled within each page component */}
       <Routes>
         {!isLoggedIn ? (

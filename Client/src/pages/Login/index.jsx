@@ -22,13 +22,14 @@ export default function Login({ setIsLoggedIn }) {
     hideError(); // Clear previous errors before a new attempt
     setLoading(true);
     try {
+      const normalizedEmail = (email || '').trim().toLowerCase();
       const response = await apiClient.post('/user/login', {
-        email,
+        email: normalizedEmail,
         password,
       });
-      console.log('Login successful:', response.data);
+      // console.log('Login successful:', response.data);
       localStorage.setItem('logym_token', response.data.token);
-      localStorage.setItem('logym_userEmail', email);
+      localStorage.setItem('logym_userEmail', normalizedEmail);
       setIsLoggedIn(true);
       navigate("/");
     } catch (error) {
@@ -48,7 +49,7 @@ export default function Login({ setIsLoggedIn }) {
 
       <input 
         className={styles.input} 
-        type="text" 
+        type="email" 
         placeholder='Your Email' 
         value={email}
         onChange={(e) => setEmail(e.target.value)}
