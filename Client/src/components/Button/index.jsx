@@ -20,7 +20,8 @@ export default function Button({ title = 'Click', loadingTitle = 'Sending...', t
       onClick={handleClick}
       className={`${type === 'primary' ? styles.primary : styles.secondary} ${disabled ? styles.disabled : ''}`}
     >
-      <button className={isLoading ? styles.loading : ''} disabled={disabled}>
+      <button className={isLoading ? styles.loading : ''} disabled={disabled || isLoading}>
+        {isLoading && <div className={styles.buttonSpinner}></div>}
         {isLoading ? loadingTitle : title}
       </button>
     </div>

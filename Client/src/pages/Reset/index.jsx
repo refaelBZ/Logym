@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styles from './style.module.scss';
 import Button from '../../components/Button';
+import PasswordInput from '../../components/PasswordInput';
 import apiClient from '../../api';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useError } from '../../context/ErrorContext';
@@ -50,17 +51,15 @@ export default function Reset({ setIsLoggedIn }) {
 
       {error && <ErrorItem message={error} onClose={hideError} />}
 
-      <input 
+      <PasswordInput 
         className={styles.input} 
-        type="password" 
         placeholder='New Password' 
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         disabled={loading}
       />
-      <input 
+      <PasswordInput 
         className={styles.input} 
-        type="password" 
         placeholder='Confirm New Password' 
         value={confirmPassword}
         onChange={(e) => setConfirmPassword(e.target.value)}

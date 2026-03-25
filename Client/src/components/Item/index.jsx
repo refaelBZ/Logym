@@ -97,7 +97,7 @@ export default function Item({ workout, isMenuOpen, onToggleMenu, onDeleteClick 
                         <div onClick={toggleMenu} className={styles.moreIcon}>
                             <img src="/Icon more horiz.svg" alt="more options" />
                         </div>
-                        {isMenuOpen && <Menu options={menuOptions} />}
+                        {isMenuOpen && <Menu options={menuOptions} onClose={onToggleMenu} />}
                     </div>
                 </div>
                 <div className={styles.progressBar}>

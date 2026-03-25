@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styles from './style.module.scss';
 import Button from '../../components/Button';
+import PasswordInput from '../../components/PasswordInput';
 import apiClient from '../../api';
 import { useNavigate } from 'react-router-dom';
 import { useError } from '../../context/ErrorContext';
@@ -74,17 +75,15 @@ export default function Signup({ setIsLoggedIn }) {
         onChange={(e) => setEmail(e.target.value)}
         disabled={loading}
       />
-      <input 
+      <PasswordInput 
         className={styles.input} 
-        type="password" 
         placeholder='Your Password' 
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         disabled={loading}
       />
-      <input 
+      <PasswordInput 
         className={styles.input} 
-        type="password" 
         placeholder='Confirm Password' 
         value={confirmPassword}
         onChange={(e) => setConfirmPassword(e.target.value)}
