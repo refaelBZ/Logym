@@ -22,6 +22,18 @@
     padding: 20px;
   }
 
+  .skeletonCard {
+    background-color: var(--dark-gray);
+    border-radius: 15px;
+    height: 200px;
+    animation: skeletonPulse 1.5s ease-in-out infinite;
+  }
+
+  @keyframes skeletonPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
   .parameterButtons {
     display: flex;
     justify-content: space-around;

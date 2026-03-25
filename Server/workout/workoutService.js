@@ -60,7 +60,7 @@ async function updateExercise(userId, workoutId, exerciseId, data) {
         // Update lastDate
         workout.lastDate = new Date();
 
-    // update the history
+    // update the history (idempotent: overwrite today's entry if it already exists)
     const historyFields = [
         { field: 'lastWeight', history: 'weightHistory' },
         { field: 'lastReps', history: 'repsHistory' },
@@ -68,26 +68,67 @@ async function updateExercise(userId, workoutId, exerciseId, data) {
         { field: 'lastDifficulty', history: 'difficultyHistory' }
     ];
 
+    const todayStart = new Date();
+    todayStart.setHours(0, 0, 0, 0);
+
     historyFields.forEach(({ field, history }) => {
         if (data[field] !== undefined) {
-            exercise[history].push({ [field.slice(4).toLowerCase()]: data[field], date: new Date() });
+            const key = field.slice(4).toLowerCase(); // 'lastWeight' → 'weight'
+            const arr = exercise[history];
+            const lastEntry = arr[arr.length - 1];
+            const lastEntryDay = lastEntry ? new Date(lastEntry.date) : null;
+            if (lastEntryDay) lastEntryDay.setHours(0, 0, 0, 0);
+
+            if (lastEntryDay && lastEntryDay.getTime() === todayStart.getTime()) {
+                // Overwrite today's entry instead of pushing a duplicate
+                lastEntry[key] = data[field];
+                lastEntry.date = new Date();
+            } else {
+                arr.push({ [key]: data[field], date: new Date() });
+            }
         }
     });
 
-    // Calculate the score and update scoreHistory
+    // Calculate the score and update scoreHistory (idempotent: overwrite today's entry)
     const score = calculateExerciseScore(
         exercise.weightHistory,
         exercise.repsHistory,
         exercise.setsHistory,
         exercise.difficultyHistory
     );
-    exercise.scoreHistory.push({ score: score, date: new Date() });
+    const lastScore = exercise.scoreHistory[exercise.scoreHistory.length - 1];
+    const lastScoreDay = lastScore ? new Date(lastScore.date) : null;
+    if (lastScoreDay) lastScoreDay.setHours(0, 0, 0, 0);
+    if (lastScoreDay && lastScoreDay.getTime() === todayStart.getTime()) {
+        lastScore.score = score;
+        lastScore.date = new Date();
+    } else {
+        exercise.scoreHistory.push({ score: score, date: new Date() });
+    }
+
+    // Compute weighted session score: sum of today's exercise scores / total active exercises
+    const activeExercises = workout.exercises.filter(ex => ex.isActive !== false);
+    const totalExercises = activeExercises.length;
+    let sumScores = 0;
+    for (const ex of activeExercises) {
+        const ls = ex.scoreHistory[ex.scoreHistory.length - 1];
+        if (ls) {
+            const lsDay = new Date(ls.date);
+            lsDay.setHours(0, 0, 0, 0);
+            if (lsDay.getTime() === todayStart.getTime()) {
+                sumScores += ls.score;
+            }
+        }
+    }
+    workout.completionRate = totalExercises > 0 ? sumScores / totalExercises : 0;
 
     if (data.done) {
         exercise.lastdoneDate = new Date();
     }
 
-    const updatedWorkout = await workoutController.updateExerciseInWorkout(workoutId, exerciseId, exercise);
+    const updatedWorkout = await workoutController.updateExerciseInWorkout(
+        workoutId, exerciseId, exercise, { completionRate: workout.completionRate }
+    );
     if (!updatedWorkout) throw new Error("Failed to update exercise in workout");
 
     return updatedWorkout;
@@ -145,12 +186,15 @@ function calculateExerciseScore(weightHistory, repsHistory, setsHistory, difficu
         score += calculateScore(difficultyHistory[difficultyHistory.length - 1].difficulty, difficultyHistory[difficultyHistory.length - 2].difficulty, difficultyIncreaseScore, difficultyDecreaseScore, difficultyExtremeDecreaseScore);
     }
 
-    // Special logic for significant weight increase and slight reps decrease
-    if (weightHistory.length > 1 && repsHistory.length > 1 &&
-        weightHistory[weightHistory.length - 1].weight > weightHistory[weightHistory.length - 2].weight * 1.1 && 
-        repsHistory[repsHistory.length - 1].reps < repsHistory[repsHistory.length - 2].reps * 0.9 && 
-        repsHistory[repsHistory.length - 1].reps > repsHistory[repsHistory.length - 2].reps * 0.9) {
-        score += 3; // negate the slight reps decrease
+    // +3 bonus: significant weight increase (>10%) AND slight reps drop (80–99% of previous)
+    if (weightHistory.length > 1 && repsHistory.length > 1) {
+        const prevWeight = weightHistory[weightHistory.length - 2].weight;
+        const curWeight = weightHistory[weightHistory.length - 1].weight;
+        const prevReps = repsHistory[repsHistory.length - 2].reps;
+        const curReps = repsHistory[repsHistory.length - 1].reps;
+        if (curWeight > prevWeight * 1.1 && curReps < prevReps && curReps >= prevReps * 0.8) {
+            score += 3; // negate the slight reps decrease caused by heavier weight
+        }
     }
 
     // Ensure the score is within the 0-10 range
@@ -222,9 +266,11 @@ async function updateWorkout(userId, workoutId, data) {
     workout.description = data.description;
     workout.lastDate = new Date();
 
-    // Update exercises
-    workout.exercises = data.exercises.map((updatedExercise, index) => {
-        const existingExercise = workout.exercises[index] || {};
+    // Update exercises — match by _id to preserve history across reorders/deletions
+    workout.exercises = data.exercises.map((updatedExercise) => {
+        const existingExercise = updatedExercise._id
+            ? workout.exercises.find(ex => ex._id.toString() === updatedExercise._id.toString()) || {}
+            : {};
         return {
             ...existingExercise,
             ...updatedExercise,

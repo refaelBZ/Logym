@@ -13,24 +13,25 @@ export const setupErrorInterceptor = (showError) => {
       let errorMessage = 'An unexpected error occurred. Please try again.';
 
       if (error.response) {
-        // The request was made and the server responded with a status code
-        // that falls out of the range of 2xx
         errorMessage = error.response.data?.message || errorMessage;
-        
-        // Handle specific status codes if needed
+
         if (error.response.status === 401) {
-          // For example, redirect to login or refresh token
-          // For now, we just show the error
+          const hadSession = !!localStorage.getItem('logym_token');
           localStorage.removeItem('logym_token');
-          // Maybe force a reload to redirect to login via Layout's logic
-          window.location.reload();
+          if (hadSession) {
+            // Expired / invalidated session — reload so Layout re-reads localStorage
+            // and redirects cleanly to /login without showing a stale error.
+            window.location.reload();
+            return Promise.reject(error);
+          }
+          // No active session (e.g. wrong password on login) — fall through and
+          // let the error message display normally.
         }
       } else if (error.request) {
-        // The request was made but no response was received
         errorMessage = 'Cannot connect to the server. Please check your network connection.';
       }
 
-      showError(errorMessage);
+      showError(errorMessage, { persistent: !error.response });
 
       return Promise.reject(error);
     }

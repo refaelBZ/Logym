@@ -8,13 +8,14 @@ async function read() {
 
 // update an exercise in a workout
 
-async function updateExerciseInWorkout(workoutId, exerciseId, updatedExercise) {
+async function updateExerciseInWorkout(workoutId, exerciseId, updatedExercise, extraWorkoutFields = {}) {
     return await workoutModel.findOneAndUpdate(
         { _id: workoutId, "exercises._id": exerciseId },
-        { 
-            $set: { 
+        {
+            $set: {
                 "exercises.$": updatedExercise,
-                "lastDate": new Date()
+                "lastDate": new Date(),
+                ...extraWorkoutFields
             }
         },
         { new: true }
@@ -39,7 +40,7 @@ async function create(workout) {
 }
 //delte an exercise from a workout
 async function deleteExercise(workoutId, exerciseId) {
-    return await Workout.findOneAndUpdate(
+    return await workoutModel.findOneAndUpdate(
         { _id: workoutId, "exercises._id": exerciseId },
         { $set: { "exercises.$.isActive": false } },
         { new: true }

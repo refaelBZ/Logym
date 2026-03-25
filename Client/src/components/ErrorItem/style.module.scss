@@ -24,15 +24,32 @@
     
     .messageWrapper {
       flex: 1;
-      
+
       .title {
         display: block;
         font-weight: var(--font-weight-normal);
         color: var(--main-color);
       }
-      
+
       .message {
       @include text;
+      }
+    }
+
+    .closeButton {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--text-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px;
+      border-radius: 8px;
+      opacity: 0.7;
+      flex-shrink: 0;
+      &:hover {
+        opacity: 1;
       }
     }
   }

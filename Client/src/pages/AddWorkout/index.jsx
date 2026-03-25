@@ -15,6 +15,7 @@ export default function AddWorkout({ setShouldRefresh }) {
 
   const [isExerciseFormVisible, setIsExerciseFormVisible] = useState(false);
   const [exercises, setExercises] = useState([]);
+  const [isSaving, setIsSaving] = useState(false);
   const [workoutData, setWorkoutData] = useState({
     workoutName: '',
     description: ''
@@ -61,13 +62,15 @@ export default function AddWorkout({ setShouldRefresh }) {
       }))
     };
   
+    setIsSaving(true);
     try {
       await apiClient.post('/workout', fullWorkout);
-      console.log('Workout saved successfully');
       setShouldRefresh(true);
       navigate('/home');
     } catch (error) {
       console.error('Error saving workout (handled globally):', error);
+    } finally {
+      setIsSaving(false);
     }
   };
 
@@ -109,7 +112,7 @@ export default function AddWorkout({ setShouldRefresh }) {
         </div>
         {!isExerciseFormVisible && (
           <div className={styles.saveButton}>
-            <Button title="Save Workout" type="primary" onClick={handleSaveButtonClick} />
+            <Button title="Save Workout" type="primary" onClick={handleSaveButtonClick} disabled={isSaving} loadingTitle="Saving..." />
           </div>
         )}
       </div>

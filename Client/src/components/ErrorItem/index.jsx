@@ -1,8 +1,8 @@
 import React from 'react';
 import styles from './style.module.scss';
-import { AlertTriangle } from 'lucide-react';
+import { AlertTriangle, X } from 'lucide-react';
 
-const ErrorItem = ({ message }) => {
+const ErrorItem = ({ message, onClose }) => {
   return (
     <div className={styles.errorContainer}>
       <div className={styles.iconWrapper}>
@@ -12,6 +12,11 @@ const ErrorItem = ({ message }) => {
         <strong className={styles.title}>{"Error :("}</strong>
         <span className={styles.message}>{message}</span>
       </div>
+      {onClose && (
+        <button className={styles.closeButton} onClick={onClose} aria-label="Dismiss error">
+          <X size={16} />
+        </button>
+      )}
     </div>
   );
 };

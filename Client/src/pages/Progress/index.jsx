@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import Chart from '../../components/Chart';
 import styles from './style.module.scss';
 
-export default function Progress({ workouts }) {
+export default function Progress({ workouts, loading }) {
   //sort workouts by last date - for progress pageד
   const sortedWorkouts = useMemo(() => {
     return [...workouts].sort((a, b) => {
@@ -18,11 +18,16 @@ export default function Progress({ workouts }) {
         <div className={styles.pageName}>My Progress</div>
       </div>
       <div className={styles.charts}>
-        {sortedWorkouts.map((workout, index) => (
-          <div key={index} className={styles.workoutContainer}>
-            <Chart workout={workout} workouts={workouts} />
-          </div>
-        ))}
+        {loading
+          ? Array.from({ length: 3 }).map((_, i) => (
+              <div key={i} className={styles.skeletonCard} />
+            ))
+          : sortedWorkouts.map((workout, index) => (
+              <div key={index} className={styles.workoutContainer}>
+                <Chart workout={workout} workouts={workouts} />
+              </div>
+            ))
+        }
       </div>
     </div>
   );

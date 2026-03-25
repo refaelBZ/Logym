@@ -54,6 +54,13 @@
     width: 100%;
   }
 
+  .savedMessage {
+    text-align: center;
+    font-size: var(--font-size-sm);
+    color: var(--main-color);
+    font-weight: var(--font-weight-light);
+  }
+
   .logoutSection {
     width: 100%;
   }
