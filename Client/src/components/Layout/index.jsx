@@ -17,8 +17,11 @@ import styles from './style.module.scss';
 
 export default function Layout() {
   const [workouts, setWorkouts] = useState([]);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // Initialise synchronously from localStorage so the correct route branch
+  // renders on the very first paint — avoids a redirect flash to /login.
+  const [isLoggedIn, setIsLoggedIn] = useState(() => !!localStorage.getItem('logym_token'));
   const [loading, setLoading] = useState(true);
+  const [fetchError, setFetchError] = useState(false);
   const [step, setStep] = useState(1);
   const [shouldRefresh, setShouldRefresh] = useState(false);
 
@@ -30,9 +33,16 @@ export default function Layout() {
 
   const handleGetWorkouts = async () => {
     setLoading(true);
-    const response = await apiClient.get('/workout');
-    setWorkouts(response.data);
-    setLoading(false);
+    setFetchError(false);
+    try {
+      const response = await apiClient.get('/workout');
+      setWorkouts(response.data);
+    } catch (error) {
+      console.error('Error fetching workouts:', error);
+      setFetchError(true);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const loadUserSettings = async () => {
@@ -85,12 +95,12 @@ export default function Layout() {
           </>
         ) : (
           <>
-            <Route path="/" element={<Home workouts={sortedWorkouts} loading={loading} />} />
-            <Route path="/home" element={<Home workouts={workouts} setWorkouts={setWorkouts} setShouldRefresh={setShouldRefresh} />} />
+            <Route path="/" element={<Home workouts={sortedWorkouts} loading={loading} fetchError={fetchError} setWorkouts={setWorkouts} setShouldRefresh={setShouldRefresh} />} />
+            <Route path="/home" element={<Home workouts={workouts} loading={loading} fetchError={fetchError} setWorkouts={setWorkouts} setShouldRefresh={setShouldRefresh} />} />
             <Route path="/workout/:workoutId" element={<Workout setShouldRefresh={setShouldRefresh} step={step} />} />
             <Route path="/edit-workout/:workoutId" element={<EditWorkout setWorkouts={setWorkouts} />} />
             <Route path="/add" element={<AddWorkout setShouldRefresh={setShouldRefresh} />} />
-            <Route path="/progress" element={<Progress workouts={workouts} />} />
+            <Route path="/progress" element={<Progress workouts={workouts} loading={loading} />} />
             <Route path="/settings" element={<Settings setIsLoggedIn={setIsLoggedIn} setStep={setStep} step={step} />} />
             <Route path="/edit-workout/:workoutId" element={<EditWorkout setWorkouts={setWorkouts} />} />
             <Route path="*" element={<Navigate to="/home" />} />

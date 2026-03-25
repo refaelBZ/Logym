@@ -7,7 +7,7 @@ import ErrorItem from '../../components/ErrorItem';
 import apiClient from '../../api'; // Use our new apiClient
 import DialogBox from '../../components/DialogBox';
 
-const Home = ({ workouts, loading, error, setShouldRefresh }) => {
+const Home = ({ workouts, loading, fetchError, setShouldRefresh }) => {
   const navigate = useNavigate();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [workoutToDelete, setWorkoutToDelete] = useState(null);
@@ -48,9 +48,8 @@ const Home = ({ workouts, loading, error, setShouldRefresh }) => {
       <div className={styles.header}>
         <div className={styles.pageName}>My Workouts</div>
       </div>
-      {/* The global ErrorItem now handles API errors, this is for initial load error */}
-      {error && !loading ? (
-        <ErrorItem message={error} />
+      {fetchError && !loading ? (
+        <ErrorItem message="Could not load your workouts. Please check your connection and try again." />
       ) : !loading && Array.isArray(workouts) && workouts.length === 0 ? (
         <div className={styles.exerciseInfoBox}>
           <div className={styles.exerciseTitle}>Welcome</div>

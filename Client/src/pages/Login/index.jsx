@@ -12,14 +12,22 @@ export default function Login({ setIsLoggedIn }) {
   const [loading, setLoading] = useState(false);
   
   const navigate = useNavigate();
-  const { error, hideError } = useError(); // Get error state and hide function
+  const { error, showError, hideError } = useError();
 
   const handleForgot = () => {
     navigate('/forgot');
   };
 
   const handleLogin = async () => {
-    hideError(); // Clear previous errors before a new attempt
+    hideError();
+    if (!email.trim()) {
+      showError('Please enter your email address.');
+      return;
+    }
+    if (!password) {
+      showError('Please enter your password.');
+      return;
+    }
     setLoading(true);
     try {
       const normalizedEmail = (email || '').trim().toLowerCase();

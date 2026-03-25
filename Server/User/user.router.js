@@ -32,8 +32,17 @@ router.post('/', async (req, res, next) => {
 });
 
 //UPDATE user
-router.put('/', authenticateToken, async (req, res, next) => {
+router.put('/', authenticateToken, [
+  body('email').isEmail().withMessage('A valid email address is required'),
+  body('stepSize').optional().isInt({ min: 1, max: 10 }).withMessage('Step size must be an integer between 1 and 10'),
+], async (req, res, next) => {
     try {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            const error = new Error(errors.array().map(e => e.msg).join(', '));
+            error.statusCode = 400;
+            throw error;
+        }
         const { email, ...updateData } = req.body;
         const updatedUser = await userService.updateUser(email, updateData);
         res.send(updatedUser);
@@ -43,8 +52,17 @@ router.put('/', authenticateToken, async (req, res, next) => {
 });
 
 //login user
-router.post('/login', async (req, res, next) => {
+router.post('/login', [
+  body('email').isEmail().withMessage('A valid email address is required'),
+  body('password').notEmpty().withMessage('Password is required'),
+], async (req, res, next) => {
     try {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            const error = new Error(errors.array().map(e => e.msg).join(', '));
+            error.statusCode = 400;
+            throw error;
+        }
         const token = await auth.login(req.body.email, req.body.password);
         res.json({ token });
     } catch (error) {
