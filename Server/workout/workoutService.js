@@ -291,6 +291,16 @@ async function updateWorkout(userId, workoutId, data) {
     return updatedWorkout;
 }
 
+// archive/unarchive workout
+async function archiveWorkout(userId, workoutId, isArchived) {
+    const workout = await workoutController.readOneByUser(userId, workoutId);
+    if (!workout) throw new Error("Workout not found or you do not have permission");
+    workout.isArchived = isArchived;
+    const updatedWorkout = await workoutController.update(workoutId, workout);
+    if (!updatedWorkout) throw new Error("Failed to update workout archive status");
+    return updatedWorkout;
+}
+
 //delete workout
 async function deleteWorkout(userId, workoutId) {
     try {
@@ -344,4 +354,4 @@ async function deleteWorkout(userId, workoutId) {
 
 
 
-module.exports = { updateExercise, getWorkouts , createWorkout, getWorkoutsByUser,deleteExercise ,updateWorkout,deleteWorkout};
+module.exports = { updateExercise, getWorkouts , createWorkout, getWorkoutsByUser,deleteExercise ,updateWorkout,deleteWorkout,archiveWorkout};

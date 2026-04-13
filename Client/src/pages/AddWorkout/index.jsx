@@ -8,6 +8,9 @@ import List from '../../components/List';
 import { useNavigate } from 'react-router-dom';
 import { useError } from '../../context/ErrorContext';
 import ErrorItem from '../../components/ErrorItem';
+import ImportJsonPanel from '../../components/ImportJsonPanel';
+import DialogBox from '../../components/DialogBox';
+import { FiChevronLeft } from 'react-icons/fi';
 
 export default function AddWorkout({ setShouldRefresh }) {
   const navigate = useNavigate();
@@ -16,36 +19,54 @@ export default function AddWorkout({ setShouldRefresh }) {
   const [isExerciseFormVisible, setIsExerciseFormVisible] = useState(false);
   const [exercises, setExercises] = useState([]);
   const [isSaving, setIsSaving] = useState(false);
-  const [workoutData, setWorkoutData] = useState({
-    workoutName: '',
-    description: ''
-  });
+  const [workoutData, setWorkoutData] = useState({ workoutName: '', description: '' });
+  const [isDiscardDialogOpen, setIsDiscardDialogOpen] = useState(false);
+
+  const hasUnsavedChanges = workoutData.workoutName.trim() !== '' || exercises.length > 0;
+
+  const handleBackClick = () => {
+    if (hasUnsavedChanges) {
+      setIsDiscardDialogOpen(true);
+    } else {
+      navigate('/home');
+    }
+  };
+
+  const handleConfirmDiscard = () => {
+    setIsDiscardDialogOpen(false);
+    navigate('/home');
+  };
 
   const handleSaveExercise = (exerciseData) => {
     setExercises((prevExercises) => [...prevExercises, exerciseData]);
     setIsExerciseFormVisible(false);
   };
 
-  const handleWorkoutDataChange = (newWorkoutData) => {
-    setWorkoutData((prevData) => ({
-      ...prevData,
-      ...newWorkoutData,
+  const handleImportExercises = (importedExercises) => {
+    const exercisesWithIds = importedExercises.map(ex => ({
+      ...ex,
+      _id: `import_${Date.now()}_${Math.random()}`,
     }));
+    setExercises(prev => [...prev, ...exercisesWithIds]);
+  };
+
+  const handleWorkoutDataChange = (newWorkoutData) => {
+    setWorkoutData((prevData) => ({ ...prevData, ...newWorkoutData }));
   };
 
   const handleSaveButtonClick = async () => {
-    hideError(); // Clear previous errors
-    
+    hideError();
+
     if (exercises.length === 0) {
       showError("Cannot save workout without exercises. Please add at least one exercise.");
       return;
     }
-  
+
     if (workoutData.workoutName === '') {
       showError("Cannot save workout without a name. Please enter a name.");
       return;
     }
-  
+
     const fullWorkout = {
       name: workoutData.workoutName,
       description: workoutData.description,
@@ -61,7 +82,7 @@ export default function AddWorkout({ setShouldRefresh }) {
         notes: exercise.notes,
       }))
     };
-  
+
     setIsSaving(true);
     try {
       await apiClient.post('/workout', fullWorkout);
@@ -77,14 +98,19 @@ export default function AddWorkout({ setShouldRefresh }) {
   return (
     <div className={styles.addWorkoutPage}>
       <div className={styles.header}>
+        {!isExerciseFormVisible && (
+          <button className={styles.backBtn} onClick={handleBackClick}>
+            <FiChevronLeft size={28} strokeWidth={2.5} />
+          </button>
+        )}
         <div className={styles.pageName}>
           {isExerciseFormVisible ? 'Add New Exercise' : 'Add New Workout'}
         </div>
       </div>
-      
+
       <div className={styles.AddWorkoutForm}>
         <div className={styles.formContent}>
-          
+
           {error && <ErrorItem message={error} onClose={hideError} />}
 
           {!isExerciseFormVisible && (
@@ -92,14 +118,18 @@ export default function AddWorkout({ setShouldRefresh }) {
               workoutData={workoutData}
               onWorkoutDataChange={handleWorkoutDataChange}
             />
-          )}  
+          )}
           <div className={styles.AddExerciseForm}>
             <AddExerciseForm
               onFormDataSubmit={handleSaveExercise}
               setIsExerciseFormVisible={setIsExerciseFormVisible}
             />
           </div>
-  
+
+          {!isExerciseFormVisible && (
+            <ImportJsonPanel onImport={handleImportExercises} />
+          )}
+
           {exercises.length > 0 && !isExerciseFormVisible ? (
             <div className={styles.exercisesHeader}>Your Exercises:</div>
           ) : !isExerciseFormVisible ? (
@@ -107,7 +137,7 @@ export default function AddWorkout({ setShouldRefresh }) {
           ) : (
             ''
           )}
-  
+
           {!isExerciseFormVisible ? <List items={exercises} /> : ''}
         </div>
         {!isExerciseFormVisible && (
@@ -116,6 +146,18 @@ export default function AddWorkout({ setShouldRefresh }) {
           </div>
         )}
       </div>
+
+      {isDiscardDialogOpen && (
+        <div className={styles.dialogContainer}>
+          <DialogBox
+            questionText="Discard this workout and go back"
+            onConfirm={handleConfirmDiscard}
+            onCancel={() => setIsDiscardDialogOpen(false)}
+            confirmText="Discard"
+            cancelText="Keep Editing"
+          />
+        </div>
+      )}
     </div>
   );
 }

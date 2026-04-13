@@ -1,0 +1,76 @@
+@import '/src/mixins.scss';
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background-color: var(--dark-gray);
+  border: 1px solid var(--border-color);
+  border-radius: 15px;
+  padding: 16px;
+}
+
+.panelHeader {
+  font-size: var(--font-size-base);
+  color: white;
+  font-weight: 500;
+}
+
+.textarea {
+  width: 100%;
+  min-height: 150px;
+  background-color: var(--background-color);
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 12px;
+  font-size: 12px;
+  font-family: monospace;
+  color: var(--text-color);
+  resize: vertical;
+  box-sizing: border-box;
+
+  &:focus {
+    outline: none;
+    border-color: var(--main-color);
+  }
+}
+
+.error {
+  font-size: var(--font-size-sm);
+  color: #ff4d4d;
+}
+
+.sampleToggle {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--main-color);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+  text-decoration: underline;
+  align-self: flex-start;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.sampleJson {
+  background-color: #1a1a1a;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 11px;
+  font-family: monospace;
+  color: var(--text-color);
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-all;
+  margin: 0;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

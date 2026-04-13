@@ -3,7 +3,7 @@ import Item from '../../components/Item';
 import ExerciseItem from '../../components/ExerciseItem';
 import styles from './style.module.scss';
 
-export default function List({ items, loading, onDelete, onEdit,onDeleteClick }) {
+export default function List({ items, loading, onDelete, onEdit, onDeleteClick, onArchiveClick }) {
   // State to keep track of which menu is currently open
   const [openMenuId, setOpenMenuId] = useState(null);
   
@@ -47,7 +47,8 @@ export default function List({ items, loading, onDelete, onEdit,onDeleteClick })
   workout={item}
   isMenuOpen={openMenuId === item._id}
   onDeleteClick={() => onDeleteClick(item)}
-  onToggleMenu={() => handleToggleMenu(item._id)}  // חסר את זה
+  onArchiveClick={onArchiveClick ? () => onArchiveClick(item) : undefined}
+  onToggleMenu={() => handleToggleMenu(item._id)}
 />
         )
       ))}

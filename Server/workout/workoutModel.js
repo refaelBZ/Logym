@@ -127,6 +127,10 @@ const workoutSchema = new mongoose.Schema({
   isActive: {
     type: Boolean,
     default: true
+  },
+  isArchived: {
+    type: Boolean,
+    default: false
   }
 });
 

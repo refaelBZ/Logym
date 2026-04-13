@@ -8,6 +8,9 @@ import List from '../../components/List';
 import EditExerciseForm from '../../components/EditExerciseForm';
 import { useError } from '../../context/ErrorContext';
 import ErrorItem from '../../components/ErrorItem';
+import ImportJsonPanel from '../../components/ImportJsonPanel';
+import DialogBox from '../../components/DialogBox';
+import { FiChevronLeft } from 'react-icons/fi';
 
 export default function EditWorkout({ setWorkouts }) {
   const { workoutId } = useParams();
@@ -17,20 +20,15 @@ export default function EditWorkout({ setWorkouts }) {
 
   const [exercises, setExercises] = useState([]);
   const [visibleExercises, setVisibleExercises] = useState([]);
-  const [workoutData, setWorkoutData] = useState({
-    workoutName: '',
-    description: ''
-  });
+  const [workoutData, setWorkoutData] = useState({ workoutName: '', description: '' });
   const [editingExercise, setEditingExercise] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [isDiscardDialogOpen, setIsDiscardDialogOpen] = useState(false);
 
   useEffect(() => {
     if (location.state && location.state.workout) {
       const { name, description, exercises } = location.state.workout;
-      setWorkoutData({
-        workoutName: name,
-        description: description
-      });
+      setWorkoutData({ workoutName: name, description: description });
       const initialExercises = exercises.map(exercise => ({
         _id: exercise._id,
         exerciseName: exercise.name,
@@ -46,6 +44,20 @@ export default function EditWorkout({ setWorkouts }) {
     }
   }, [location.state]);
 
+  const handleBackClick = () => {
+    if (editingExercise) {
+      // just close the exercise edit sub-form, no dialog
+      setEditingExercise(null);
+    } else {
+      setIsDiscardDialogOpen(true);
+    }
+  };
+
+  const handleConfirmDiscard = () => {
+    setIsDiscardDialogOpen(false);
+    navigate('/home');
+  };
+
   const handleSaveExercise = (exerciseData) => {
     if (editingExercise && editingExercise._id) {
       setExercises(prev => prev.map(ex => ex._id === exerciseData._id ? { ...exerciseData, isActive: true } : ex));
@@ -58,11 +70,18 @@ export default function EditWorkout({ setWorkouts }) {
     setEditingExercise(null);
   };
 
-  const handleWorkoutDataChange = (newWorkoutData) => {
-    setWorkoutData(prevData => ({
-      ...prevData,
-      ...newWorkoutData,
+  const handleImportExercises = (importedExercises) => {
+    const exercisesWithIds = importedExercises.map(ex => ({
+      ...ex,
+      _id: `import_${Date.now()}_${Math.random()}`,
+      isActive: true,
     }));
+    setExercises(prev => [...prev, ...exercisesWithIds]);
+    setVisibleExercises(prev => [...prev, ...exercisesWithIds]);
+  };
+
+  const handleWorkoutDataChange = (newWorkoutData) => {
+    setWorkoutData(prevData => ({ ...prevData, ...newWorkoutData }));
   };
 
   const handleEditExercise = (exercise) => {
@@ -76,15 +95,14 @@ export default function EditWorkout({ setWorkouts }) {
       showError("A workout must have at least one exercise.");
       return;
     }
-    
     setExercises(prev => prev.map(ex => ex._id === exerciseId ? { ...ex, isActive: false } : ex));
     setVisibleExercises(prev => prev.filter(ex => ex._id !== exerciseId));
   };
-  
+
   const handleSaveButtonClick = async () => {
     hideError();
     setLoading(true);
-    
+
     if (workoutData.workoutName === "") {
       showError("Workout name is required. Please enter a name for the workout.");
       setLoading(false);
@@ -115,12 +133,10 @@ export default function EditWorkout({ setWorkouts }) {
         isActive: exercise.isActive
       }))
     };
-    
+
     try {
       const response = await apiClient.put(`/workout/${workoutId}`, updatedWorkout);
-  
-      console.log('Workout updated successfully:', response.data);
-      setWorkouts(prevWorkouts => prevWorkouts.map(workout => 
+      setWorkouts(prevWorkouts => prevWorkouts.map(workout =>
         workout._id === workoutId ? response.data : workout
       ));
       navigate('/home');
@@ -134,6 +150,9 @@ export default function EditWorkout({ setWorkouts }) {
   return (
     <div className={styles.addWorkoutPage}>
       <div className={styles.header}>
+        <button className={styles.backBtn} onClick={handleBackClick}>
+          <FiChevronLeft size={28} strokeWidth={2.5} />
+        </button>
         <div className={styles.pageName}>
           {editingExercise ? 'Edit Exercise' : 'Edit Workout'}
         </div>
@@ -141,7 +160,7 @@ export default function EditWorkout({ setWorkouts }) {
 
       <div className={styles.AddWorkoutForm}>
         <div className={styles.formContent}>
-          
+
           {error && <ErrorItem message={error} onClose={hideError} />}
 
           {!editingExercise ? (
@@ -151,37 +170,50 @@ export default function EditWorkout({ setWorkouts }) {
                 onWorkoutDataChange={handleWorkoutDataChange}
               />
               <div className={styles.addExerciseButton}>
-                <Button 
-                  title="Add Exercise" 
-                  type="secondary" 
+                <Button
+                  title="Add Exercise"
+                  type="secondary"
                   onClick={() => setEditingExercise({})}
-                  />
+                />
               </div>
+              <ImportJsonPanel onImport={handleImportExercises} />
               {visibleExercises.length > 0 ? (
                 <div className={styles.exercisesHeader}>Your Exercises:</div>
               ) : (
                 <div className={styles.exercisesHeader}>No Exercises added</div>
               )}
-              <List 
+              <List
                 items={visibleExercises}
                 loading={loading}
                 onDelete={handleDeleteExercise}
                 onEdit={handleEditExercise}
-                />
+              />
               <div className={styles.buttons}>
-                <Button title="Save Changes" type="primary" onClick={handleSaveButtonClick} disabled={loading} loadingTitle="Saving..."/>
-                <Button title="Cancel" type="secondary" onClick={() => navigate('/home')} />
+                <Button title="Save Changes" type="primary" onClick={handleSaveButtonClick} disabled={loading} loadingTitle="Saving..." />
+                <Button title="Cancel" type="secondary" onClick={() => setIsDiscardDialogOpen(true)} />
               </div>
             </>
           ) : (
             <EditExerciseForm
-            exercise={editingExercise}
-            onFormDataSubmit={handleSaveExercise}
-            workoutId={workoutId}
+              exercise={editingExercise}
+              onFormDataSubmit={handleSaveExercise}
+              workoutId={workoutId}
             />
           )}
         </div>
       </div>
+
+      {isDiscardDialogOpen && (
+        <div className={styles.dialogContainer}>
+          <DialogBox
+            questionText="Discard your changes and go back"
+            onConfirm={handleConfirmDiscard}
+            onCancel={() => setIsDiscardDialogOpen(false)}
+            confirmText="Discard"
+            cancelText="Keep Editing"
+          />
+        </div>
+      )}
     </div>
   );
 }
