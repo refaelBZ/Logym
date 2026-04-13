@@ -3,13 +3,13 @@ import styles from './style.module.scss';
 import ProgressBar from '../ProgressBar';
 import { NavLink, useNavigate } from 'react-router-dom';
 import Menu from '../Menu';
-import { FiTrash2, FiEdit, FiCopy } from 'react-icons/fi';
+import { FiTrash2, FiEdit, FiCopy, FiArchive } from 'react-icons/fi';
 import axios from 'axios';
 import DialogBox from '../DialogBox';
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
-export default function Item({ workout, isMenuOpen, onToggleMenu, onDeleteClick }) {
+export default function Item({ workout, isMenuOpen, onToggleMenu, onDeleteClick, onArchiveClick }) {
     const [isDeleting, setIsDeleting] = useState(false);
     const [isVisible, setIsVisible] = useState(true);
     const navigate = useNavigate();
@@ -58,6 +58,16 @@ export default function Item({ workout, isMenuOpen, onToggleMenu, onDeleteClick 
                 e.preventDefault();
                 e.stopPropagation();
                 navigate(`/edit-workout/${workout._id}`, { state: { workout } });
+            }
+        },
+        {
+            icon: <FiArchive />,
+            name: workout.isArchived ? 'Unarchive' : 'Archive',
+            onClick: (event) => {
+                event.preventDefault();
+                event.stopPropagation();
+                onArchiveClick(workout);
+                onToggleMenu();
             }
         },
         // { icon: <FiCopy />, name: 'Duplicate', onClick: () => console.log('Duplicate clicked') },

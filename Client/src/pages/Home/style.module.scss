@@ -32,16 +32,70 @@
   }
 
   .header {
-    @include text-center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
     color: white;
+    padding-top: 20px;
+
+    // pageName's own padding-top would break flex centering — neutralise it here
+    .pageName {
+      padding-top: 0;
+    }
   }
 
-  // .exerciseTitle {
-  //   @include text-highlight;
-  //   font-size: 24px;
-  //   margin-bottom: 10px;
-  //   background-color: aqua;
-  // }
+  .headerLeft {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2px;
+  }
+
+  .backBtn {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    opacity: 0.85;
+    line-height: 1;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  .moreIconWrapper {
+    position: relative;
+    flex-shrink: 0;
+
+    img {
+      width: 30px;
+      height: 30px;
+      display: block;
+    }
+  }
+
+  .moreIcon {
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 50%;
+    transition: background-color 0.15s;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.08);
+    }
+  }
+
+  .menuOverlay {
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+  }
 
   .exerciseInfoBox {
     @include background-card-style;
@@ -67,11 +121,6 @@
         align-items: center;
         margin: 10px;
       }
-
-      // .infoType {
-      //   font-size: 14px;
-      //   color: var(--dark-gray);
-      // }
 
       .infoValue {
         font-size: 18px;

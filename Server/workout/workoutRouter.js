@@ -91,6 +91,20 @@ router.put('/:workoutId', authenticateToken, [
     }
 });
 
+// Archive or unarchive a workout
+router.patch('/:workoutId/archive', authenticateToken, async (req, res, next) => {
+    try {
+        const updatedWorkout = await workoutService.archiveWorkout(
+            req.user.userId,
+            req.params.workoutId,
+            req.body.isArchived === true
+        );
+        res.send(updatedWorkout);
+    } catch (error) {
+        next(error);
+    }
+});
+
 // Delete a workout
 router.delete('/:workoutId', authenticateToken, async (req, res, next) => {
     try {

@@ -9,10 +9,36 @@
 
   .header {
     flex-shrink: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2px;
+    padding-top: 20px;
+
+    .pageName {
+      padding-top: 0;
+    }
   }
 
   .pageName {
     @include pageName;
+  }
+
+  .backBtn {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    opacity: 0.85;
+    line-height: 1;
+
+    &:hover {
+      opacity: 1;
+    }
   }
 
   .AddWorkoutForm {
@@ -29,7 +55,8 @@
     gap: 20px;
     flex-grow: 1;
     overflow-y: auto;
-    .exercisesHeader{
+
+    .exercisesHeader {
       @include text;
       justify-content: center;
     }
@@ -40,7 +67,21 @@
     margin-bottom: 90px;
   }
 
-  .subTitle{
+  .subTitle {
     @include text;
   }
+}
+
+.dialogContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
 }
