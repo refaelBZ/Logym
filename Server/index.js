@@ -31,7 +31,12 @@ app.use(cors({
   origin: function (origin, callback) {
     // Allow non-browser clients (no Origin header) and health checks
     if (!origin) return callback(null, true);
-    if (allowedOrigins.includes(origin) || /^http:\/\/(localhost|127\.0\.0\.1):\d+$/.test(origin)) {
+    if (
+      allowedOrigins.includes(origin) || 
+      /^http:\/\/(localhost|127\.0\.0\.1):\d+$/.test(origin) ||
+      origin.endsWith('.vercel.app') ||
+      origin.endsWith('.netlify.app')
+    ) {
       return callback(null, true);
     }
     console.error(`CORS Blocked Origin: ${origin}`);
