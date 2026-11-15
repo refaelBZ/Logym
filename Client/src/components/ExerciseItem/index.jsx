@@ -50,7 +50,7 @@ export default function ExerciseItem({ exercise, onDelete, onEdit, isMenuOpen, o
                     <div onClick={toggleMenu} className={styles.moreIcon}>
                         <img src="/Icon more horiz.svg" alt="more options" />
                     </div>
-                    {isMenuOpen && <Menu options={menuOptions} />}
+                    {isMenuOpen && <Menu options={menuOptions} onClose={onToggleMenu} />}
                 </div>
             </div>
             <div className={styles.subtitle}>
