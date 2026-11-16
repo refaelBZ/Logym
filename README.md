@@ -2,6 +2,8 @@
 
 Logym is a simple and efficient mobile web application, originally conceptualized, designed, and fully developed by me as a fullstack project. It helps users monitor their workout progress, track performance, and stay motivated with clear, visual feedback. Built from scratch with a focus on user experience, it allows for real-time input of workout data and provides insightful progress tracking through graphs and daily scores.
 
+Agent-oriented project docs: [docs/INDEX.md](docs/INDEX.md).
+
 ## Problem Statement
 
 Many users struggle to keep track of their workout progress at the gym. Forgetting details like weights, reps, and sets can lead to wasted time and frustration. Current fitness apps tend to be overly complex, with confusing interfaces that make tracking progress unnecessarily difficult.
