@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import styles from './style.module.scss';
 import Button from '../../components/Button';
 import PasswordInput from '../../components/PasswordInput';
-import LegalLinks from '../../components/LegalLinks';
 import apiClient from '../../api';
 import { useNavigate } from 'react-router-dom';
 import { useError } from '../../context/ErrorContext';
@@ -37,6 +36,7 @@ export default function Login({ setIsLoggedIn }) {
         email: normalizedEmail,
         password,
       });
+      // console.log('Login successful:', response.data);
       localStorage.setItem('logym_token', response.data.token);
       localStorage.setItem('logym_userEmail', normalizedEmail);
       setIsLoggedIn(true);
@@ -51,51 +51,39 @@ export default function Login({ setIsLoggedIn }) {
   return (
     <div className={styles.homePage}>
       <div className={styles.header}>
-        <h1 className={styles.pageName}>Welcome Back</h1>
+        <div className={styles.pageName}>Welcome Back</div>
       </div>
       
       {error && <ErrorItem message={error} onClose={hideError} />}
 
-      <div className={styles.field}>
-        <label htmlFor="login-email">Email</label>
-        <input 
-          id="login-email"
-          className={styles.input} 
-          type="email" 
-          placeholder='Your Email'
-          autoComplete="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          disabled={loading}
-          aria-required="true"
-        />
-      </div>
-      <div className={styles.field}>
-        <label htmlFor="login-password">Password</label>
-        <PasswordInput 
-          id="login-password"
-          className={styles.input} 
-          placeholder='Your Password'
-          autoComplete="current-password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          disabled={loading}
-        />
-      </div>
+      <input 
+        className={styles.input} 
+        type="email" 
+        placeholder='Your Email' 
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        disabled={loading}
+      />
+      <PasswordInput 
+        className={styles.input} 
+        placeholder='Your Password' 
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        disabled={loading}
+      />
       <div className={styles.actionButtons}>
         <Button title="Login" type="primary" onClick={handleLogin} disabled={loading} loadingTitle='Logging in...'/>
       </div>
       <div className={styles.options}>
-        <button type="button" onClick={handleForgot} className={styles.linkBtn}>
+        <div onClick={handleForgot} className={styles.forgot}>
           Forgot Password?
-        </button>
-        <button type="button" onClick={() => navigate('/signup')} className={styles.linkBtn}>
-          Sign Up
-        </button>
+        </div>
+        <div onClick={() => navigate('/signup')} className={styles.login}>
+        Sign Up
+        </div>
       </div>
-      <LegalLinks compact />
       <div className={styles.loaderAndError}>
-        {loading && <div className={styles.loader} role="status" aria-label="Logging in"></div>}
+        {loading && <div className={styles.loader}></div>}
       </div>
     </div>
   );

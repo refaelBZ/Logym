@@ -22,22 +22,13 @@
     @include text-center;
     color: white;
   }
-  .field {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    width: 100%;
-
-    label {
-      @include label;
-      font-size: var(--font-size-sm);
-    }
-  }
-
   .input {
     @include input;
     color: var(--gray-color);
-    width: 100%;
+  
+    &:focus {
+      outline: none;
+    }
 
     &:disabled {
       background-color: var(--light-gray-color);

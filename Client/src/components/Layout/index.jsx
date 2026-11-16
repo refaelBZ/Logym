@@ -11,7 +11,6 @@ import EditWorkout from '../../pages/EditWorkout';
 import Settings from '../../pages/Settings';
 import Forgot from '../../pages/Forgot';
 import Reset from '../../pages/Reset';
-import HealthDisclaimerModal from '../HealthDisclaimerModal';
 import { useError } from '../../context/ErrorContext';
 import apiClient, { setupErrorInterceptor } from '../../api';
 import styles from './style.module.scss';
@@ -25,7 +24,6 @@ export default function Layout() {
   const [fetchError, setFetchError] = useState(false);
   const [step, setStep] = useState(1);
   const [shouldRefresh, setShouldRefresh] = useState(false);
-  const [needsHealthDisclaimer, setNeedsHealthDisclaimer] = useState(false);
 
   const { showError } = useError();
 
@@ -49,20 +47,16 @@ export default function Layout() {
 
   const loadUserSettings = async () => {
     try {
-      const response = await apiClient.get('/user/me');
-      if (response.data && response.data.stepSize) {
-        setStep(response.data.stepSize);
-      }
-      if (response.data && !response.data.healthDisclaimerAcceptedAt) {
-        setNeedsHealthDisclaimer(true);
-      } else {
-        setNeedsHealthDisclaimer(false);
-      }
-      if (response.data?.email) {
-        localStorage.setItem('logym_userEmail', response.data.email);
+      const userEmail = localStorage.getItem('logym_userEmail');
+      if (userEmail) {
+        const response = await apiClient.get(`/user/${userEmail}`);
+        if (response.data && response.data.stepSize) {
+          setStep(response.data.stepSize);
+        }
       }
     } catch (error) {
       console.error('Error loading user settings:', error);
+      // שמירה על ערך ברירת מחדל במקרה של שגיאה
     }
   };
 
@@ -71,11 +65,10 @@ export default function Layout() {
     if (token) {
       setIsLoggedIn(true);
       handleGetWorkouts();
-      loadUserSettings();
+      loadUserSettings(); // טעינת הגדרות משתמש כולל stepSize
       setShouldRefresh(false);
     } else {
       setIsLoggedIn(false);
-      setNeedsHealthDisclaimer(false);
       setLoading(false);
     }
   }, [shouldRefresh, isLoggedIn]);
@@ -90,9 +83,7 @@ export default function Layout() {
 
   return (
     <div className={styles.appRoot}>
-      {isLoggedIn && needsHealthDisclaimer && (
-        <HealthDisclaimerModal onAccepted={() => setNeedsHealthDisclaimer(false)} />
-      )}
+      {/* ErrorItem is now handled within each page component */}
       <Routes>
         {!isLoggedIn ? (
           <>

@@ -18,10 +18,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    &:focus-visible {
-      outline: 2px solid white;
-      outline-offset: 3px;
-    }
     &:disabled {
       opacity: 0.5;
       cursor: not-allowed;
@@ -91,15 +87,10 @@
         box-sizing: border-box;
         border-radius: 15px;
         background-color: var(--dark-gray);
-        color: var(--text-color-strong);
+        color: var( --text-color);
         font-size: var(--font-size-lg);
         font-weight: 300;
         outline: none;
-
-        &:focus-visible {
-          outline: 2px solid var(--main-color);
-          outline-offset: 3px;
-        }
     }
     &:disabled {
       opacity: 0.5;

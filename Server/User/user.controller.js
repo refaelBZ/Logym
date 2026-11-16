@@ -1,12 +1,50 @@
+const bcrypt = require('bcryptjs');
+const mongoose = require('mongoose');
 const userModel = require('./user.model');
-const workoutModel = require('../workout/workoutModel');
 
+// // חיבור לבסיס הנתונים
+// mongoose.connect('mongodb+srv://refael747:747@cluster0.kov3dqz.mongodb.net/logym', {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true
+// }).then(() => {
+//     console.log('Connected to MongoDB');
+//     // קריאה לפונקציה לאחר החיבור
+//     createUser().then(() => {
+//         mongoose.connection.close(); // סגור את החיבור לאחר הוספת המשתמש
+//     }).catch(err => {
+//         console.error('Error creating user:', err.message);
+//         mongoose.connection.close();
+//     });
+// }).catch(err => {
+//     console.error('Error connecting to MongoDB:', err.message);
+// });
+
+// // פונקציה להוספת יוזר חדש
+// async function createUser() {
+//     const hashedPassword = await bcrypt.hash("208755959", 10);
+
+//     const user = new userModel({
+//         username: "Refael Ben Zikri",
+//         email: "refael747@gmail.com",
+//         password: hashedPassword,
+//         permission: "user",
+//         isActive: true,
+//         createdDate: new Date(),
+//         workouts: [] // אם יש לך אימונים תוכל להוסיף אותם כאן
+//     });
+
+//     await user.save();
+//     console.log("User created:", user);
+// }
+
+// פונקציות CRUD
 async function create(data) {
     return await userModel.create(data);
 }
 
 async function read(filter) {
     let items = await userModel.find(filter);
+    console.log(items);
     return items;
 }
 
@@ -14,47 +52,12 @@ async function readOne(filter) {
     return await userModel.findOne(filter).select('-password');
 }
 
-async function readById(id) {
-    return await userModel.findById(id).select('-password');
-}
-
 async function updateByEmail(filter, data) {
     return await userModel.findOneAndUpdate(filter, data, { new: true }).select('-password');
-}
-
-async function updateById(id, data) {
-    return await userModel.findByIdAndUpdate(id, data, { new: true }).select('-password');
 }
 
 async function del(id) {
     return await userModel.deleteOne({ _id: id });
 }
 
-async function deleteUserAndData(userId) {
-    await workoutModel.deleteMany({ user: userId });
-    const result = await userModel.deleteOne({ _id: userId });
-    return result;
-}
-
-async function exportUserData(userId) {
-    const user = await userModel.findById(userId).select('-password -resetPasswordToken -resetPasswordExpires').lean();
-    if (!user) return null;
-    const workouts = await workoutModel.find({ user: userId }).lean();
-    return {
-        exportedAt: new Date().toISOString(),
-        user,
-        workouts,
-    };
-}
-
-module.exports = {
-    create,
-    read,
-    readOne,
-    readById,
-    updateByEmail,
-    updateById,
-    del,
-    deleteUserAndData,
-    exportUserData,
-};
+module.exports = { create, read, readOne, updateByEmail, del };

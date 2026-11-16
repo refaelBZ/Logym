@@ -15,15 +15,18 @@ export default function Profile() {
             if (email) {
                 setUserEmail(email);
                 try {
-                    const response = await apiClient.get('/user/me');
+                    // טעינת נתוני משתמש מהשרת
+                    const response = await apiClient.get(`/user/${email}`);
                     if (response.data && response.data.username) {
                         setUserName(response.data.username);
                     } else {
+                        // אם אין שם משתמש בשרת, נשתמש בחלק מהאימייל
                         const name = email.split('@')[0];
                         setUserName(name);
                     }
                 } catch (error) {
                     console.error('Error loading user data:', error);
+                    // במקרה של שגיאה, נשתמש בחלק מהאימייל
                     const name = email.split('@')[0];
                     setUserName(name);
                 }

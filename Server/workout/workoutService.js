@@ -202,21 +202,17 @@ function calculateExerciseScore(weightHistory, repsHistory, setsHistory, difficu
 }
 
 
-//delete exercise from workout (ownership required)
+//delete exercise from workout
 async function deleteExercise(data) {
-    const { workoutId, exerciseId, userId } = data;
-    const workout = await workoutController.readOneByUser(userId, workoutId);
+    const { workoutId, exerciseId } = data;
+    const workout = await workoutController.readOne(workoutId);
     if (!workout) {
-        const error = new Error('Workout not found or you do not have permission');
-        error.statusCode = 404;
-        throw error;
+        throw new Error('Workout not found');
     }
 
     const exercise = workout.exercises.id(exerciseId);
     if (!exercise) {
-        const error = new Error('Exercise not found');
-        error.statusCode = 404;
-        throw error;
+        throw new Error('Exercise not found');
     }
 
     const updatedWorkout = await workoutController.deleteExercise(workoutId, exerciseId);
