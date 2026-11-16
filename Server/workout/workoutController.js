@@ -67,7 +67,21 @@ async function readOneByUser(userId, workoutId) {
     return await workoutModel.findOne({ _id: workoutId, user: userId });
 }
 
-module.exports = {  updateExerciseInWorkout, readOne, read,create, readByUser, readOneByUser,deleteExercise ,update}; 
+async function deleteAllByUser(userId) {
+    return await workoutModel.deleteMany({ user: userId });
+}
+
+module.exports = {
+    updateExerciseInWorkout,
+    readOne,
+    read,
+    create,
+    readByUser,
+    readOneByUser,
+    deleteExercise,
+    update,
+    deleteAllByUser,
+};
 
 
 //OLD VERSION THAT WORKONG

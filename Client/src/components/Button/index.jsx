@@ -16,12 +16,14 @@ export default function Button({ title = 'Click', loadingTitle = 'Sending...', t
   };
 
   return (
-    <div
-      onClick={handleClick}
-      className={`${type === 'primary' ? styles.primary : styles.secondary} ${disabled ? styles.disabled : ''}`}
-    >
-      <button className={isLoading ? styles.loading : ''} disabled={disabled || isLoading}>
-        {isLoading && <div className={styles.buttonSpinner}></div>}
+    <div className={`${type === 'primary' ? styles.primary : styles.secondary} ${disabled ? styles.disabled : ''}`}>
+      <button
+        type="button"
+        onClick={handleClick}
+        className={isLoading ? styles.loading : ''}
+        disabled={disabled || isLoading}
+      >
+        {isLoading && <div className={styles.buttonSpinner} aria-hidden="true"></div>}
         {isLoading ? loadingTitle : title}
       </button>
     </div>

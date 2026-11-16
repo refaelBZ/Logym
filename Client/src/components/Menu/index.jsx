@@ -18,7 +18,15 @@ export default function Menu({ options, onClose }) {
     }
   }, []);
 
-  useClickOutside(menuRef, (e) => {
+  useEffect(() => {
+    const onKeyDown = (e) => {
+      if (e.key === 'Escape' && onClose) onClose();
+    };
+    document.addEventListener('keydown', onKeyDown);
+    return () => document.removeEventListener('keydown', onKeyDown);
+  }, [onClose]);
+
+  useClickOutside(menuRef, () => {
     if (onClose) onClose();
   });
 
@@ -28,18 +36,25 @@ export default function Menu({ options, onClose }) {
       {coords && createPortal(
         <div 
           ref={menuRef}
-          className={styles.menu} 
+          className={styles.menu}
           style={{ top: coords.top, right: coords.right }}
+          role="menu"
         >
           {options.map((option, index) => (
-            <div key={index} onClick={(e) => {
-              e.stopPropagation();
-              if (option.onClick) option.onClick(e);
-              if (onClose) onClose();
-            }} className={styles.menuItem}>
-              <div className={styles.name}>{option.name}</div>
-              <div className={styles.icon}>{option.icon}</div>
-            </div>
+            <button
+              key={index}
+              type="button"
+              role="menuitem"
+              className={styles.menuItem}
+              onClick={(e) => {
+                e.stopPropagation();
+                if (option.onClick) option.onClick(e);
+                if (onClose) onClose();
+              }}
+            >
+              <span className={styles.name}>{option.name}</span>
+              <span className={styles.icon}>{option.icon}</span>
+            </button>
           ))}
         </div>,
         document.body

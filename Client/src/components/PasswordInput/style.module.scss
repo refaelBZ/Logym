@@ -13,17 +13,31 @@
 
   .icon {
     position: absolute;
-    right: 15px;
-    color: var(--text-color);
+    right: 10px;
+    color: var(--text-color-strong);
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: color 0.2s ease, transform 0.1s;
+    background: transparent;
+    border: none;
+    padding: 6px;
+    border-radius: 8px;
 
     &:active {
       color: var(--main-color);
       transform: scale(0.9);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--main-color);
+      outline-offset: 2px;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
     }
   }
 }
