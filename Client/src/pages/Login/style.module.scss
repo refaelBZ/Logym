@@ -68,17 +68,41 @@
     @include text-center;
     color: white;
   }
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+
+    label {
+      @include label;
+      font-size: var(--font-size-sm);
+    }
+  }
+
   .input {
     @include input;
     color: var(--gray-color);
-  
-    &:focus {
-      outline: none;
-    }
+    width: 100%;
 
     &:disabled {
       background-color: var(--light-gray-color);
       color: var(--gray-color);
+    }
+  }
+
+  .linkBtn {
+    background: none;
+    border: none;
+    color: var(--main-color);
+    cursor: pointer;
+    font-size: var(--font-size-base);
+    text-decoration: underline;
+    padding: 0;
+
+    &:focus-visible {
+      outline: 2px solid var(--main-color);
+      outline-offset: 2px;
     }
   }
 }

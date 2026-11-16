@@ -13,25 +13,18 @@ export default function EditProfileForm({ userName, userEmail, onSave, onCancel 
     const handleSave = async () => {
         if (editedUserName.trim()) {
             try {
-                // שליחת עדכון לשרת
-                const updateData = {
-                    email: userEmail,
+                await apiClient.put('/user', {
                     username: editedUserName.trim()
-                };
-                
-                await apiClient.put('/user', updateData);
-                
-                // קריאה לפונקציה של הרכיב הורה לעדכון המצב המקומי
+                });
                 onSave(editedUserName.trim());
             } catch (error) {
                 console.error('Error updating profile:', error);
-                // ניתן להוסיף כאן טיפול בשגיאות (toast, alert וכו')
             }
         }
     };
 
     const handleCancel = () => {
-        setEditedUserName(userName); // איפוס לערך המקורי
+        setEditedUserName(userName);
         onCancel();
     };
 
@@ -40,24 +33,34 @@ export default function EditProfileForm({ userName, userEmail, onSave, onCancel 
             <div className={styles.header}>
                 <div className={styles.title}>Edit Profile</div>
             </div>
-            <form className={styles.form}>
-                <label>
+            <form
+                className={styles.form}
+                onSubmit={(e) => {
+                    e.preventDefault();
+                    handleSave();
+                }}
+            >
+                <label htmlFor="edit-username">
                     User Name
                     <input
+                        id="edit-username"
                         type="text"
                         value={editedUserName}
                         onChange={handleChange}
                         placeholder="Enter your name"
                         required
+                        autoComplete="nickname"
                     />
                 </label>
-                <label>
+                <label htmlFor="edit-email">
                     Email
                     <input
+                        id="edit-email"
                         type="email"
                         value={userEmail}
                         disabled
                         placeholder="Email cannot be changed"
+                        autoComplete="email"
                     />
                 </label>
             </form>

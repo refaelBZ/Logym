@@ -21,7 +21,14 @@
   align-items: center;
   width: 100%;
   gap: 10px;
-  
+  background: transparent;
+  border: none;
+  font: inherit;
+
+  &:focus-visible {
+    outline: 2px solid var(--main-color);
+    outline-offset: -2px;
+  }
 
   &:not(:first-child) {
     border-top: 1px solid var(--border-color);

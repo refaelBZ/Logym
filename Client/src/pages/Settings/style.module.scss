@@ -65,6 +65,29 @@
     width: 100%;
   }
 
+  .dataSection,
+  .legalSection {
+    @include card-style;
+    gap: 12px;
+    width: 100%;
+    align-items: stretch;
+
+    .sectionTitle {
+      @include pageName;
+      color: var(--main-color);
+      font-size: var(--font-size-lg);
+      padding-top: 0;
+      text-align: center;
+    }
+  }
+
+  .dataHint {
+    color: var(--text-color-strong);
+    font-size: var(--font-size-sm);
+    text-align: center;
+    line-height: var(--line-height-normal);
+  }
+
   .dialogContainer {
     position: fixed;
     top: 0;
