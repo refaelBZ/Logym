@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styles from './style.module.scss';
 import Button from '../../components/Button';
-import LegalLinks from '../../components/LegalLinks';
 import apiClient from '../../api';
 import { useNavigate } from 'react-router-dom';
 import { useError } from '../../context/ErrorContext';
@@ -29,6 +28,7 @@ export default function Forgot() {
       await apiClient.post('/user/password/forgot', { email: normalizedEmail });
       setSent(true);
     } catch (err) {
+      // handled globally
       console.error('Forgot password failed (handled globally):', err);
     } finally {
       setLoading(false);
@@ -38,27 +38,21 @@ export default function Forgot() {
   return (
     <div className={styles.homePage}>
       <div className={styles.header}>
-        <h1 className={styles.pageName}>Forgot Password</h1>
+        <div className={styles.pageName}>Forgot Password</div>
       </div>
 
       {error && <ErrorItem message={error} onClose={hideError} />}
 
       {!sent ? (
         <>
-          <div className={styles.field}>
-            <label htmlFor="forgot-email">Email</label>
-            <input
-              id="forgot-email"
-              className={styles.input}
-              type="email"
-              placeholder='Your Email'
-              autoComplete="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              disabled={loading}
-              aria-required="true"
-            />
-          </div>
+          <input
+            className={styles.input}
+            type="email"
+            placeholder='Your Email'
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            disabled={loading}
+          />
           <div className={styles.actionButtons}>
             <Button
               title="Send Reset Link"
@@ -69,20 +63,21 @@ export default function Forgot() {
             />
           </div>
           <div className={styles.options}>
-            <button type="button" onClick={() => navigate('/login')} className={styles.linkBtn}>
+            <div onClick={() => navigate('/login')} className={styles.login}>
               Back to Login
-            </button>
+            </div>
           </div>
-          <LegalLinks compact />
           <div className={styles.loaderAndError}>
-            {loading && <div className={styles.loader} role="status" aria-label="Sending reset link"></div>}
+            {loading && <div className={styles.loader}></div>}
           </div>
         </>
       ) : (
-        <div className={styles.infoBox} role="status">
+        <div className={styles.infoBox}>
           We've sent a reset link to your email if an account exists.
         </div>
       )}
     </div>
   );
 }
+
+

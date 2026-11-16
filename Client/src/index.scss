@@ -19,19 +19,6 @@
     &:active {
       color: white; // Simple active state for mobile tapping
     }
-
-    &:focus-visible {
-      outline: 2px solid var(--main-color);
-      outline-offset: 2px;
-    }
-  }
-
-  button:focus-visible,
-  input:focus-visible,
-  select:focus-visible,
-  textarea:focus-visible {
-    outline: 2px solid var(--main-color);
-    outline-offset: 2px;
   }
 }
 
@@ -52,8 +39,7 @@
   --dark-gray: #242424;
   --gray-color: #D9D9D9;
   --border-color: rgba(66, 66, 66, 0.6); // Softened border color
-  --text-color: #b0b0b4; // WCAG AA on #1A1A1A / #242424
-  --text-color-strong: #d0d0d4;
+  --text-color: #98989c;
   --footer-height: 80px;
 
   // Shadows

@@ -3,10 +3,6 @@ const bcryptjs = require('bcryptjs');
 const User = require('./user.model');
 const { sendWelcomeEmail, sendPasswordResetEmail } = require('./emailService');
 const crypto = require('crypto');
-const {
-  buildSignupCompliance,
-  validateSignupConsent,
-} = require('./compliance');
 
 function generateToken(user) {
     return jwt.sign({ userId: user._id }, process.env.SECRET_CODE, { expiresIn: "30d" });
@@ -61,15 +57,6 @@ const authenticateToken = (req, res, next) => {
 };
 
 async function signup(userData) {
-  const missing = validateSignupConsent(userData);
-  if (missing.length > 0) {
-    const error = new Error(
-      'You must accept the Terms, Privacy Policy, confirm you are 16+, and acknowledge the health disclaimer.'
-    );
-    error.statusCode = 400;
-    throw error;
-  }
-
   const normalizedEmail = (userData.email || '').toString().trim().toLowerCase();
   console.log(`Signup: creating user email=${normalizedEmail}, username=${userData.username}`);
   const existingUser = await User.findOne({ email: normalizedEmail });
@@ -81,15 +68,11 @@ async function signup(userData) {
 
   const salt = await bcryptjs.genSalt(10);
   const hashedPassword = await bcryptjs.hash(userData.password, salt);
-  const compliance = buildSignupCompliance(userData);
 
-  // Only persist trusted fields — never spread raw body (mass-assignment guard)
   const newUser = new User({
-      username: userData.username,
+      ...userData,
       email: normalizedEmail,
-      password: hashedPassword,
-      permission: 'user',
-      ...compliance,
+      password: hashedPassword
   });
 
   await newUser.save();
@@ -118,8 +101,7 @@ async function signup(userData) {
 module.exports = { login, authenticateToken, signup };
 
 async function requestPasswordReset(email) {
-  const normalizedEmail = (email || '').toString().trim().toLowerCase();
-  const user = await User.findOne({ email: normalizedEmail });
+  const user = await User.findOne({ email });
   if (!user) {
     // Do not reveal whether the email exists
     return;
@@ -149,8 +131,7 @@ async function requestPasswordReset(email) {
       error.statusCode = 500;
       throw error;
     }
-  } catch (err) {
-    if (err.statusCode) throw err;
+  } catch (_) {
     const error = new Error('Invalid CLIENT_ORIGIN(S). Please set a valid public URL.');
     error.statusCode = 500;
     throw error;
@@ -166,7 +147,7 @@ async function resetPassword(token, newPassword) {
   const user = await User.findOne({
     resetPasswordToken: hashedToken,
     resetPasswordExpires: { $gt: new Date() }
-  }).select('+password +resetPasswordToken +resetPasswordExpires');
+  });
   if (!user) {
     const error = new Error('Invalid or expired reset token.');
     error.statusCode = 400;

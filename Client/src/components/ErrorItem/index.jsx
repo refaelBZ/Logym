@@ -4,22 +4,17 @@ import { AlertTriangle, X } from 'lucide-react';
 
 const ErrorItem = ({ message, onClose }) => {
   return (
-    <div
-      className={styles.errorContainer}
-      role="alert"
-      aria-live="assertive"
-      aria-atomic="true"
-    >
+    <div className={styles.errorContainer}>
       <div className={styles.iconWrapper}>
-        <AlertTriangle className={styles.icon} aria-hidden="true" />
+        <AlertTriangle className={styles.icon} />
       </div>
       <div className={styles.messageWrapper}>
-        <strong className={styles.title}>Error</strong>
+        <strong className={styles.title}>{"Error :("}</strong>
         <span className={styles.message}>{message}</span>
       </div>
       {onClose && (
         <button className={styles.closeButton} onClick={onClose} aria-label="Dismiss error">
-          <X size={16} aria-hidden="true" />
+          <X size={16} />
         </button>
       )}
     </div>

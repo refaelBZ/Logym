@@ -46,35 +46,25 @@ export default function Reset({ setIsLoggedIn }) {
   return (
     <div className={styles.homePage}>
       <div className={styles.header}>
-        <h1 className={styles.pageName}>Set a New Password</h1>
+        <div className={styles.pageName}>Set a New Password</div>
       </div>
 
       {error && <ErrorItem message={error} onClose={hideError} />}
 
-      <div className={styles.field}>
-        <label htmlFor="reset-password">New password</label>
-        <PasswordInput 
-          id="reset-password"
-          className={styles.input} 
-          placeholder='New Password'
-          autoComplete="new-password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          disabled={loading}
-        />
-      </div>
-      <div className={styles.field}>
-        <label htmlFor="reset-confirm">Confirm new password</label>
-        <PasswordInput 
-          id="reset-confirm"
-          className={styles.input} 
-          placeholder='Confirm New Password'
-          autoComplete="new-password"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          disabled={loading}
-        />
-      </div>
+      <PasswordInput 
+        className={styles.input} 
+        placeholder='New Password' 
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        disabled={loading}
+      />
+      <PasswordInput 
+        className={styles.input} 
+        placeholder='Confirm New Password' 
+        value={confirmPassword}
+        onChange={(e) => setConfirmPassword(e.target.value)}
+        disabled={loading}
+      />
 
       <div className={styles.actionButtons}>
         <Button 
@@ -88,3 +78,5 @@ export default function Reset({ setIsLoggedIn }) {
     </div>
   );
 }
+
+
